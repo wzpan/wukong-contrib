@@ -1,6 +1,8 @@
 # wukong-contrib
 
-[wukong-robot](http://github.com/wzpan/wukong-robot) 的用户贡献插件。
+[wukong-robot](http://github.com/wzpan/wukong-robot) 的第三方技能插件。
+
+除了 [Weather](https://github.com/wzpan/wukong-contrib/wiki/weather) 插件之外，其余插件均为用户贡献，因此并不保证完全可用。
 
 * [插件列表](https://github.com/wzpan/wukong-contrib/wiki)
 
