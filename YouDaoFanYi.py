@@ -18,7 +18,7 @@ def translate(appId, appSecret, sentence):
     url = 'https://openapi.youdao.com/api'
     salt = random.randint(1, 65536)
     sign = appId+sentence+str(salt)+appSecret
-    m1 = hashlib.md5(sign.decode('utf-8')).hexdigest()
+    m1 = hashlib.md5(sign.encode('utf-8'))
     sign = m1.hexdigest()
     params = {
              'q': sentence,
