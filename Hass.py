@@ -46,10 +46,10 @@ def hass(text, mic, profile):
         state = device["state"]
         attributes = device["attributes"]
         domain = device["entity_id"].split(".")[0]
-        if 'dingdang' in attributes.keys():
-            dingdang = attributes["dingdang"]
-            if isinstance(dingdang, list):
-                if text in dingdang:
+        if 'wukong' in attributes.keys():
+            wukong = attributes["wukong"]
+            if isinstance(wukong, list):
+                if text in wukong:
                     try:
                         measurement = attributes["unit_of_measurement"]
                     except Exception as e:
@@ -61,12 +61,12 @@ def hass(text, mic, profile):
                         text = text + "状态是" + state
                         mic.say(text, cache=True)
                     break
-            elif isinstance(dingdang, dict):
-                if text in dingdang.keys():
+            elif isinstance(wukong, dict):
+                if text in wukong.keys():
                     if isinstance(text, bytes):
                         text = text.decode('utf8')
                     try:
-                        act = dingdang[text]
+                        act = wukong[text]
                         p = json.dumps({"entity_id": device["entity_id"]})
                         s = "/api/services/" + domain + "/"
                         url_s = url + ":" + port + s + act
