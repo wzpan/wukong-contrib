@@ -1,13 +1,8 @@
 # -*- coding: utf-8-*-
 # 树莓派状态插件
-import sys
 import os
 import logging
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-
-WORDS = ["SHUMEIPAIZHUANGTAI"]
 SLUG = "pi_status"
 
 def getCPUtemperature(logger, mic):
@@ -60,7 +55,7 @@ def handle(text, mic, profile, wxbot=None):
     try:
         status = getPiStatus(logger, mic)
         mic.say(u'处理器温度' + str(status['cpu_tmp']) + u'度,内存使用百分之' + str(status['ram_percentage']) + u',存储使用百分之' + str(status['disk_percentage']))
-    except Exception, e:
+    except Exception as e:
         logger.error(e)
         mic.say(u'抱歉，我没有获取到树莓派状态', cache=True)
 

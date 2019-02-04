@@ -1,23 +1,19 @@
 # -*- coding: utf-8 -*-
 import urllib
 import re
-from urllib import urlencode
+import urllib
 import sys
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-
 SLUG = "dictionary"
-WORDS = ["CHENGYU"]
 
 
 def getHtml(words):
     url = 'http://dict.baidu.com/s'
     values = {'wd' : words}
-    data = urlencode(values)
+    data = urllib.request.urlencode(values)
     html = ""
     try:
-        response = urllib.urlopen("%s?%s" % (url, data))
+        response = urllib.request.urlopen("%s?%s" % (url, data))
         html = response.read()
     except :
         pass

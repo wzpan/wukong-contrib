@@ -5,9 +5,7 @@ import re
 import requests
 import sys
 from bs4 import BeautifulSoup
-reload(sys)
-sys.setdefaultencoding('utf8')
-WORDS = ["WEIBORESOU"]
+
 SLUG = "weibo_resou"
 
 user_agent = 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'

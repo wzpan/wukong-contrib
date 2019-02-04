@@ -4,16 +4,10 @@ import logging
 import os
 import socket
 import subprocess
-import sys
 import tempfile
 import threading
-from urllib import urlopen
+import urllib
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-socket.setdefaulttimeout(10)
-
-WORDS = ["BAIDUYINYUE"]
 SLUG = "baidufm"
 
 DEFAULT_CHANNEL = 14
@@ -51,7 +45,7 @@ class MusicPlayer(threading.Thread):
 
     def get_song_real_url(self, song_url):
         try:
-            htmldoc = urlopen(song_url).read().decode('utf8')
+            htmldoc = urllib.request.urlopen(song_url).read().decode('utf8')
         except:
             return(None, None, 0, 0)
 
@@ -79,7 +73,6 @@ class MusicPlayer(threading.Thread):
                     subprocess.call(cmd, stdout=f, stderr=f)
                     f.seek(0)
                     output = f.read()
-                    print(output)
             self.logger.debug('play done')
             if not self.is_pause:
                 self.logger.debug('song_file remove')
@@ -203,7 +196,7 @@ def handle(text, mic, profile, bot=None):
         while True:
             try:
                 threshold, transcribed = mic.passiveListen(persona)
-            except Exception, e:
+            except Exception as e:
                 logger.error(e)
                 threshold, transcribed = (None, None)
 

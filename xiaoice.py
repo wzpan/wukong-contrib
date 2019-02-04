@@ -6,10 +6,12 @@ import sys
 import time
 import json
 import os
-reload(sys)
-sys.setdefaultencoding('utf8')
+import logging
+
+logger = logging.getLogger(__name__)
+
 SLUG = "XIAOICE"
-WORDS = ["XIAOICE"]
+
 def handle(text, mic, profile, wxbot=None):
     """
     Responds to user-input, typically speech text
@@ -86,9 +88,9 @@ class MS_xiaoice(object):
         try:
             sendMessage = requests.post(send_url, data=data, headers=headers)
             time.sleep(1)
-            print '消息发送成功'
+            logger.debug('消息发送成功')
         except:
-            print '消息发送失败'
+            logger.debug('消息发送失败')
 
     def get_message(self):
         get_url = 'https://m.weibo.cn/msg/messages?uid=5175429989&page=1'

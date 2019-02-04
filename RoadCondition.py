@@ -1,11 +1,9 @@
 # -*- coding: utf-8-*-
-import sys
 import os
 import logging
 import json
 import requests
 
-WORDS = ["LUKUANG"]
 SLUG = "roadcondition"
 
 def request(url, params): 
@@ -34,12 +32,12 @@ def handle(text, mic, profile, wxbot=None):
     params = {"adcode" : adcode,"name" : input,"key" : app_key}
    
     res = request(url_transit,params)
-    print res
+    logger.debug(res)
     if res:        
         status = res["status"]
         if status == "1":
-            print "status == 1"
-            print res['trafficinfo']
+            logger.debug("status == 1")
+            logger.debug(res['trafficinfo'])
             if len(res['trafficinfo']) > 0:
                 trafficinfo = res['trafficinfo']['evaluation']['description']
                 trafficinfo1 = res['trafficinfo']['description']

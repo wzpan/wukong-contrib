@@ -3,18 +3,14 @@ import sys
 import os
 import logging
 import json, urllib
-from urllib import urlencode
+import urllib
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-
-WORDS = ["XIANLU"]
 SLUG = "direction"
 
 def request(url, params):
     params = urlencode(params)
 
-    f = urllib.urlopen("%s?%s" % (url, params))
+    f = urllib.request.urlopen("%s?%s" % (url, params))
 
     content = f.read()
     return json.loads(content)

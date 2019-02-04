@@ -1,18 +1,16 @@
 # -*- coding: utf-8-*-
 # 获取室温插件
 import logging
-import sys
 import time
 import socket
 import subprocess
-import RPi.GPIO as GPIO
 
-reload(sys)
-sys.setdefaultencoding('utf8')
+logging.basicConfig(level=logging.INFO,
+                        format='%(asctime)s - %(message)s',
+                        datefmt='%Y-%m-%d %H:%M:%S')
+logger = logging.getLogger(__name__)
 
-WORDS = ["SHIWEN"]
 SLUG = "speak_temperature"
-
 
 def getTempperature(temp):
     data = []
@@ -45,8 +43,8 @@ def getTempperature(temp):
       else:
         data.append(1)
       j += 1
-    print "sensor is working."
-    print data
+    logger.info("sensor is working.")
+    logger.debug(data)
     humidity_bit = data[0:8]
     humidity_point_bit = data[8:16]
     temperature_bit = data[16:24]
@@ -68,16 +66,14 @@ def getTempperature(temp):
     tmp = humidity + humidity_point + temperature + temperature_point
 
     if check == tmp:
-       print "temperature :", temperature, "*C, humidity :", humidity, "%"
+       logger.info("temperature :", temperature, "*C, humidity :", humidity, "%")
        return "主人，当前家中温度"+str(temperature)+"摄氏度，湿度:百分之"+str(humidity)
     else:
-      #print "wrong"
       #return "抱歉主人，传感器犯了点小错"
       getTempperature(channel)
     GPIO.cleanup()
 
-def handle(text, mic, profile, wxbot=None):
-    logger = logging.getLogger(__name__)
+def handle(text, mic, profile, wxbot=None):    
     if SLUG not in profile or \
        'gpio' not in profile[SLUG]:
         mic.say('DHT11配置有误，插件使用失败', cache=True)
@@ -90,10 +86,13 @@ def handle(text, mic, profile, wxbot=None):
         temper = getTempperature(temp)
         logger.debug('getTempperature: ', temper)
         mic.say(temper)
-    except Exception, e:
-        print "配置异常"
-        logger.error(e)
+    except Exception as e:
+        logger.critical("配置异常 {}".format(e))
         mic.say('抱歉，我没有获取到湿度', cache=True)
 
 def isValid(text):
-    return any(word in text for word in [u"室温", u"家中温度"])
+    try:
+        import RPi.GPIO as GPIO
+        return any(word in text for word in [u"室温", u"家中温度"])
+    except Exception:
+        return False

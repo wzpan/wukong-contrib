@@ -1,14 +1,9 @@
-# -*- coding: utf-8-*-  # 台灯控制
-import sys
+# -*- coding: utf-8-*-
+# 台灯控制
 import os
 import logging
-import wiringpi 
-
-sys.setdefaultencoding('utf8')
 
 SLUG="Lamp"
-
-WORDS=["TAIDENG"]
 
 def handle(text, mic, profile, wxbot=None):
 
@@ -28,10 +23,8 @@ def handle(text, mic, profile, wxbot=None):
 
 
 def isValid(text):
-    """
-        Returns True if the input is related to weather.
-        Arguments:
-        text -- user-input, typically transcribed speech
-    """
-
-    return u"台灯" in text
+    try:
+        import wiringpi
+        return u"台灯" in text
+    except Exception:
+        return False

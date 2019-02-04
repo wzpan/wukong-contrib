@@ -3,13 +3,9 @@
 import sys
 import os
 import logging
-import json, urllib
-from urllib import urlencode
+import json
+import urllib
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-
-WORDS = ["XINWEN"]
 SLUG = "headline_news"
 
 def request(appkey,type, mic, logger, m="GET"):
@@ -20,9 +16,9 @@ def request(appkey,type, mic, logger, m="GET"):
     }
     params = urlencode(params)
     if m == "GET":
-        f = urllib.urlopen("%s?%s" % (url, params))
+        f = urllib.request.urlopen("%s?%s" % (url, params))
     else:
-        f = urllib.urlopen(url, params)
+        f = urllib.request.urlopen(url, params)
 
     content = f.read()
     res = json.loads(content)

@@ -3,13 +3,7 @@
 import logging
 import requests
 import json
-import sys
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-
-# Standard module stuff
-WORDS = ["TIANQI"]
 SLUG = "weather"
 
 def analyze_today(weather_code, suggestion):
@@ -74,7 +68,7 @@ def handle(text, mic, profile, wxbot=None):
     try:
         weather = fetch_weather(WEATHER_API, key, location)
         logger.debug("Weather report: ", weather)
-        if weather.has_key('results'):
+        if 'results' in weather:
             daily = weather['results'][0]['daily']
             days = set([])
             day_text = [u'今天', u'明天', u'后天']
@@ -89,14 +83,14 @@ def handle(text, mic, profile, wxbot=None):
                 responds += u'%s：%s，%s到%s摄氏度。' % (day_text[day], daily[day]['text_day'], daily[day]['low'], daily[day]['high'])
                 if day == 0:
                     suggestion = fetch_weather(SUGGESTION_API, key, location)
-                    if suggestion.has_key('results'):
+                    if 'results' in suggestion:
                         suggestion_text = suggestion['results'][0]['suggestion']['sport']['brief']
                         analyze_res = analyze_today(daily[day]['code_day'], suggestion_text)
             responds += analyze_res
             mic.say(responds, cache=True)
         else:
             mic.say('抱歉，我获取不到天气数据，请稍后再试', cache=True)
-    except Exception, e:
+    except Exception as e:
         logger.error(e)
         mic.say('抱歉，我获取不到天气数据，请稍后再试', cache=True)
         

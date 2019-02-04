@@ -1,15 +1,10 @@
 # -*- coding: utf-8-*-
 # HTTP服务器插件
 import logging
-import sys
 import os
 import time
 import subprocess
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-
-WORDS = ["LIULAN"]
 SLUG = "webserver"
 
 def handle(text, mic, profile, wxbot=None):
@@ -33,7 +28,7 @@ def handle(text, mic, profile, wxbot=None):
         time.sleep(3)
         success = u'后台服务器启动成功，服务端口：%s' % (webport)
         mic.say(success, cache=True)
-    except Exception, e:
+    except Exception as e:
         logger.error(e)
         mic.say('抱歉，后台服务器启动失败', cache=True)
 

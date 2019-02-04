@@ -7,23 +7,18 @@ import urllib
 import time
 import re
 import requests
-import md5
+import hashlib
 import random
 import sys
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-
 SLUG = "youdao"
-WORDS = ["FANYI"]
 
 def translate(appId, appSecret, sentence):
     logger = logging.getLogger(__name__)             
     url = 'https://openapi.youdao.com/api'
     salt = random.randint(1, 65536)
     sign = appId+sentence+str(salt)+appSecret
-    m1 = md5.new()
-    m1.update(sign)
+    m1 = hashlib.md5(sign.decode('utf-8')).hexdigest()
     sign = m1.hexdigest()
     params = {
              'q': sentence,
@@ -72,7 +67,7 @@ def handle(text, mic, profile, wxbot=None):
                 mic.say(sentence+"的翻译是" + s, cache=False)
             else:
                 mic.say("翻译" + sentence +"失败，请稍后再试", cache=False)
-        except Exception, e:
+        except Exception as e:
             logger.error(e)
             mic.say('抱歉, 我不知道怎么翻译' + sentence, cache=False)
     else:

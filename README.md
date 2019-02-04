@@ -1,21 +1,21 @@
-# dingdang-contrib
+# wukong-contrib
 
-[叮当机器人](http://github.com/wzpan/dingdang) 的用户贡献插件。
+[wukong-robot](http://github.com/wzpan/wukong-robot) 的用户贡献插件。
 
-* [插件列表](https://github.com/dingdang-robot/dingdang-contrib/wiki)
+* [插件列表](https://github.com/wzpan/wukong-contrib/wiki)
 
 ## 安装
 
 ``` sh
-cd /home/pi/.dingdang
-git clone http://github.com/dingdang-robot/dingdang-contrib contrib
+cd $HOME/.wukong
+git clone http://github.com/wzpan/wukong-contrib contrib
 pip install -r contrib/requirements.txt
 ```
 
 ## 升级
 
 ``` sh
-cd /home/pi/.dingdang/contrib
+cd /home/pi/.wukong/contrib
 git pull
 pip install --upgrade -r requirements.txt
 ```
@@ -24,7 +24,22 @@ pip install --upgrade -r requirements.txt
 
 ### 教程
 
-[手把手教你编写叮当机器人插件](http://www.hahack.com/codes/how-to-write-dingdang-plugin/)
+wukong-robot 的插件机制基本和 dingdang-robot 相同，所以可参照 [手把手教你编写叮当机器人插件](http://www.hahack.com/codes/how-to-write-dingdang-plugin/) 教程编写插件。不过要注意区别：
+
+1. 无需再定义 `WORDS` 常量；
+2. 严格使用 Python 3 语法编写，也不再使用 `sys.setdefaultencoding('utf8')` ；
+3. 和 dingdang-robot 主要面向树莓派不同，wukong-robot 的目的是能跑在尽可能多的设备上，所以一些平台特定的库（例如GPIO、wiringpi等）请在 `isValid` 方法中引用，例如：
+
+    ``` py
+    def isValid(text):
+        try:
+            import wiringpi
+            return u"台灯" in text
+        except Exception:
+            return False
+    ```
+  
+  这类库不要写入 `requirements.txt` 文件中，而是放在该插件的相应 wiki 说明中，由需要的人按需安装。
 
 ### 流程说明
 

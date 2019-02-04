@@ -1,12 +1,8 @@
 # -*- coding: utf-8-*-
-import socket, sys
+import socket
 import struct
 import logging
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-
-WORDS = ["KAIJI"]
 SLUG = "wol"
 
 def Waker(ip,mac):
@@ -47,8 +43,8 @@ def Waker(ip,mac):
 def handle(text, mic, profile, wxbot=None):
 	logger = logging.getLogger(__name__)
 	if SLUG not in profile or \
-		not profile[SLUG].has_key('ip') or \
-		not profile[SLUG].has_key('mac'):
+		'ip' not in profile[SLUG] or \
+		'mac' not in profile[SLUG]:
 			mic.say('WOL配置有误，插件使用失败', cache=True)
 			return
 	ip = profile[SLUG]['ip']
@@ -57,7 +53,7 @@ def handle(text, mic, profile, wxbot=None):
 		Waker(ip,mac)
 		if sent:
 			mic.say('启动成功', cache=True)
-	except Exception, e:
+	except Exception as e:
 		logger.error(e)
 		mic.say('抱歉，启动失败', cache=True)
 

@@ -1,15 +1,10 @@
 # -*- coding: utf-8-*-
 # 获取IP插件
 import logging
-import sys
 import time
 import socket
 import subprocess
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-
-WORDS = ["IP"]
 SLUG = "speak_ip"
 
 def getLocalIP():
@@ -52,7 +47,7 @@ def handle(text, mic, profile, wxbot=None):
             if count == 1:
                 break
             time.sleep(1)
-    except Exception, e:
+    except Exception as e:
         logger.error(e)
         mic.say('抱歉，我没有获取到地址', cache=True)
 

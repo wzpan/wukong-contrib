@@ -1,14 +1,9 @@
 # -*- coding: utf-8-*-
 # 重启系统插件
 import logging
-import sys
 import time
 import subprocess
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-
-WORDS = ["CHONGQI"]
 SLUG = "reboot"
 
 def handle(text, mic, profile, wxbot=None):
@@ -22,7 +17,7 @@ def handle(text, mic, profile, wxbot=None):
             subprocess.Popen("reboot -f", shell=True)
             return
         mic.say('授权失败，操作已取消，请重新尝试', cache=True)
-    except Exception, e:
+    except Exception as e:
         logger.error(e)
         mic.say('抱歉，重新启动系统失败', cache=True)
 

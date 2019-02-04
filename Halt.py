@@ -5,10 +5,6 @@ import sys
 import time
 import subprocess
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-
-WORDS = ["GUANJI"]
 SLUG = "halt"
 
 def handle(text, mic, profile, wxbot=None):
@@ -22,7 +18,7 @@ def handle(text, mic, profile, wxbot=None):
             subprocess.Popen("shutdown -h now", shell=True)
             return
         mic.say('授权失败，操作已取消，请重新尝试', cache=True)
-    except Exception, e:
+    except Exception as e:
         logger.error(e)
         mic.say('抱歉，关闭系统失败', cache=True)
 
