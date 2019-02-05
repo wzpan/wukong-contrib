@@ -13,7 +13,7 @@ def getCPUtemperature(logger, mic):
         result = float(res) / 1000
     except:
         logger.error(e)
-        mic.say(u'抱歉，无法获取处理器温度', cache=True)
+        mic.say(u'抱歉，无法获取处理器温度', cache=True, plugin=__name__)
     return result
 
 def getRAMinfo():
@@ -50,14 +50,14 @@ def getPiStatus(logger, mic):
     result['disk_percentage'] = disk_stats[3].split('%')[0]
     return result
 
-def handle(text, mic, profile, wxbot=None):
+def handle(text, mic):
     logger = logging.getLogger(__name__)
     try:
         status = getPiStatus(logger, mic)
-        mic.say(u'处理器温度' + str(status['cpu_tmp']) + u'度,内存使用百分之' + str(status['ram_percentage']) + u',存储使用百分之' + str(status['disk_percentage']))
+        mic.say(u'处理器温度' + str(status['cpu_tmp']) + u'度,内存使用百分之' + str(status['ram_percentage']) + u',存储使用百分之' + str(status['disk_percentage']), plugin=__name__)
     except Exception as e:
         logger.error(e)
-        mic.say(u'抱歉，我没有获取到树莓派状态', cache=True)
+        mic.say(u'抱歉，我没有获取到树莓派状态', cache=True, plugin=__name__)
 
 def isValid(text):
     return any(word in text for word in [u"树莓派状态", u"状态", u"运行状态"])

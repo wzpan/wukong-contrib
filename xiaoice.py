@@ -7,21 +7,20 @@ import time
 import json
 import os
 import logging
+from robot import config
 
 logger = logging.getLogger(__name__)
 
 SLUG = "XIAOICE"
 
-def handle(text, mic, profile, wxbot=None):
+def handle(text, mic):
     """
     Responds to user-input, typically speech text
     Arguments:
         text -- user-input, typically transcribed speech
-        mic -- used to interact with the user (for both input and output)
-        profile -- contains information related to the user (e.g., phone
-        number)
-        wxbot -- wechat bot instance
+        mic -- used to interact with the user (for both input and output)        
     """
+    profile = config.get()
     if SLUG not in profile or \
                     'get_cookie' not in profile[SLUG] or \
                     'send_cookie' not in profile[SLUG]:
@@ -32,11 +31,11 @@ def handle(text, mic, profile, wxbot=None):
 
 
     if any(word in text for word in [u"召唤女神", u"找女神聊天"]):
-        mic.say(u"我是人见人爱的小冰，快来和我聊聊天吧", cache=True)
+        mic.say(u"我是人见人爱的小冰，快来和我聊聊天吧", cache=True, plugin=__name__)
         mic.chatting_mode = True
         mic.skip_passive = True
     elif any(word in text for word in [u"不要女神了", u"再见女神"]):
-        mic.say(u"轻轻的我走了，正如我轻轻地来。我们下次再聊吧", cache=True)
+        mic.say(u"轻轻的我走了，正如我轻轻地来。我们下次再聊吧", cache=True, plugin=__name__)
         mic.skip_passive = False
         mic.chatting_mode = False
     else:
@@ -45,7 +44,7 @@ def handle(text, mic, profile, wxbot=None):
         xiaoice.send_message(message)
         txt = xiaoice.get_message()
         if txt:
-            mic.say(txt, cache=True)
+            mic.say(txt, cache=True, plugin=__name__)
 
 def isValid(text):
     """

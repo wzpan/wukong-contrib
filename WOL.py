@@ -2,6 +2,7 @@
 import socket
 import struct
 import logging
+from robot import config
 
 SLUG = "wol"
 
@@ -40,22 +41,23 @@ def Waker(ip,mac):
 	if len(packet) == 108:
 		sent = True
 
-def handle(text, mic, profile, wxbot=None):
+def handle(text, mic):
 	logger = logging.getLogger(__name__)
+	profile = config.get()
 	if SLUG not in profile or \
 		'ip' not in profile[SLUG] or \
 		'mac' not in profile[SLUG]:
-			mic.say('WOL配置有误，插件使用失败', cache=True)
+			mic.say('WOL配置有误，插件使用失败', cache=True, plugin=__name__)
 			return
 	ip = profile[SLUG]['ip']
 	mac = profile[SLUG]['mac']
 	try:
 		Waker(ip,mac)
 		if sent:
-			mic.say('启动成功', cache=True)
+			mic.say('启动成功', cache=True, plugin=__name__)
 	except Exception as e:
 		logger.error(e)
-		mic.say('抱歉，启动失败', cache=True)
+		mic.say('抱歉，启动失败', cache=True, plugin=__name__)
 
 
 def isValid(text):

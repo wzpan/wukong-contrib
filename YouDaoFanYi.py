@@ -10,6 +10,7 @@ import requests
 import hashlib
 import random
 import sys
+from robot import config
 
 SLUG = "youdao"
 
@@ -49,12 +50,13 @@ def getSentence(text):
     return sentence
 
 
-def handle(text, mic, profile, wxbot=None):
+def handle(text, mic):
     logger = logging.getLogger(__name__)
+    profile = config.get()
     if SLUG not in profile or \
        'appId' not in profile[SLUG] or\
        'appSecret' not in profile[SLUG]:
-        mic.say('有道翻译插件配置有误，插件使用失败', cache=True)
+        mic.say('有道翻译插件配置有误，插件使用失败', cache=True, plugin=__name__)
         return
     appId = profile[SLUG]['appId']
     appSecret = profile[SLUG]['appSecret']
@@ -64,14 +66,14 @@ def handle(text, mic, profile, wxbot=None):
         try:
             s = translate(appId, appSecret, sentence)
             if s:
-                mic.say(sentence+"的翻译是" + s, cache=False)
+                mic.say(sentence+"的翻译是" + s, cache=False, plugin=__name__)
             else:
-                mic.say("翻译" + sentence +"失败，请稍后再试", cache=False)
+                mic.say("翻译" + sentence +"失败，请稍后再试", cache=False, plugin=__name__)
         except Exception as e:
             logger.error(e)
-            mic.say('抱歉, 我不知道怎么翻译' + sentence, cache=False)
+            mic.say('抱歉, 我不知道怎么翻译' + sentence, cache=False, plugin=__name__)
     else:
-        mic.say(u"没有听清楚 请重试", cache=True)
+        mic.say(u"没有听清楚 请重试", cache=True, plugin=__name__)
 
                                                             
 def isValid(text):

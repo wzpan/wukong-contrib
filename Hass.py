@@ -2,31 +2,32 @@
 import requests
 import json
 import logging
+from robot import config
 
 SLUG = "homeassistant"
 
-def handle(text, mic, profile, wxbot=None):
+def handle(text, mic):
+    def onAsk(input):
+        while not input:
+            mic.say("请重新说", cache=True, plugin=__name__, onCompleted=lambda: onAsk(mic.activeListen(MUSIC=True)))
+        input = input.split(",")[0].split("，")[0]
+        hass(input, mic)
     if "帮我" in text:
         input = text.replace("帮我", "")
+        onAsk(input)
     else:
-        mic.say("开始家庭助手控制", cache=True)
-        mic.say(u'请在滴一声后说明内容', cache=True)
-        input = mic.activeListen(MUSIC=True)
-    while not input:
-        mic.say("请重新说", cache=True)
-        input = mic.activeListen(MUSIC=True)
-    input = input.split(",")[0].split("，")[0]
-    hass(input, mic, profile)
+        mic.say("开始家庭助手控制，请在滴一声后说明内容", cache=True, plugin=__name__, onCompleted=lambda: onAsk(mic.activeListen(MUSIC=True)))
 
 
-def hass(text, mic, profile):
+def hass(text, mic):
     if isinstance(text, bytes):
         text = text.decode('utf8')
     logger = logging.getLogger(__name__)
-    if not profile[SLUG] or 'url' not in profile[SLUG] or \
+    profile = config.get()
+    if SLUG not in profile or 'url' not in profile[SLUG] or \
        'port' not in profile[SLUG] or \
        'password' not in profile[SLUG]:
-        mic.say("主人配置有误", cache=True)
+        mic.say("HomeAssistant 插件配置有误", cache=True, plugin=__name__)
         return
     url = profile[SLUG]['url']
     port = profile[SLUG]['port']
@@ -56,10 +57,10 @@ def hass(text, mic, profile):
                         pass
                     if 'measurement' in locals().keys():
                         text = text + "状态是" + state + measurement
-                        mic.say(text, cache=True)
+                        mic.say(text, cache=True, plugin=__name__)
                     else:
                         text = text + "状态是" + state
-                        mic.say(text, cache=True)
+                        mic.say(text, cache=True, plugin=__name__)
                     break
             elif isinstance(wukong, dict):
                 if text in wukong.keys():
@@ -73,15 +74,15 @@ def hass(text, mic, profile):
                         request = requests.post(url_s, headers=headers, data=p)
                         if format(request.status_code) == "200" or \
                            format(request.status_code) == "201":
-                            mic.say("执行成功", cache=True)
+                            mic.say("执行成功", cache=True, plugin=__name__)
                         else:
-                            mic.say("对不起,执行失败", cache=True)
+                            mic.say("对不起,执行失败", cache=True, plugin=__name__)
                             print(format(request.status_code))
                     except Exception as e:
                         pass
                     break
     else:
-        mic.say("对不起,指令不存在", cache=True)
+        mic.say("对不起,指令不存在", cache=True, plugin=__name__)
 
 
 def isValid(text):

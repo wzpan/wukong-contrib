@@ -28,7 +28,7 @@ pip install --upgrade -r requirements.txt
 
 wukong-robot 的插件机制基本和 dingdang-robot 相同，所以可参照 [手把手教你编写叮当机器人插件](http://www.hahack.com/codes/how-to-write-dingdang-plugin/) 教程编写插件。不过要注意区别：
 
-1. 无需再定义 `WORDS` 常量；
+1. 无需再定义 `WORDS` 常量，不再支持 wxBot 参数，另外 `profile` 参数改成从 `robot.config` 中获取；
 2. 严格使用 Python 3 语法编写，也不再使用 `sys.setdefaultencoding('utf8')` ；
 3. 和 dingdang-robot 主要面向树莓派不同，wukong-robot 的目的是能跑在尽可能多的设备上，所以一些平台特定的库（例如GPIO、wiringpi等）请在 `isValid` 方法中引用，例如：
 

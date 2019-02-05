@@ -5,6 +5,8 @@ import os
 import logging
 import json
 import urllib
+from urllib.parse import urlencode
+from robot import config
 
 SLUG = "headline_news"
 
@@ -25,18 +27,18 @@ def request(appkey,type, mic, logger, m="GET"):
     if res:
         error_code = res["error_code"]
         if error_code == 0:
-            mic.say(type[0] + u"新闻", cache=True)
+            mic.say(type[0] + u"新闻", cache=True, plugin=__name__)
             limit = 5;
             news = res["result"]["data"][0:limit]
             news_for_tts = ""
             for new in news:
                 news_for_tts = news_for_tts + new["title"] + "."
-            mic.say(news_for_tts, cache=True)
+            mic.say(news_for_tts, cache=True, plugin=__name__)
         else:
             logger.error(str(error_code) + ':' + res["reason"])
-            mic.say(res["reason"], cache=True)
+            mic.say(res["reason"], cache=True, plugin=__name__)
     else:
-        mic.say(u"新闻接口调用错误", cache=True)
+        mic.say(u"新闻接口调用错误", cache=True, plugin=__name__)
 
 def getNewsType(text):
     newsTypes = {"头条":"top", "社会":"shehui","国内":"guonei", "国际":"guoji", "娱乐":"yule",
@@ -47,12 +49,13 @@ def getNewsType(text):
             newsType = [type,newsTypes[type]]
     return  newsType
 
-def handle(text, mic, profile, wxbot=None):
+def handle(text, mic):
     logger = logging.getLogger(__name__)
 
+    profile = config.get()
     if SLUG not in profile or \
        'key' not in profile[SLUG]:
-        mic.say(u"新闻插件配置有误，插件使用失败", cache=True)
+        mic.say(u"新闻插件配置有误，插件使用失败", cache=True, plugin=__name__)
         return
     key = profile[SLUG]['key']
     type = getNewsType(text)

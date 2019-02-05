@@ -31,7 +31,7 @@ def getLocalIP():
         ip = '完毕'.join(ip)
     return ip
 
-def handle(text, mic, profile, wxbot=None):
+def handle(text, mic):
     logger = logging.getLogger(__name__)
     try:
         count = 0
@@ -39,17 +39,17 @@ def handle(text, mic, profile, wxbot=None):
             ip = getLocalIP()
             logger.debug('getLocalIP: ', ip)
             if ip == False:
-                mic.say('正在获取中', cache=True)
+                mic.say('正在获取中', cache=True, plugin=__name__)
             else:
                 count += 1
                 ip += '完毕'
-                mic.say(ip, cache=True)
+                mic.say(ip, cache=True, plugin=__name__)
             if count == 1:
                 break
             time.sleep(1)
     except Exception as e:
         logger.error(e)
-        mic.say('抱歉，我没有获取到地址', cache=True)
+        mic.say('抱歉，我没有获取到地址', cache=True, plugin=__name__)
 
 def isValid(text):
     return any(word in text for word in [u"IP", u"网络地址"])

@@ -7,6 +7,7 @@ import subprocess
 import tempfile
 import threading
 import urllib
+from robot import config
 
 SLUG = "baidufm"
 
@@ -168,10 +169,12 @@ def get_song_list(channel_url):
     return song_id_list
 
 
-def handle(text, mic, profile, bot=None):
+def handle(text, mic):
     logger = logging.getLogger(__name__)
     page_url = 'http://fm.baidu.com/dev/api/?tn=channellist'
     channel_list = get_channel_list(page_url)
+
+    profile = config.get()
 
     if 'robot_name' in profile:
         persona = profile['robot_name']
@@ -183,7 +186,7 @@ def handle(text, mic, profile, bot=None):
 
     channel_id = channel_list[channel]['channel_id']
     channel_name = channel_list[channel]['channel_name']
-    mic.say(u"播放" + channel_name)
+    mic.say(u"播放" + channel_name, plugin=__name__)
 
     while True:
         channel_url = 'http://fm.baidu.com/dev/api/' +\
@@ -208,11 +211,11 @@ def handle(text, mic, profile, bot=None):
             input = mic.activeListen()
 
             if input and any(ext in input for ext in [u"结束", u"退出", u"停止"]):
-                mic.say(u"结束播放", cache=True)
+                mic.say(u"结束播放", cache=True, plugin=__name__)
                 music_player.stop()
                 return
             else:
-                mic.say(u"什么？", cache=True)
+                mic.say(u"什么？", cache=True, plugin=__name__)
                 music_player.resume()
 
 

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import urllib
 import re
 import urllib
 import sys
@@ -10,7 +9,7 @@ SLUG = "dictionary"
 def getHtml(words):
     url = 'http://dict.baidu.com/s'
     values = {'wd' : words}
-    data = urllib.request.urlencode(values)
+    data = urllib.parse.urlencode(values)
     html = ""
     try:
         response = urllib.request.urlopen("%s?%s" % (url, data))
@@ -20,13 +19,13 @@ def getHtml(words):
     return html
 
 def handleHtml(html):
-    patten1 = re.compile('<div class="tab-content">.*?</div>', re.S)
-    results = re.findall(patten1, html)
+    patten1 = '<div class="tab-content">.*?</div>'
+    results = re.findall(patten1, html.decode('utf-8'), re.S)
     str = ""
     for i in results:
         if "出自" in i:
-            patten2 = re.compile("<li>(.*?)</li>", re.S)
-            results2 = re.findall(patten2, i)
+            patten2 = "<li>(.*?)</li>"
+            results2 = re.findall(patten2, i.decode('utf-8'), re.S)
             str = results2[0] + results2[1]
     return str
 
@@ -47,7 +46,7 @@ def getWords(text):
 def info(html):
     pass
 
-def handle(text, mic, profile, wxbot=None):
+def handle(text, mic):
     words = getWords(text)
     if words:
         html = getHtml(words)
@@ -55,14 +54,14 @@ def handle(text, mic, profile, wxbot=None):
         if html:
             str = handleHtml(html)
             if str:
-                mic.say(words + str, cache=True)
+                mic.say(words + str, cache=True, plugin=__name__)
             else:
-                mic.say("成语" + words +"有误 请重试", cache=True)
+                mic.say("成语" + words +"有误 请重试", cache=True, plugin=__name__)
 
         else:
-            mic.say(u"网络连接有误 请重试", cache=True)
+            mic.say(u"网络连接有误 请重试", cache=True, plugin=__name__)
     else:
-        mic.say(u"没有听清楚 请重试", cache=True)
+        mic.say(u"没有听清楚 请重试", cache=True, plugin=__name__)
 
 def isValid(text):
     return u"成语" in text

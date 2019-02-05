@@ -3,6 +3,7 @@
 import logging
 import requests
 import json
+from robot import config
 
 SLUG = "weather"
 
@@ -37,33 +38,31 @@ def fetch_weather(api, key, location):
     return res
 
 
-def handle(text, mic, profile, wxbot=None):
+def handle(text, mic):
     """
     Responds to user-input, typically speech text
 
     Arguments:
         text -- user-input, typically transcribed speech
-        mic -- used to interact with the user (for both input and output)
-        profile -- contains information related to the user (e.g., phone
-                   number)
-        wxbot -- wechat bot instance
+        mic -- used to interact with the user (for both input and output)        
     """
     logger = logging.getLogger(__name__)
     # get config
+    profile = config.get()
     if SLUG not in profile or \
        'key' not in profile[SLUG] or \
        (
            'location' not in profile[SLUG] and
            'location' not in profile
        ):
-        mic.say('天气插件配置有误，插件使用失败', cache=True)
+        mic.say('天气插件配置有误，插件使用失败', cache=True, plugin=__name__)
         return
     key = profile[SLUG]['key']
     if 'location' in profile[SLUG]:
         location = profile[SLUG]['location']
     else:
         location = profile['location']
-    WEATHER_API = 'https://api.seniverse.com/v3/weather/daily.json'        
+    WEATHER_API = 'https://api.seniverse.com/v3/weather/daily.json'
     SUGGESTION_API = 'https://api.seniverse.com/v3/life/suggestion.json'
     try:
         weather = fetch_weather(WEATHER_API, key, location)
@@ -87,12 +86,12 @@ def handle(text, mic, profile, wxbot=None):
                         suggestion_text = suggestion['results'][0]['suggestion']['sport']['brief']
                         analyze_res = analyze_today(daily[day]['code_day'], suggestion_text)
             responds += analyze_res
-            mic.say(responds, cache=True)
+            mic.say(responds, cache=True, plugin=__name__)
         else:
-            mic.say('抱歉，我获取不到天气数据，请稍后再试', cache=True)
+            mic.say('抱歉，我获取不到天气数据，请稍后再试', cache=True, plugin=__name__)
     except Exception as e:
         logger.error(e)
-        mic.say('抱歉，我获取不到天气数据，请稍后再试', cache=True)
+        mic.say('抱歉，我获取不到天气数据，请稍后再试', cache=True, plugin=__name__)
         
     
 def isValid(text):

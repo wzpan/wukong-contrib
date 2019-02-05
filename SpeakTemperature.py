@@ -4,6 +4,7 @@ import logging
 import time
 import socket
 import subprocess
+from robot import config
 
 logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s - %(message)s',
@@ -73,10 +74,11 @@ def getTempperature(temp):
       getTempperature(channel)
     GPIO.cleanup()
 
-def handle(text, mic, profile, wxbot=None):    
+def handle(text, mic):
+    profile = config.get()
     if SLUG not in profile or \
        'gpio' not in profile[SLUG]:
-        mic.say('DHT11配置有误，插件使用失败', cache=True)
+        mic.say('DHT11配置有误，插件使用失败', cache=True, plugin=__name__)
         return
     if 'gpio' in profile[SLUG]:
         temp = profile[SLUG]['gpio']
@@ -85,10 +87,10 @@ def handle(text, mic, profile, wxbot=None):
     try:
         temper = getTempperature(temp)
         logger.debug('getTempperature: ', temper)
-        mic.say(temper)
+        mic.say(temper, plugin=__name__)
     except Exception as e:
         logger.critical("配置异常 {}".format(e))
-        mic.say('抱歉，我没有获取到湿度', cache=True)
+        mic.say('抱歉，我没有获取到湿度', cache=True, plugin=__name__)
 
 def isValid(text):
     try:

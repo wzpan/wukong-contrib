@@ -10,7 +10,7 @@ import logging
 import time
 import json
 import os
-
+from robot import config
 SLUG = "mqttPub"
 
 def get_topic(text):
@@ -24,12 +24,14 @@ def get_topic(text):
             topic = key
     return topic
 
-def handle(text,mic,profile,wxbot=None):
+def handle(text,mic):
     logger = logging.getLogger(__name__)
+
+    profile = config.get()
 
     #get config
     if ( SLUG not in profile ) or ( 'host' not in profile[SLUG] ) or ( 'port' not in profile[SLUG] ) or ( 'topic_s' not in profile[SLUG] ):
-        mic.say("主人，配置有误", cache=True)
+        mic.say("主人，配置有误", cache=True, plugin=__name__)
         return
 
     host = profile[SLUG]['host']
@@ -40,11 +42,11 @@ def handle(text,mic,profile,wxbot=None):
     if topic_p == None:
         return
     try:
-        mic.say("已经接收到指令", cache=True)
+        mic.say("已经接收到指令", cache=True, plugin=__name__)
         mqtt_contro(host,port,topic_s,topic_p,text,mic)
     except Exception as e:
         logger.error(e)
-        mic.say("抱歉出了问题", cache=True)
+        mic.say("抱歉出了问题", cache=True, plugin=__name__)
         return
 
 def isValid(text):
@@ -105,12 +107,12 @@ class mqtt_contro(object):
         if msg.payload:
             self.mqttc.loop_stop()
             self.mqttc.disconnect()
-            self.mic.say( str(msg.payload) )
+            self.mic.say( str(msg.payload), plugin=__name__)
         else:
             time.sleep(5)
             self.mqttc.loop_stop()
             self.mqttc.disconnect()
-            self.mic.say("连接超时", cache=True)
+            self.mic.say("连接超时", cache=True, plugin=__name__)
 
     def on_publish(self,mqttc, obj, mid):
         self._logger.debug("mid: " + str(mid))
