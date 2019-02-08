@@ -1,5 +1,7 @@
 # wukong-contrib
 
+[![wukong-project](https://img.shields.io/badge/project-wukong-informational.svg)](https://github.com/users/wzpan/projects/1)
+
 [wukong-robot](http://github.com/wzpan/wukong-robot) 的第三方技能插件。
 
 除了 [Weather](https://github.com/wzpan/wukong-contrib/wiki/weather) 插件之外，其余插件均为用户贡献，因此并不保证完全可用。
