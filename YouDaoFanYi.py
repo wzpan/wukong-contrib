@@ -50,7 +50,7 @@ def getSentence(text):
     return sentence
 
 
-def handle(text, mic):
+def handle(text, mic, parsed=None):
     logger = logging.getLogger(__name__)
     profile = config.get()
     if SLUG not in profile or \
@@ -76,5 +76,5 @@ def handle(text, mic):
         mic.say(u"没有听清楚 请重试", cache=True, plugin=__name__)
 
                                                             
-def isValid(text):
+def isValid(text, parsed=None):
     return u"翻译" in text

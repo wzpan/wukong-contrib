@@ -41,7 +41,7 @@ def onAsk(input, mic, app_key, adcode):
         logger.error(u"接口调用失败")
         return 
 
-def handle(text, mic):
+def handle(text, mic, parsed=None):
     logger = logging.getLogger(__name__)
     profile = config.get()
     if SLUG not in profile or \
@@ -57,5 +57,5 @@ def handle(text, mic):
     
 
 
-def isValid(text):
+def isValid(text, parsed=None):
     return any(word in text for word in [u"路况"])

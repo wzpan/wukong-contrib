@@ -6,7 +6,7 @@ from robot import config
 
 SLUG = "homeassistant"
 
-def handle(text, mic):
+def handle(text, mic, parsed=None):
     def onAsk(input):
         while not input:
             mic.say("请重新说", cache=True, plugin=__name__, onCompleted=lambda: onAsk(mic.activeListen(MUSIC=True)))
@@ -85,7 +85,7 @@ def hass(text, mic):
         mic.say("对不起,指令不存在", cache=True, plugin=__name__)
 
 
-def isValid(text):
+def isValid(text, parsed=None):
     return any(word in text for word in ["开启家庭助手",
                                          "开启助手", "打开家庭助手", "打开助手",
                                          "家庭助手", "帮我"])

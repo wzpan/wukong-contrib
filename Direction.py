@@ -17,7 +17,7 @@ def request(url, params):
     content = f.read()
     return json.loads(content)
 
-def handle(text, mic):
+def handle(text, mic, parsed=None):
     logger = logging.getLogger(__name__)
 
     def onAsk(input):
@@ -97,5 +97,5 @@ def handle(text, mic):
     mic.say("去哪里", cache=True, plugin=__name__, onCompleted=lambda: onAsk(mic.activeListen(MUSIC=True)))
     
 
-def isValid(text):
+def isValid(text, parsed=None):
     return any(word in text for word in [u"怎么去", u"线路", u"路线"])

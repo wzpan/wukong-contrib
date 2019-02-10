@@ -46,7 +46,7 @@ def getWords(text):
 def info(html):
     pass
 
-def handle(text, mic):
+def handle(text, mic, parsed=None):
     words = getWords(text)
     if words:
         html = getHtml(words)
@@ -63,5 +63,5 @@ def handle(text, mic):
     else:
         mic.say(u"没有听清楚 请重试", cache=True, plugin=__name__)
 
-def isValid(text):
+def isValid(text, parsed=None):
     return u"成语" in text

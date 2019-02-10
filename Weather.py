@@ -1,11 +1,15 @@
 # -*- coding: utf-8-*-
-# 天气插件
+# author: wzpan
+# 天气插件 v 2.0
 import logging
 import requests
 import json
 from robot import config
+from robot.sdk import unit
 
 SLUG = "weather"
+
+logger = logging.getLogger(__name__)
 
 def analyze_today(weather_code, suggestion):
     """ analyze today's weather """
@@ -30,38 +34,40 @@ def analyze_today(weather_code, suggestion):
 
 
 def fetch_weather(api, key, location):
-    result = requests.get(api, params={
+    body = {
         'key': key,
         'location': location
-    }, timeout=3)
+    }
+    result = requests.get(api, params=body, timeout=3)
     res = json.loads(result.text, encoding='utf-8')
     return res
 
 
-def handle(text, mic):
+def get_location(parsed):
+    """ 获取位置 """
+    slots = unit.getSlots(parsed)
+    # 如果 query 里包含了地点，用该地名作为location
+    for slot in slots:
+        if slot['name'] == 'user_loc':
+            return slot['normalized_word']
+    # 如果不包含地点，但配置文件指定了 location，则用 location
+    else:
+        return config.get('location', '深圳')
+
+
+def handle(text, mic, parsed):
     """
     Responds to user-input, typically speech text
 
     Arguments:
         text -- user-input, typically transcribed speech
         mic -- used to interact with the user (for both input and output)        
+        parsed -- NLU structure parsed by Baidu UNIT
     """
-    logger = logging.getLogger(__name__)
+
     # get config
-    profile = config.get()
-    if SLUG not in profile or \
-       'key' not in profile[SLUG] or \
-       (
-           'location' not in profile[SLUG] and
-           'location' not in profile
-       ):
-        mic.say('天气插件配置有误，插件使用失败', cache=True, plugin=__name__)
-        return
-    key = profile[SLUG]['key']
-    if 'location' in profile[SLUG]:
-        location = profile[SLUG]['location']
-    else:
-        location = profile['location']
+    key = config.get('/{}/key'.format(SLUG))
+    location = get_location(parsed)
     WEATHER_API = 'https://api.seniverse.com/v3/weather/daily.json'
     SUGGESTION_API = 'https://api.seniverse.com/v3/life/suggestion.json'
     try:
@@ -94,11 +100,13 @@ def handle(text, mic):
         mic.say('抱歉，我获取不到天气数据，请稍后再试', cache=True, plugin=__name__)
         
     
-def isValid(text):
+def isValid(text, parsed=None):
     """
         Returns True if the input is related to weather.
 
         Arguments:
         text -- user-input, typically transcribed speech
     """
-    return any(word in text for word in [u"天气", u"气温"])
+    return unit.getIntent(parsed) == 'USER_WEATHER'
+        
+        

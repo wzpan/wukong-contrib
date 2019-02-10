@@ -74,7 +74,7 @@ def getTempperature(temp):
       getTempperature(channel)
     GPIO.cleanup()
 
-def handle(text, mic):
+def handle(text, mic, parsed=None):
     profile = config.get()
     if SLUG not in profile or \
        'gpio' not in profile[SLUG]:
@@ -92,7 +92,7 @@ def handle(text, mic):
         logger.critical("配置异常 {}".format(e))
         mic.say('抱歉，我没有获取到湿度', cache=True, plugin=__name__)
 
-def isValid(text):
+def isValid(text, parsed=None):
     try:
         import RPi.GPIO as GPIO
         return any(word in text for word in [u"室温", u"家中温度"])

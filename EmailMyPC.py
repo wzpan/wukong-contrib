@@ -70,5 +70,5 @@ def handle(text, mic):
         logger.error(e)
         mic.say('抱歉，指令发送失败', cache=True, plugin=__name__)
 
-def isValid(text):
+def isValid(text, parsed=None):
     return any(word in text for word in [u"关电脑", u"关闭电脑", u"屏幕", u"截图", u"摄像头", u"快捷键", u"命令", u"指令"])

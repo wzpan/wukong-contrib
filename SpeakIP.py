@@ -31,7 +31,7 @@ def getLocalIP():
         ip = '完毕'.join(ip)
     return ip
 
-def handle(text, mic):
+def handle(text, mic, parsed=None):
     logger = logging.getLogger(__name__)
     try:
         count = 0
@@ -51,5 +51,5 @@ def handle(text, mic):
         logger.error(e)
         mic.say('抱歉，我没有获取到地址', cache=True, plugin=__name__)
 
-def isValid(text):
+def isValid(text, parsed=None):
     return any(word in text for word in [u"IP", u"网络地址"])

@@ -41,7 +41,7 @@ def Waker(ip,mac):
 	if len(packet) == 108:
 		sent = True
 
-def handle(text, mic):
+def handle(text, mic, parsed=None):
 	logger = logging.getLogger(__name__)
 	profile = config.get()
 	if SLUG not in profile or \
@@ -60,5 +60,5 @@ def handle(text, mic):
 		mic.say('抱歉，启动失败', cache=True, plugin=__name__)
 
 
-def isValid(text):
+def isValid(text, parsed=None):
 	return any(word in text for word in [u"开机", u"启动电脑", u"开电脑"])

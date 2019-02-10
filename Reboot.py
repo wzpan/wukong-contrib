@@ -7,7 +7,7 @@ import subprocess
 
 SLUG = "reboot"
 
-def handle(text, mic):
+def handle(text, mic, parsed=None):
     logger = logging.getLogger(__name__)
     try:
         mic.say('将要重新启动系统，请在滴一声后进行确认，授权相关操作', cache=True, plugin=__name__)
@@ -22,5 +22,5 @@ def handle(text, mic):
         logger.error(e)
         mic.say('抱歉，重新启动系统失败', cache=True, plugin=__name__)
 
-def isValid(text):
+def isValid(text, parsed=None):
     return any(word in text for word in [u"重启", u"重新启动"])

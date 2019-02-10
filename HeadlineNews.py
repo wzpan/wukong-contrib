@@ -49,7 +49,7 @@ def getNewsType(text):
             newsType = [type,newsTypes[type]]
     return  newsType
 
-def handle(text, mic):
+def handle(text, mic, parsed=None):
     logger = logging.getLogger(__name__)
 
     profile = config.get()
@@ -61,5 +61,5 @@ def handle(text, mic):
     type = getNewsType(text)
     request(key,type, mic, logger)
 
-def isValid(text):
+def isValid(text, parsed=None):
     return u"新闻" in text

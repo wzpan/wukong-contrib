@@ -7,7 +7,7 @@ from robot import config
 
 SLUG="Lamp"
 
-def handle(text, mic):
+def handle(text, mic, parsed=None):
 
     logger = logging.getLogger(__name__)
     # get config
@@ -25,7 +25,7 @@ def handle(text, mic):
     return True
 
 
-def isValid(text):
+def isValid(text, parsed=None):
     try:
         import wiringpi
         return u"台灯" in text

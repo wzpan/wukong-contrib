@@ -169,7 +169,7 @@ def get_song_list(channel_url):
     return song_id_list
 
 
-def handle(text, mic):
+def handle(text, mic, parsed=None):
     logger = logging.getLogger(__name__)
     page_url = 'http://fm.baidu.com/dev/api/?tn=channellist'
     channel_list = get_channel_list(page_url)
@@ -219,5 +219,5 @@ def handle(text, mic):
                 music_player.resume()
 
 
-def isValid(text):
+def isValid(text, parsed=None):
     return any(word in text for word in [u"百度音乐", u"百度电台"])

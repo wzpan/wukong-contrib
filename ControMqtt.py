@@ -24,7 +24,7 @@ def get_topic(text):
             topic = key
     return topic
 
-def handle(text,mic):
+def handle(text,mic,parsed=None):
     logger = logging.getLogger(__name__)
 
     profile = config.get()
@@ -49,7 +49,7 @@ def handle(text,mic):
         mic.say("抱歉出了问题", cache=True, plugin=__name__)
         return
 
-def isValid(text):
+def isValid(text, parsed=None):
     home_dir = os.path.expandvars('$HOME')
     location = home_dir + '/.dingdang/action.json'
     words = []

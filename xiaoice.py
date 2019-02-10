@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 SLUG = "XIAOICE"
 
-def handle(text, mic):
+def handle(text, mic, parsed=None):
     """
     Responds to user-input, typically speech text
     Arguments:
@@ -46,7 +46,7 @@ def handle(text, mic):
         if txt:
             mic.say(txt, cache=True, plugin=__name__)
 
-def isValid(text):
+def isValid(text, parsed=None):
     """
         Returns True if the input is related to weather.
         Arguments:
