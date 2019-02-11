@@ -51,5 +51,5 @@ def handle(text, mic, parsed=None):
         logger.error(e)
         mic.say('抱歉，我没有获取到地址', cache=True, plugin=__name__)
 
-def isValid(text, parsed=None):
+def isValid(text, parsed=None, immersiveMode=None):
     return any(word in text for word in [u"IP", u"网络地址"])

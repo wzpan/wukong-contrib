@@ -60,5 +60,5 @@ def handle(text, mic, parsed=None):
 		mic.say('抱歉，启动失败', cache=True, plugin=__name__)
 
 
-def isValid(text, parsed=None):
+def isValid(text, parsed=None, immersiveMode=None):
 	return any(word in text for word in [u"开机", u"启动电脑", u"开电脑"])

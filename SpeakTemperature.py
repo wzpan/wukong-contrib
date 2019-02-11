@@ -92,7 +92,7 @@ def handle(text, mic, parsed=None):
         logger.critical("配置异常 {}".format(e))
         mic.say('抱歉，我没有获取到湿度', cache=True, plugin=__name__)
 
-def isValid(text, parsed=None):
+def isValid(text, parsed=None, immersiveMode=None):
     try:
         import RPi.GPIO as GPIO
         return any(word in text for word in [u"室温", u"家中温度"])

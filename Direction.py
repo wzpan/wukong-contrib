@@ -94,8 +94,8 @@ def handle(text, mic, parsed=None):
             logger.error(u"导航接口调用失败")
             return
 
-    mic.say("去哪里", cache=True, plugin=__name__, onCompleted=lambda: onAsk(mic.activeListen(MUSIC=True)))
+    mic.say("去哪里", cache=True, plugin=__name__, onCompleted=lambda: onAsk(mic.activeListen()))
     
 
-def isValid(text, parsed=None):
+def isValid(text, parsed=None, immersiveMode=None):
     return any(word in text for word in [u"怎么去", u"线路", u"路线"])

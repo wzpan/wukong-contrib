@@ -52,10 +52,10 @@ def handle(text, mic, parsed=None):
         
     app_key = profile[SLUG]['app_key']  
     adcode  = profile[SLUG]['adcode']
-    mic.say(u'哪条道路?', plugin=__name__, onCompleted=lambda: onAsk(mic.activeListen(MUSIC=True), mic, app_key, adcode))
+    mic.say(u'哪条道路?', plugin=__name__, onCompleted=lambda: onAsk(mic.activeListen(), mic, app_key, adcode))
 
     
 
 
-def isValid(text, parsed=None):
+def isValid(text, parsed=None, immersiveMode=None):
     return any(word in text for word in [u"路况"])

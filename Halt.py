@@ -21,8 +21,8 @@ def onAsk(input, mic):
 
 def handle(text, mic, parsed=None):
     logger = logging.getLogger(__name__)   
-    mic.say('将要关闭系统，请在滴一声后进行确认，授权相关操作', cache=True, plugin=__name__, onCompleted=lambda: onAsk(mic.activeListen(MUSIC=True), mic))
+    mic.say('将要关闭系统，请在滴一声后进行确认，授权相关操作', cache=True, plugin=__name__, onCompleted=lambda: onAsk(mic.activeListen(), mic))
     
 
-def isValid(text, parsed=None):
+def isValid(text, parsed=None, immersiveMode=None):
     return any(word in text for word in [u"关机", u"关闭系统"])

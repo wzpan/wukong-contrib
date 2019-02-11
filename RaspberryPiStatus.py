@@ -59,5 +59,5 @@ def handle(text, mic, parsed=None):
         logger.error(e)
         mic.say(u'抱歉，我没有获取到树莓派状态', cache=True, plugin=__name__)
 
-def isValid(text, parsed=None):
+def isValid(text, parsed=None, immersiveMode=None):
     return any(word in text for word in [u"树莓派状态", u"状态", u"运行状态"])

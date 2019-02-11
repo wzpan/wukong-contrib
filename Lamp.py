@@ -25,7 +25,7 @@ def handle(text, mic, parsed=None):
     return True
 
 
-def isValid(text, parsed=None):
+def isValid(text, parsed=None, immersiveMode=None):
     try:
         import wiringpi
         return u"台灯" in text

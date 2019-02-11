@@ -76,5 +76,5 @@ def handle(text, mic, parsed=None):
         mic.say(u"没有听清楚 请重试", cache=True, plugin=__name__)
 
                                                             
-def isValid(text, parsed=None):
+def isValid(text, parsed=None, immersiveMode=None):
     return u"翻译" in text

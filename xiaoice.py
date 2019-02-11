@@ -46,7 +46,7 @@ def handle(text, mic, parsed=None):
         if txt:
             mic.say(txt, cache=True, plugin=__name__)
 
-def isValid(text, parsed=None):
+def isValid(text, parsed=None, immersiveMode=None):
     """
         Returns True if the input is related to weather.
         Arguments:

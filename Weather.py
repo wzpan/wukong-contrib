@@ -45,7 +45,7 @@ def fetch_weather(api, key, location):
 
 def get_location(parsed):
     """ 获取位置 """
-    slots = unit.getSlots(parsed)
+    slots = unit.getSlots(parsed, 'USER_WEATHER')
     # 如果 query 里包含了地点，用该地名作为location
     for slot in slots:
         if slot['name'] == 'user_loc':
@@ -100,13 +100,14 @@ def handle(text, mic, parsed):
         mic.say('抱歉，我获取不到天气数据，请稍后再试', cache=True, plugin=__name__)
         
     
-def isValid(text, parsed=None):
+def isValid(text, parsed=None, immersiveMode=None):
     """
         Returns True if the input is related to weather.
 
         Arguments:
         text -- user-input, typically transcribed speech
+        parsed -- NLU structure parsed by Baidu UNIT
     """
-    return unit.getIntent(parsed) == 'USER_WEATHER'
+    return unit.hasIntent(parsed, 'USER_WEATHER')
         
         

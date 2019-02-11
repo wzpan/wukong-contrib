@@ -61,5 +61,5 @@ def handle(text, mic, parsed=None):
     type = getNewsType(text)
     request(key,type, mic, logger)
 
-def isValid(text, parsed=None):
+def isValid(text, parsed=None, immersiveMode=None):
     return u"新闻" in text

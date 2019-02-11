@@ -49,7 +49,7 @@ def handle(text,mic,parsed=None):
         mic.say("抱歉出了问题", cache=True, plugin=__name__)
         return
 
-def isValid(text, parsed=None):
+def isValid(text, parsed=None, immersiveMode=None):
     home_dir = os.path.expandvars('$HOME')
     location = home_dir + '/.dingdang/action.json'
     words = []
