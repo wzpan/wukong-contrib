@@ -7,9 +7,9 @@
 
 ## 方式一、docker 安装
 
-docker 镜像安装更适用于 Win 32 架构的 Linux 系统。对于 Windows 和 Mac ，由于底层音频驱动方式不同，没办法实现离线唤醒和语音播放的功能，但后台端的文本或录音的交互依然可用。
+docker 镜像安装更适用于 PC 的 Linux 系统。对于 Windows 和 Mac ，由于底层音频驱动方式不同，没办法实现离线唤醒和语音播放的功能，但后台端的文本或录音的交互依然可用。
 
-!> 目前 docker 镜像只支持 Win 32 架构，请不要在树莓派等 ARM 架构上尝试。
+!> 目前 docker 镜像不支持 ARM 架构，请不要在树莓派等 ARM 架构上尝试。
 
 ``` sh
 docker pull wzpan/wukong-robot:latest
