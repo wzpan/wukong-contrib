@@ -50,8 +50,8 @@ wukong-robot 的插件机制基本和 dingdang-robot 相同，所以可参照 [�
 1. fork 本项目；
 2. 添加你的插件；
 3. 如果你的插件有依赖第三方库，将依赖项添加进 requirements.txt 。如果依赖第三方工具, 则在 README 中的[安装](#安装) 一节中补充。
-4. 发起 pull request ，说明该插件的用途、指令和配置信息（如果有的话）。
-5. pull request 被 accept 后，在本项目 [Wiki页](https://github.com/dingdang-robot/dingdang-contrib/wiki/neteasemusic) 中添加一项，将该插件的用途、指令和配置信息也添加到此页面中。
+4. 在 docs/contrib.md 中，参考其他插件的说明，写好你的插件的说明文档。
+5. 发起 pull request ，说明该插件的用途、指令和配置信息（如果有的话）。
 
 ### 插件规范
 
