@@ -90,6 +90,12 @@ sudo cp -v -R Doc/* /usr/share/doc/swig-3.0.10
 sudo apt-get install -y libatlas-base-dev
 ```
 
+如果提示找不到 `python3-config` 命令，你还需要安装 `python3-dev`：
+
+``` bash
+sudo apt-get install python3-dev  # 注意 Ubuntu 18.04 可能叫 python3-all-dev
+```
+
 对于 Mac 系统：
 
 ``` bash
@@ -107,11 +113,12 @@ cp _snowboydetect.so <wukon-robot的根目录/snowboy/>
 
 !> 如果 make 阶段遇到问题，尝试在 [snowboy 项目 issue 中找到解决方案](https://github.com/Kitt-AI/snowboy/issues) 。
 
-使用 Mac 、Ubuntu 和 Deepin 系统的用户也可以试试预编译好的版本：
+使用 Mac 、Ubuntu 16.04 、Deepin 和 Raspberry Pi 系统的用户也可以试试预编译好的版本：
 
 * [Mac](http://hahack-1253537070.file.myqcloud.com/misc/snowboy-mac/_snowboydetect.so)
 * [Ubuntu](http://hahack-1253537070.file.myqcloud.com/misc/snowboy-ubuntu16.04/_snowboydetect.so)
 * [Deepin](http://hahack-1253537070.file.myqcloud.com/misc/snowboy-deepin/_snowboydetect.so)
+* [Raspberry Pi](http://hahack-1253537070.file.myqcloud.com/misc/snowboy-pi/_snowboydetect.so)
 
 ### 5. 安装第三方技能插件库 dingdang-contrib
 
@@ -120,3 +127,19 @@ cd $HOME/.wukong
 git clone http://github.com/wzpan/wukong-contrib contrib
 pip3 install -r contrib/requirements.txt
 ```
+
+### 6. 更新唤醒词（可选，树莓派必须）
+
+默认自带的唤醒词是在 Macbook 上录制的，用的是作者的声音模型。但由于不同的人发声不同，所以不保证对于其他人都能很好的适用。
+
+而树莓派上或者其他板子上接的麦克风可能和 PC 上的麦克风的声音畸变差异非常大，所以现有的模型更加不能直接在树莓派上工作，否则效果会非常糟糕。
+
+比较建议到 [snowboy 官网](https://snowboy.kitt.ai/dashboard) 上训练自己的模型，然后把模型放在 `~/.wukong` 中，并修改 `~/.wukong/config.yml` 里的几个 hotword 指向的文件名（如果文件名没改，则不用变）。一共有三个唤醒词需要修改：
+
+1. `hotword`：全局唤醒词。默认为 “孙悟空” （wukong.pmdl）
+2. `/do_not_bother/on_hotword`：让 wukong-robot 进入勿扰模式的唤醒词。默认为 “悟空别吵” （悟空别吵.pmdl）
+3. `/do_not_bother/off_hotword`：让 wukong-robot 结束勿扰模式的唤醒词。默认为 “悟空醒醒” （悟空醒醒.pmdl）
+
+对于树莓派用户，snowboy 官方建议在树莓派上先用 `rec t.wav` 这样的命令录制唤醒词，然后在训练的时候通过上传按钮上传到服务器中进行训练：
+
+![](http://docs.kitt.ai/snowboy/_images/upload.png)
