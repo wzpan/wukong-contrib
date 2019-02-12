@@ -21,7 +21,7 @@ pip3 install -r contrib/requirements.txt
 ``` sh
 cd /home/pi/.wukong/contrib
 git pull
-pip3 install --upgrade -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ## 如何贡献
