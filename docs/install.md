@@ -47,14 +47,14 @@ git clone https://github.com/wzpan/wukong-robot.git
 
 ``` bash
 sudo apt-get install python-pyaudio python3-pyaudio sox libsox-fmt-all
-pip install pyaudio
+pip3 install pyaudio
 ```
 
 #### Mac 系统：
 
 ``` bash
 brew install portaudio sox
-pip install pyaudio
+pip3 install pyaudio
 ```
 
 !> 如果你没有 Homebrew ，参考[本文](http://brew.sh/)安装
@@ -63,7 +63,7 @@ pip install pyaudio
 
 ``` bash
 cd wukong-robot
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ### 4. 编译 _snowboydetect.so
@@ -112,3 +112,11 @@ cp _snowboydetect.so <wukon-robot的根目录/snowboy/>
 * [Mac](http://hahack-1253537070.file.myqcloud.com/misc/snowboy-mac/_snowboydetect.so)
 * [Ubuntu](http://hahack-1253537070.file.myqcloud.com/misc/snowboy-ubuntu16.04/_snowboydetect.so)
 * [Deepin](http://hahack-1253537070.file.myqcloud.com/misc/snowboy-deepin/_snowboydetect.so)
+
+### 5. 安装第三方技能插件库 dingdang-contrib
+
+``` bash
+cd $HOME/.wukong
+git clone http://github.com/wzpan/wukong-contrib contrib
+pip3 install -r contrib/requirements.txt
+```
