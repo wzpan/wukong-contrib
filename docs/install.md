@@ -2,10 +2,10 @@
 
 你可以选择 docker 安装或者手动安装两种方式。
 
-* [docker 安装](#方式一docker-安装)
-* [手动安装](#方式二手动安装)
+* [docker 安装](/install?id=方式一：docker-安装)
+* [手动安装](/install?id=方式二：手动安装)
 
-## 方式一、docker 安装
+## 方式一：docker 安装
 
 docker 镜像安装更适用于 PC 的 Linux 系统。对于 Windows 和 Mac ，由于底层音频驱动方式不同，没办法实现离线唤醒和语音播放的功能，但后台端的文本或录音的交互依然可用。
 
@@ -33,7 +33,7 @@ docker run --rm -it -p 5000:5000 wzpan/wukong-robot:latest
 
 `docker run` 完成后，就可以参考 [运行](/?id=运行) 一节，启动 wukong-robot 了。
 
-## 方式二、手动安装
+## 方式二：手动安装
 
 ### 1. 克隆本仓库：
 
