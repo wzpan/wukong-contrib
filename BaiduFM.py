@@ -40,7 +40,7 @@ class MusicPlayer():
             path = self.download_mp3_by_link(info)
             self.play_mp3_by_link(path, info)
         else:
-            self.mic.say('获取音频URL失败，请稍后再试')
+            self.mic.say('获取音频URL失败，请稍后再试', plugin=__name__, cache=True)
 
     def next(self):        
         self.idx = (self.idx+1) % len(self.playlist)
@@ -137,29 +137,29 @@ def handle(text, mic, parsed=None):
     if unit.hasIntent(parsed, 'MUSICRANK') or any(word in text for word in [u"百度音乐", u"百度电台"]):
         music_player.play()
     elif unit.hasIntent(parsed, 'CHANGE_MUSIC'):
-        mic.say('换歌')
+        mic.say('换歌', plugin=__name__, cache=True)
         init_music_player(mic, random.choice(range(0, 40)))        
         music_player.play()
     elif unit.hasIntent(parsed, 'CHANGE_TO_NEXT'):
-        mic.say('下一首歌')
+        mic.say('下一首歌', plugin=__name__, cache=True)
         music_player.next()
     elif unit.hasIntent(parsed, 'CHANGE_TO_LAST'):
-        mic.say('上一首歌')
+        mic.say('上一首歌', plugin=__name__, cache=True)
         music_player.prev()
     elif unit.hasIntent(parsed, 'CLOSE_MUSIC') or unit.hasIntent(parsed, 'PAUSE'):        
         music_player.stop()
-        mic.say('退出播放')
+        mic.say('退出播放', plugin=__name__, cache=True)
     elif '什么歌' in text:
         info = music_player.get_current_song_info()
         if info is not None and info != {}:
             if info['artist_name']:
-                mic.say('正在播放的是：{} 的 {}'.format(info['artist_name'], info['song_name']))
+                mic.say('正在播放的是：{} 的 {}'.format(info['artist_name'], info['song_name']), plugin=__name__, cache=True)
             else:
-                mic.say('正在播放的是：{}'.format(info['song_name']))
+                mic.say('正在播放的是：{}'.format(info['song_name']), plugin=__name__, cache=True)
             time.sleep(3)
             music_player.play()
     else:
-        mic.say('没听懂你的意思呢，要退出播放，请说退出播放')
+        mic.say('没听懂你的意思呢，要退出播放，请说退出播放', plugin=__name__, cache=True)
         music_player.play()
         
 
