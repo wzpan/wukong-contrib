@@ -142,7 +142,7 @@ pip3 install -r contrib/requirements.txt
 
 对于树莓派用户，如果不想自己训练模型，wukong-robot 也提供了几个针对树莓派训练的模型，直接修改配置即可：
 
-``` bash
+``` yaml
 # snowboy 离线唤醒
 # https://snowboy.kitt.ai/dashboard
 # 建议到 https://snowboy.kitt.ai/hotword/32768
