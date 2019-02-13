@@ -41,19 +41,19 @@ docker run --rm -it -p 5000:5000 wzpan/wukong-robot:latest
 git clone https://github.com/wzpan/wukong-robot.git
 ```
 
-### 2. 安装 sox 和 PyAudio：
+### 2. 安装 sox ，ffmpeg 和 PyAudio：
 
 #### Linux 系统：
 
 ``` bash
-sudo apt-get install python-pyaudio python3-pyaudio sox libsox-fmt-all
+sudo apt-get install python-pyaudio python3-pyaudio sox libsox-fmt-all ffmpeg
 pip3 install pyaudio
 ```
 
 #### Mac 系统：
 
 ``` bash
-brew install portaudio sox
+brew install portaudio sox ffmpeg
 pip3 install pyaudio
 ```
 
