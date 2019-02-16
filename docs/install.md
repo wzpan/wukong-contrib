@@ -46,7 +46,7 @@ git clone https://github.com/wzpan/wukong-robot.git
 #### Linux 系统：
 
 ``` bash
-sudo apt-get install python-pyaudio python3-pyaudio sox libsox-fmt-all ffmpeg
+sudo apt-get install python-pyaudio python3-pyaudio sox pulseaudio libsox-fmt-all ffmpeg
 pip3 install pyaudio
 ```
 

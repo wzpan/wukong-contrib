@@ -16,3 +16,13 @@
 python3 wukong.py update
 ```
 
+如果 wukong-robot 出现了 bug 导致无法升级，还可以用最原始的升级命令：
+
+``` sh
+cd wukong-robot的目录
+git checkout master
+git pull
+cd wukong-contrib的目录
+git checkout master
+git pull
+```
