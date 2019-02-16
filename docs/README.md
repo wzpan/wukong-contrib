@@ -1,6 +1,6 @@
 # wukong-robot
 
-wukong-robot 是一个简单、灵活、优雅的中文语音对话机器人。
+wukong-robot 是一个简单、灵活、优雅的中文语音对话机器人/智能音箱项目，目的是让中国的 Maker 和 Hacker 们也能快速打造个性化的智能音箱。
 
 ## 特性
 
