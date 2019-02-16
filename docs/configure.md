@@ -11,3 +11,14 @@
   ?> <http://config.mail.163.com/settings/imap/index.jsp?uid=您的邮箱地址>
 
   注意把链接中 您的邮箱地址 改为您真实的网易邮箱地址（带邮箱后缀）。
+
+4. 任一技能插件都允许关闭，方法是在配置文件中为该插件添加一个 `enable: false` 的设置。例如，如果你想关闭新闻头条插件，而该插件的 SLUG 是 `headline_news` ，那么可以如下设置：
+
+    ``` yaml
+	# 新闻头条
+	# 聚合数据新闻头条API
+	# https://www.juhe.cn/docs/api/id/235
+    headline_news:
+	    enable: false
+		key: 'AppKey'  # 其他配置
+    ```
