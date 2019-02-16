@@ -6,71 +6,69 @@
 
 import paho.mqtt.client as mqtt
 import paho.mqtt.publish as publish
-import logging
 import time
 import json
 import os
-from robot import config
-SLUG = "mqttPub"
+from robot import config, logging
+from robot.sdk.AbstractPlugin import AbstractPlugin
 
-def get_topic(text):
-    home_dir = os.path.expandvars('$HOME')
-    location = home_dir + '/.dingdang/action.json'
-    f = open(location).read()
-    fjson = json.loads(f)
-    topic = None
-    for key in fjson.keys():
-        if text in fjson[key]:
-            topic = key
-    return topic
+logger = logging.getLogger(__name__)
 
-def handle(text,mic,parsed=None):
-    logger = logging.getLogger(__name__)
+class Plugin(AbstractPlugin):
 
-    profile = config.get()
+    SLUG = "mqttPub"
 
-    #get config
-    if ( SLUG not in profile ) or ( 'host' not in profile[SLUG] ) or ( 'port' not in profile[SLUG] ) or ( 'topic_s' not in profile[SLUG] ):
-        mic.say("主人，配置有误", cache=True, plugin=__name__)
-        return
-
-    host = profile[SLUG]['host']
-    port = profile[SLUG]['port']
-    topic_s = profile[SLUG]['topic_s']
-    text = text.split("，")[0]   #百度语音识别返回的数据中有个中文，
-    topic_p = get_topic(text)
-    if topic_p == None:
-        return
-    try:
-        mic.say("已经接收到指令", cache=True, plugin=__name__)
-        mqtt_contro(host,port,topic_s,topic_p,text,mic)
-    except Exception as e:
-        logger.error(e)
-        mic.say("抱歉出了问题", cache=True, plugin=__name__)
-        return
-
-def isValid(text, parsed=None, immersiveMode=None):
-    home_dir = os.path.expandvars('$HOME')
-    location = home_dir + '/.dingdang/action.json'
-    words = []
-    if os.path.exists(location):
+    def get_topic(self, text):
+        home_dir = os.path.expandvars('$HOME')
+        location = home_dir + '/.dingdang/action.json'
         f = open(location).read()
+        fjson = json.loads(f)
+        topic = None
+        for key in fjson.keys():
+            if text in fjson[key]:
+                topic = key
+        return topic
+
+    def handle(self, text, parsed):
+
+        profile = config.get()
+
+        #get config
+        if ( self.SLUG not in profile ) or ( 'host' not in profile[self.SLUG] ) or ( 'port' not in profile[self.SLUG] ) or ( 'topic_s' not in profile[self.SLUG] ):
+            self.say("主人，配置有误", cache=True)
+            return
+
+        host = profile[self.SLUG]['host']
+        port = profile[self.SLUG]['port']
+        topic_s = profile[self.SLUG]['topic_s']
+        text = text.split("，")[0]   #百度语音识别返回的数据中有个中文，
+        topic_p = self.get_topic(text)
+        if topic_p == None:
+            return
         try:
-            fjson = json.loads(f)
-            for value in fjson.values():
-                if isinstance(value,list):
-                    words += value
-                else:
-                    words += []
-        except ValueError:
-            words += []
-        #lines = f.readlines()
-    #if len(lines):
-    #    for line in lines:
-    #        line = line.split()
-    #        if len(line):
-    #            words.append(line[0])
-    return any(word in text for word in words)
+            self.say("已经接收到指令", cache=True)
+            mqtt_contro(host,port,topic_s,topic_p,text,self.con)
+        except Exception as e:
+            logger.error(e)
+            self.say("抱歉出了问题", cache=True)
+            return
+
+    def isValid(self, text, parsed):
+        home_dir = os.path.expandvars('$HOME')
+        location = home_dir + '/.dingdang/action.json'
+        words = []
+        if os.path.exists(location):
+            f = open(location).read()
+            try:
+                fjson = json.loads(f)
+                for value in fjson.values():
+                    if isinstance(value,list):
+                        words += value
+                    else:
+                        words += []
+            except ValueError:
+                words += []
+        return any(word in text for word in words)
 
 class mqtt_contro(object):
 
@@ -107,12 +105,12 @@ class mqtt_contro(object):
         if msg.payload:
             self.mqttc.loop_stop()
             self.mqttc.disconnect()
-            self.mic.say( str(msg.payload), plugin=__name__)
+            self.mic.say( str(msg.payload))
         else:
             time.sleep(5)
             self.mqttc.loop_stop()
             self.mqttc.disconnect()
-            self.mic.say("连接超时", cache=True, plugin=__name__)
+            self.mic.say("连接超时", cache=True)
 
     def on_publish(self,mqttc, obj, mid):
         self._logger.debug("mid: " + str(mid))

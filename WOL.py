@@ -1,64 +1,67 @@
 # -*- coding: utf-8-*-
 import socket
 import struct
-import logging
-from robot import config
+from robot import config, logging
+from robot.sdk.AbstractPlugin import AbstractPlugin
 
-SLUG = "wol"
+logger = logging.getLogger(__name__)
 
-def Waker(ip,mac):
-	global sent
-	def to_hex_int(s):
-		return int(s.upper(), 16)
-	
-	dest = (ip, 9)
+class Plugin(AbstractPlugin):
 
-	spliter = ""
-	if mac.count(":") == 5: spliter = ":"
-	if mac.count("-") == 5: spliter = "-"
+    SLUG = "wol"
 
-	parts = mac.split(spliter)
-	a1 = to_hex_int(parts[0])
-	a2 = to_hex_int(parts[1])
-	a3 = to_hex_int(parts[2])
-	a4 = to_hex_int(parts[3])
-	a5 = to_hex_int(parts[4])
-	a6 = to_hex_int(parts[5])
-	addr = [a1, a2, a3, a4, a5, a6]
-	
-	packet = chr(255) + chr(255) + chr(255) + chr(255) + chr(255) + chr(255)
-	
-	for n in range(0,16):
-		for a in addr:
-			packet = packet + chr(a)
-	
-	packet = packet + chr(0) + chr(0) + chr(0) + chr(0) + chr(0) + chr(0)
-	
-	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-	s.setsockopt(socket.SOL_SOCKET,socket.SO_BROADCAST,1)
-	s.sendto(packet,dest)
-	
-	if len(packet) == 108:
-		sent = True
+    def Waker(self, ip, mac):
+        global sent
+        def to_hex_int(s):
+            return int(s.upper(), 16)
 
-def handle(text, mic, parsed=None):
-	logger = logging.getLogger(__name__)
-	profile = config.get()
-	if SLUG not in profile or \
-		'ip' not in profile[SLUG] or \
-		'mac' not in profile[SLUG]:
-			mic.say('WOL配置有误，插件使用失败', cache=True, plugin=__name__)
-			return
-	ip = profile[SLUG]['ip']
-	mac = profile[SLUG]['mac']
-	try:
-		Waker(ip,mac)
-		if sent:
-			mic.say('启动成功', cache=True, plugin=__name__)
-	except Exception as e:
-		logger.error(e)
-		mic.say('抱歉，启动失败', cache=True, plugin=__name__)
+        dest = (ip, 9)
+
+        spliter = ""
+        if mac.count(":") == 5: spliter = ":"
+        if mac.count("-") == 5: spliter = "-"
+
+        parts = mac.split(spliter)
+        a1 = to_hex_int(parts[0])
+        a2 = to_hex_int(parts[1])
+        a3 = to_hex_int(parts[2])
+        a4 = to_hex_int(parts[3])
+        a5 = to_hex_int(parts[4])
+        a6 = to_hex_int(parts[5])
+        addr = [a1, a2, a3, a4, a5, a6]
+
+        packet = chr(255) + chr(255) + chr(255) + chr(255) + chr(255) + chr(255)
+
+        for n in range(0,16):
+            for a in addr:
+                packet = packet + chr(a)
+
+        packet = packet + chr(0) + chr(0) + chr(0) + chr(0) + chr(0) + chr(0)
+
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.setsockopt(socket.SOL_SOCKET,socket.SO_BROADCAST,1)
+        s.sendto(packet,dest)
+
+        if len(packet) == 108:
+            sent = True
+
+    def handle(self, text, parsed):
+        profile = config.get()
+        if self.SLUG not in profile or \
+            'ip' not in profile[self.SLUG] or \
+            'mac' not in profile[self.SLUG]:
+                self.say('WOL配置有误，插件使用失败', cache=True)
+                return
+        ip = profile[self.SLUG]['ip']
+        mac = profile[self.SLUG]['mac']
+        try:
+            self.Waker(ip,mac)
+            if sent:
+                self.say('启动成功', cache=True)
+        except Exception as e:
+            logger.error(e)
+            self.say('抱歉，启动失败', cache=True)
 
 
-def isValid(text, parsed=None, immersiveMode=None):
-	return any(word in text for word in [u"开机", u"启动电脑", u"开电脑"])
+    def isValid(self, text, parsed):
+        return any(word in text for word in [u"开机", u"启动电脑", u"开电脑"])
