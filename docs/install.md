@@ -123,6 +123,7 @@ cp _snowboydetect.so <wukon-robot的根目录/snowboy/>
 ### 5. 安装第三方技能插件库 dingdang-contrib
 
 ``` bash
+mkdir $HOME/.wukong
 cd $HOME/.wukong
 git clone http://github.com/wzpan/wukong-contrib contrib
 pip3 install -r contrib/requirements.txt
