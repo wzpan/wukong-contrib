@@ -47,7 +47,7 @@
 
 ### 配置
 
-``` yml
+``` yaml
 # 拍照
 camera:
     enable: true

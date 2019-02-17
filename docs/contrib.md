@@ -31,7 +31,7 @@ weather:
 
 ### 配置
 
-```
+``` yaml
 # 新闻头条
 # 聚合数据新闻头条API
 # https://www.juhe.cn/docs/api/id/235
@@ -201,7 +201,7 @@ baidufm:
 
 可自定义服务器端口，端口号小于1024需root用户执行。
 
-```
+``` yaml
 # WEB服务器
 webserver:
     webport: 8080
@@ -271,7 +271,7 @@ wol:
 
 使用前需要先到 [有道智云](http://ai.youdao.com/) 分别注册一个应用和有道文本翻译实例，并关联到一起。然后在[我的应用](http://ai.youdao.com/appmgr.s) 中，记下你关联了有道文本翻译实例的应用的应用ID，点击进入该应用，记下该应用的应用密钥。然后如下配置：
 
-```
+``` yaml
 youdao:
     appId: 应用ID
     appSecret: 应用密钥

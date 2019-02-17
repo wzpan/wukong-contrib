@@ -12,13 +12,13 @@
 
 如果提示升级失败，可以尝试在 wukong-robot 的根目录手动执行以下命令，看看问题出在哪。
 
-``` sh
+``` bash
 python3 wukong.py update
 ```
 
 如果 wukong-robot 出现了 bug 导致无法升级，还可以用最原始的升级命令：
 
-``` sh
+``` bash
 cd wukong-robot的目录
 git checkout master
 git pull
