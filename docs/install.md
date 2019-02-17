@@ -4,6 +4,7 @@
 
 * [docker 安装](/install?id=方式一：docker-安装)
 * [手动安装](/install?id=方式二：手动安装)
+* [其他安装方式](/install?id=其他安装方式)
 
 ## 方式一：docker 安装
 
@@ -163,3 +164,10 @@ do_not_bother:
 但是同样建议到 [snowboy 官网](https://snowboy.kitt.ai/dashboard) 自己训练。snowboy 官方建议在树莓派上先用 `rec t.wav` 这样的命令录制唤醒词，然后在训练的时候通过上传按钮上传到服务器中进行训练：
 
 ![](http://docs.kitt.ai/snowboy/_images/upload.png)
+
+## 其他安装方式 ##
+
+除了官方提供的安装方法外，还有一些热心用户提供了其他可选的安装方案。
+
+1. 小白同学 @musistudio 提供了一个[一键自动安装脚本](https://github.com/musistudio/wukong-robot-install-script)，适用于 MacOS/Linux 系统。
+2. 用户QQ群（580447290）上还有一些用户提供了树莓派的安装镜像，可以入群索取。

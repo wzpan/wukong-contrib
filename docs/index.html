@@ -13,18 +13,19 @@
 <body>
   <div id="app"></div>
   <script>
-    window.$docsify = {
-      // 加载 _sidebar.md
-      loadSidebar: true,
-      subMaxLevel: 2,
-      repo: 'wzpan/wukong-robot',
-      search: 'auto', // 默认值
-      plugins: [
-          EditOnGithubPlugin.create(
-            'https://github.com/wzpan/wukong-contrib/blob/master/docs/'
-      ),
-      ]
-      }
+   window.$docsify = {
+       // 加载 _sidebar.md
+       loadSidebar: true,
+	   subMaxLevel: 2,
+	   coverpage: true,
+       repo: 'wzpan/wukong-robot',
+       search: 'auto', // 默认值
+       plugins: [
+           EditOnGithubPlugin.create(
+               'https://github.com/wzpan/wukong-contrib/blob/master/docs/'
+		   ),
+       ]
+   }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>  
   <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
