@@ -14,3 +14,8 @@
 ps auwx | grep wukong  # 查看wukong的PID号
 kill -9 PID号
 ```
+
+Linux 基础比较弱，不知道这个 `PID` 号怎么看，不知道啥是前台啥是后台的朋友：
+
+1. 看我[这篇 issue 的回答](https://github.com/wzpan/wukong-robot/issues/11#issuecomment-464481848)；
+2. 好好学习 Linux 。
