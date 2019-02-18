@@ -40,7 +40,7 @@ class Plugin(AbstractPlugin):
             'key': key,
             'location': location
         }
-        esult = requests.get(api, params=body, timeout=3)
+        result = requests.get(api, params=body, timeout=3)
         res = json.loads(result.text, encoding='utf-8')
         return res
 
