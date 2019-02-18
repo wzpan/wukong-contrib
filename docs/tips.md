@@ -4,6 +4,8 @@
 
 snowboy 的唤醒准确率和录制时的设备环境有很大的关系。建议到 [snowboy 官网](https://snowboy.kitt.ai/dashboard)，在运行 wukong-robot 的机器上训练一下唤醒词，不同设备录制出来的唤醒词模型使用效果会大打折扣。详见 [安装教程-更新唤醒词](/install?id=_6-%e6%9b%b4%e6%96%b0%e5%94%a4%e9%86%92%e8%af%8d%ef%bc%88%e5%8f%af%e9%80%89%ef%bc%8c%e6%a0%91%e8%8e%93%e6%b4%be%e5%bf%85%e9%a1%bb%ef%bc%89) 。
 
+另外，如果出现经常误唤醒 wukong-robot ，可以尝试在配置文件中将 `sensitivity` 调低。
+
 ## 2. 修改唤醒词
 
 1. 到 https://snowboy.kitt.ai/ ，训练你自己的模型；
