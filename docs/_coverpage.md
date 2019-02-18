@@ -5,5 +5,5 @@
 > 一个简单、灵活、优雅的中文语音对话机器人/智能音箱项目
 
 [GitHub](https://github.com/wzpan/wukong-robot/)
-[捐赠](https://github.com/wzpan/wukong-robot/#贡献)
+[捐赠](donate)
 [进入文档](README)
