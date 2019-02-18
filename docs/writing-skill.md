@@ -7,4 +7,4 @@
 - [实战篇2：开发一个清除缓存插件](writing-skill-2)
 - [实战篇3：开发一个天气查询插件](writing-skill-3)
 - [实战篇4：开发一个沉浸式音乐播放插件](writing-skill-4)
-- [实战篇4：发布插件](writing-skill-publish)
+- [实战篇5：发布插件](writing-skill-publish)
