@@ -3,6 +3,7 @@ import sys
 import os
 import json
 import urllib
+import requests
 from urllib.parse import urlencode
 from robot import config, logging
 from robot.sdk.AbstractPlugin import AbstractPlugin
@@ -14,11 +15,8 @@ class Plugin(AbstractPlugin):
     SLUG = "direction"
 
     def request(self, url, params):
-        params = urlencode(params)
-
-        f = urllib.request.urlopen("%s?%s" % (url, params))
-
-        content = f.read()
+        r = requests.get(url, params=params)
+        content = r.text
         return json.loads(content)
 
     def handle(self, text, parsed):
@@ -31,14 +29,12 @@ class Plugin(AbstractPlugin):
             profile = config.get()
             if self.SLUG not in profile or \
                'app_key' not in profile[self.SLUG] or \
-               'city' not in profile[self.SLUG] or \
-               'origin' not in profile[self.SLUG] or \
-               'method' not in profile[self.SLUG]:
+               'origin' not in profile[self.SLUG]:
                 self.say(u"插件配置有误，插件使用失败")
                 return
 
             app_key = profile[self.SLUG]['app_key']
-            city = profile[self.SLUG]['city']
+            city = config.get('location', '深圳')
 
             url_place = "http://api.map.baidu.com/place/v2/suggestion"
             params_place = {
