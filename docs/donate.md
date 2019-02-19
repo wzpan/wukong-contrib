@@ -1,6 +1,6 @@
 # 捐赠
 
-您的捐赠将鼓励我继续完善 wukong-robot。
+您的捐赠将鼓励我继续完善 wukong-robot，一起让世界更智能！
 
 * 对于个人用户，可以使用支付宝或者微信进行捐赠，单笔超过 20 元的捐赠者，您的 ID 将可以出现在 wukong-robot 后台管理端的捐赠页面中。
 * 对于企业用户，建议[成为这个项目的 sponsor](https://opencollective.com/wukong-robot/contribute/tier/8131-sponsor)，您将可以把一个带链接的 logo 放在 wukong-robot 后台管理端的首页、捐赠页面以及 Github 项目首页中。
