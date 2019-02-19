@@ -73,8 +73,6 @@ from robot.sdk.AbstractPlugin import AbstractPlugin
 
 class Plugin(AbstractPlugin):
 
-    SLUG = 'cleancache'
-
     def handle(self, text, parsed):
         temp = constants.TEMP_PATH
         for f in os.listdir(temp):
