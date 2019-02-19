@@ -16,7 +16,6 @@
 # https://www.seniverse.com/
 weather:
     key: '心知天气 API Key'
-    location: '深圳'
 ```
 
 ## HeadlineNews
@@ -59,10 +58,7 @@ headline_news:
 # http://lbsyun.baidu.com/index.php?title=webapi
 direction:
     app_key: 你申请到的app key
-    city: 你当前所处的城市，如：上海市
     origin: 出发起始地坐标，可在此http://api.map.baidu.com/lbsapi/getpoint/获取，如:"39.91405,116.404269",纬度在前，经度在后
-    method: message表示发送到微信；voice表示语音播报
-
 ```
 
 ## RoadCondition
@@ -406,5 +402,10 @@ Lamp:
 ### 需求技能
 
 * 需要安装 wiringpi python 支持扩展包，可以通过 pip 命令从官方获取。
+
+  ``` bash
+  pip install wiringpi
+  ```
+
 * 继电器建议采购高低可选，带光耦的继电器。自己做电子开关。
 

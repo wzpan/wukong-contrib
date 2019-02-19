@@ -195,3 +195,5 @@ if unit.hasIntent(parsed, 'USER_WEATHER'):
         if slot['name'] == 'user_loc':
            print(slot['normalized_word'])  # 深圳
 ```
+
+

@@ -4,7 +4,7 @@
 
 在编写插件前，我们需要先考虑以下几个问题：
 
-* 插件应该使用哪些关键词作为用户指令？
+* 如何判断用户的指令是否适合用这个插件处理？
 * 需要暴露哪些配置项？
 * 如何处理用户的指令并得到需要的信息？
 
@@ -37,7 +37,7 @@ class Plugin(AbstractPlugin):
 * 第4行：我们编写一个名为 Plugin 的类，这个类集成了 `AbstractPlugin` 基类；
 * 第6行和9行：我们分别实现了 `AbstractPlugin` 的两个接口 [`handle()`](https://www.hahack.com/wukong-robot/robot.sdk.html#robot.sdk.AbstractPlugin.AbstractPlugin.handle) 和 [`isValid()`](https://www.hahack.com/wukong-robot/robot.sdk.html#robot.sdk.AbstractPlugin.AbstractPlugin.isValid) 。其中，`isValid()` 用于判断用户的指令是否适合交给这个插件处理；`handle()` 用于执行处理；
 * 第10行，我们设置让用户的指令中包含了 “打个招呼” 关键词就执行响应。
-* 第7行，插件的处理过程就是说一句“hello world”，可以利用 `AbstractPlugin` 基类中提供的 [`say()`](https://www.hahack.com/wukong-robot/robot.sdk.html#robot.sdk.AbstractPlugin.AbstractPlugin.say) 方法来实现这个目的。
+* 第7行，插件的处理过程就是说一句“hello world”，可以利用 `AbstractPlugin` 基类中提供的 [`say()`](https://www.hahack.com/wukong-robot/robot.sdk.html#robot.sdk.AbstractPlugin.AbstractPlugin.say) 方法来实现这个目的。而 `cache` 参数为 `True` 则告诉 wukong-robot 应该将这句话缓存下来，以后要说这句话就无需再请求 TTS 合成，而是直接播放缓存语音。一些相对固定的回复话术适合加上缓存功能，而一些实时变化的话术（例如当前时间）就不应该加上缓存，因为很可能再也不会有播放的机会。
 
 我们将它保存到 `$HOME/.wukong/custom` 目录下（如果不存在该目录，可以创建一个），并取名为 `HelloWorld.py` 。然后试试唤醒后如下交互：
 
@@ -50,7 +50,7 @@ class Plugin(AbstractPlugin):
 
 接下来我们试试把这个插件做得更智能。
 
-我们可以让用户在指令中包含人名，并且支持更多问好。例如：
+我们可以让用户在指令中包含人名，并支持对这个人问好。例如：
 
 * “跟王力宏打个招呼”
 * “向周杰伦打个招呼”
@@ -126,3 +126,7 @@ class Plugin(AbstractPlugin):
 * 特别注意的是，在开发阶段我们对传进来的 parsed 进行了修改，改成了我们进一步调我们的 UNIT 服务解析出来的结果（第13行、第24行）。在正式提交发布时，需要将这个改写删除。并在 Pull Request 中提供你的技能分享码，由 wukong-robot 的维护者将你的技能加进 wukong-robot 的 UNIT 账号中。
 
 !> 虽然插件中调 UNIT 可以让插件正常工作，但你不该在最终的代码中这么做。试想想后面如果有几十上百个技能插件，每个都各自执行发一次 UNIT 请求，这该有多高的延时？所以，最好的做法是在提交插件时顺便提供你的 UNIT 技能的分享码，让 wukong-robot 的 UNIT 账户也共享你的插件。在轮询插件前，由 wukong-robot 主动解析一次指令再把解析结果通过 `parsed` 传给各个插件，就可以避免对 UNIT 的滥用。
+
+## 发布技能 ##
+
+技能开发完后，如果希望别人也能用上这个技能，那就可以申请发布你的技能。见[实战篇5：发布技能](writing-skill-publish)。
