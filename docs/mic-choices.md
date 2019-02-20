@@ -102,7 +102,7 @@ pcm.!default {
 
 ctl.!default {
         type hw
-        card 0
+        card 1
 }
 ```
 
