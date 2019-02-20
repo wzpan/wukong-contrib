@@ -4,9 +4,11 @@
 
 ## 技能插件发布前 checklist ##
 
-1. 你的插件没有跟其他插件有命名冲突，甚至最好不要有 `isValid()` 判断规则的交叉。比如如果你正在写一个“豆瓣电台”插件，而已经有一个“百度电台”插件，那么技能的关键词就应该用“豆瓣电台”，而不是“电台”，以免影响后者的使用。
-2. 严格使用 Python 3 语法编写，也不再使用 `sys.setdefaultencoding('utf8')` ；
-3. 如果依赖第三方库，则务必将其写进 `requirements.txt` 。但有一个例外：wukong-robot 的目的是能跑在尽可能多的设备上，所以一些平台特定的库（例如GPIO、wiringpi等）请先在 `isValid` 方法中引用以确认可用，例如：
+1. 你的插件应该能够完成预期的功能，没有明显的bug；
+2. 你的插件没有跟其他插件有命名冲突，甚至最好不要有 `isValid()` 判断规则的交叉。比如如果你正在写一个“豆瓣电台”插件，而已经有一个“百度电台”插件，那么技能的关键词就应该用“豆瓣电台”，而不是“电台”，以免影响后者的使用；
+3. 严格使用 Python 3 语法编写，也不再使用 `sys.setdefaultencoding('utf8')` ；
+4. 在技能插件发布阶段，如果插件代码中包含 `utils.getUnit()` 的调试代码，则必须删除。并在 Merge Request 中备注这个的技能的 UNIT 分享码。
+5. 如果依赖第三方库，则务必将其写进 `requirements.txt` 。但有一个例外：wukong-robot 的目的是能跑在尽可能多的设备上，所以一些平台特定的库（例如GPIO、wiringpi等）请先在 `isValid` 方法中引用以确认可用，例如：
 
     ``` python
     def isValid(text):
@@ -18,12 +20,78 @@
     ```
 
 这类库不要写入 `requirements.txt` 文件中，而是放在该插件的相应 wiki 说明中，由需要的人按需安装。
-4. 技能插件发布阶段，插件中如果包含 `utils.getUnit()` 的调试代码，则必须删除。并在 Merge Request 中备注这个的技能的 UNIT 分享码。
 
 ### 技能插件发布流程
 
-1. fork 本项目；
-2. 添加你的插件；
-3. 如果你的插件有依赖第三方库，将依赖项添加进 requirements.txt 。如果依赖第三方工具, 则在 README 中的[安装](#安装) 一节中补充。
-4. 在 docs/contrib.md 中，参考其他插件的说明，写好你的插件的说明文档。
-5. 发起 pull request ，说明该插件的用途、指令和配置信息（如果有的话）。
+插件正常工作后，可以将该插件发布到 [wukong-contrib](https://github.com/wzpan/wukong-contrib) ，让更多人用上您的插件。
+
+首先先对你的插件过一下 [checklist](writing-skill-publish?id=%e6%8a%80%e8%83%bd%e6%8f%92%e4%bb%b6%e5%8f%91%e5%b8%83%e5%89%8d-checklist) ，确认符合发布规范。
+
+然后，将这个插件挪至 `$HOME/.wukong/contrib` 目录中，并且编辑 `$HOME/.wukong/contrib/docs/contrib.md` ，参考其他技能的编写范例，在后面添加一个新条目介绍你的技能。
+
+接下来，访问 [wukong-contrib 的 Github 主页](https://github.com/wzpan/wukong-contrib) ，点击右上角的 【fork】 按钮，将仓库 fork 到自己的账户。如果之前已经 fork 过，这一步可以跳过。
+
+fork 完仓库后，在您的账户下也会有一个 wukong-contrib 项目，点击绿色的 【Clone or download】 按钮，记下新的仓库的地址。
+
+![复制新的仓库地址](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/wukong-contrib-forks.png)
+
+之后在树莓派中执行如下命令，添加新的仓库地址：
+
+``` bash
+cd ~/.wukong/contrib
+git remote add mine 新的仓库地址
+```
+
+将新建的插件提交推送到您的 wukong-contrib 仓库中：
+
+``` bash
+git add Weather.py
+git commit -m "feat(plugins): 新增天气查询插件"
+git push -u mine master
+```
+
+完成后访问您的 wukong-contrib 仓库主页，可以看到一个创建 pull request 的提示：
+
+![创建pull request的提示](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/pull-request-hint.png)
+
+点击 【compare and pull request】 按钮，进入 pull request 创建页面，申请将您的改动合并到 wukong-contrib 项目中：
+
+![创建一个 pull request](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/pull-request.png)
+
+在里头认真填写插件的相关信息。模板如下：
+
+<pre class="lang-yaml">
+* 用于查询天气情况。数据来自 [心知天气API](https://www.seniverse.com/doc)。
+
+### 交互示例
+
+- 用户：天气
+- 悟空：深圳天气。今天：晴。最高气温：25～30摄氏度；明天：晴。26～31摄氏度；
+后天：小雨。最高气温：23～29摄氏度。
+
+### 配置
+
+``` yaml
+# 天气
+# 使用心知天气的接口
+# https://www.seniverse.com/
+weather:
+    key: '心知天气 API Key'
+```
+
+### UNIT技能
+
+* 分享码 -- 8zsro1  # 技能分享码。如果只用了预置技能或者没使用UNIT，不用填
+* 预置技能ID -- 无  # 如果只用了自定义技能或者没使用UNIT，不用填
+</pre>
+
+不难发现就是你刚刚插进 `contrib.md` 里的内容再加上一段 UNIT 技能的相关说明。如果这个技能有相应的自定义 UNIT 技能，记得也要到百度 UNIT 分享这个技能得到一个分享码。
+
+![自定义技能需要提供一个分享码](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/share-skill.png)
+
+完成后点击 【Create pull requset】 ，完成创建，等待 [wukong-robot](https://github.com/wukong-robot) 项目管理员的审核。
+
+![创建一个 pull request](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/create-pull-request.png)
+
+一旦审核通过，您的插件就发布成功了。
+
