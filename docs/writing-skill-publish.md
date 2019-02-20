@@ -91,7 +91,7 @@ weather:
 
 完成后点击 【Create pull requset】 ，完成创建，等待 [wukong-robot](https://github.com/wukong-robot) 项目管理员的审核。
 
-![创建一个 pull request](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/create-pull-request.png)
+![创建一个 pull request](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/pull-request-created.png)
 
 一旦审核通过，您的插件就发布成功了。
 
