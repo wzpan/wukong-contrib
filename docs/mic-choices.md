@@ -7,7 +7,7 @@ wukong-robot 能配合普通的麦克风正常工作。
 以下是两款推荐考虑的麦克风阵列模块，价格都在百元以内，比较亲民：
 
 * PS3 Eye - PS3 淘汰的配件，包含四阵列麦克风和摄像头，免驱使用。由于是淘汰下来的配件，价格也比较便宜，可以到淘宝上找找。
-* [ReSpeaker 2 Mics Pi HAT](http://wiki.seeed.cc/Respeaker_2_Mics_Pi_HAT/) - 专门为树莓派打造的 2 阵列开发板，带 2 Mic 阵列，有声卡，支持外接 3.5mm 音频输出。
+* ReSpeaker 2 Mics Pi HAT - 专门为树莓派打造的 2 阵列开发板，带 2 Mic 阵列，有声卡，支持外接 3.5mm 音频输出。
 
 客观比较下两个的优劣：
 
