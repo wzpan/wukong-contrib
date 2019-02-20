@@ -49,4 +49,16 @@ snowboy 的唤醒准确率和录制时的设备环境有很大的关系。建议
 听我的
 ```
 
+## 4. 在外网访问家中的 wukong-robot
 
+有多种方案可以实现内网穿透，例如：
+
+1. [frp](https://diannaobos.com/frp/)
+2. [ngrok](https://ngrok.com/)
+3. [花生棒](https://hsk.oray.com/device)
+
+可以详细参考如下几篇文章：
+
+* [可以实现内网穿透的几款工具](https://my.oschina.net/ZL520/blog/2086061)
+* [内网穿透哪家好？端口映射/DDNS/花生壳/Ngrok/Frp 逐一介绍分析](https://www.zhihu.in/archives/237)
+* [内网穿透的一点经验](https://sst.st/p/213)

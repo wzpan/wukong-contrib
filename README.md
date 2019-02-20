@@ -1,8 +1,6 @@
 # wukong-contrib
 
-<p align="center">
-  <a href="https://github.com/users/wzpan/projects/1"><img alt="wukong-project" src="https://img.shields.io/badge/project-wukong-informational.svg?style=flat-square"></a>
-</p>
+<a href="https://github.com/users/wzpan/projects/1"><img alt="wukong-project" src="https://img.shields.io/badge/project-wukong-informational.svg?style=flat-square"></a>
 
 [wukong-robot](http://github.com/wzpan/wukong-robot) 的第三方技能插件。
 
