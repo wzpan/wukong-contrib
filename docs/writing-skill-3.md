@@ -216,7 +216,7 @@ logger = logging.getLogger(__name__)
 我们来解释一下上面的代码：
 
 * 由于这个插件比较复杂，又涉及到网络调用，为了方便调试和定位问题，所以我们在第 3~4 行中，又引入了 [`robot.logging`](writing-skill-basic?id=logging-%e6%a8%a1%e5%9d%97) 模块帮助我们打 log 。
-* 第 14 行我们调用了前面编写的 `fetch_weather()` 成员方法来获取天气数据，这个接口会直接返回未来三天的天气，所以我们在第 20~21 行将三天的结果拼成三句话并朗读给用户。（当然，更好的做法是还要判断用户的指令有没有特别问到是哪一天，这里为了不把问题复杂化所以只实现了简单的拼接。一个更好的版本可以参见 dingdang-contrib 的 [Weather 插件](https://github.com/wzpan/wukong-contrib/blob/HEAD/Weather.py)）
+* 第 14 行我们调用了前面编写的 `fetch_weather()` 成员方法来获取天气数据，这个接口会直接返回未来三天的天气，所以我们在第 20~21 行将三天的结果拼成三句话并朗读给用户。（当然，更好的做法是还要判断用户的指令有没有特别问到是哪一天，这里为了不把问题复杂化所以只实现了简单的拼接。一个更好的版本可以参见 wukong-contrib 的 [Weather 插件](https://github.com/wzpan/wukong-contrib/blob/HEAD/Weather.py)）
 
 ### 完整实现 ###
 
