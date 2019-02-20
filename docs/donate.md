@@ -39,13 +39,13 @@
 | *皓                     |         20 |  2018-4-25 |                                |
 | 唐奋                    |         40 |  2018-5-16 |                                |
 | 布洛克                  |         30 |  2018-12-3 | 想入群交流                     |
+| *舒                   |         20 |  2018-1-20 | 期待腾讯课堂的分享            |
 
 > 部分捐赠者来自 [dingdang-robot](https://github.com/dingdang-robot/dingdang-robot) 项目。由于 [dingdang-robot](https://github.com/dingdang-robot/dingdang-robot) 已停止维护，捐赠者名单一并迁移到这个站点。
 
 ## sponsor 列表 ##
 
 <p align="center">
-  <a href="https://opencollective.com/wukong-robot/contribute/tier/8131-sponsor" target="_blank"><img src="https://opencollective.com/wukong-robot/sponsors.svg?width=890"></a>
-</p>
+  <a href="https://opencollective.com/wukong-robot/contribute/tier/8131-sponsor" target="_blank"><img src="https://opencollective.com/wukong-robot/sponsors.svg?width=890"></a></p>
 
 

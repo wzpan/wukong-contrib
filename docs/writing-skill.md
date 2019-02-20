@@ -1,6 +1,6 @@
 # 技能开发教程
 
-本章将一步步教你如何上手并学会开发技能插件。
+本章将一步步教你如何上手并学会开发 wukong-robot 的技能插件。
 
 - [基础篇](writing-skill-basic)
 - [实战篇1：hello world](writing-skill-1)
