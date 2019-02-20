@@ -7,7 +7,10 @@
 1. 你的插件应该能够完成预期的功能，没有明显的bug；
 2. 你的插件没有跟其他插件有命名冲突，甚至最好不要有 `isValid()` 判断规则的交叉。比如如果你正在写一个“豆瓣电台”插件，而已经有一个“百度电台”插件，那么技能的关键词就应该用“豆瓣电台”，而不是“电台”，以免影响后者的使用；
 3. 严格使用 Python 3 语法编写，也不再使用 `sys.setdefaultencoding('utf8')` ；
-4. 在技能插件发布阶段，如果插件代码中包含 `utils.getUnit()` 的调试代码，则必须删除。并在 Merge Request 中备注这个的技能的 UNIT 分享码。
+4. 在技能插件发布阶段，如果插件代码中包含 `utils.getUnit()` 的调试代码，则必须删除。并在 Merge Request 中备注这个的技能的 UNIT 分享码。如果这个技能有相应的自定义 UNIT 技能，记得也要到百度 UNIT 先分享这个技能得到一个分享码。
+
+  ![自定义技能需要提供一个分享码](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/share-skill.png)
+
 5. 如果依赖第三方库，则务必将其写进 `requirements.txt` 。但有一个例外：wukong-robot 的目的是能跑在尽可能多的设备上，所以一些平台特定的库（例如GPIO、wiringpi等）请先在 `isValid` 方法中引用以确认可用，例如：
 
     ``` python
@@ -56,7 +59,7 @@ git push -u mine master
 
 点击 【compare and pull request】 按钮，进入 pull request 创建页面，申请将您的改动合并到 wukong-contrib 项目中：
 
-![创建一个 pull request](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/pull-request.png)
+![创建一个 pull request](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/new-pull-request.png)
 
 在里头认真填写插件的相关信息。模板如下：
 
@@ -85,11 +88,9 @@ weather:
 * 预置技能ID -- 无  # 如果只用了自定义技能或者没使用UNIT，不用填
 </pre>
 
-不难发现就是你刚刚插进 `contrib.md` 里的内容再加上一段 UNIT 技能的相关说明。如果这个技能有相应的自定义 UNIT 技能，记得也要到百度 UNIT 分享这个技能得到一个分享码。
+不难发现就是你刚刚插进 `contrib.md` 里的内容再加上一段 UNIT 技能的相关说明。
 
-![自定义技能需要提供一个分享码](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/share-skill.png)
-
-完成后点击 【Create pull requset】 ，完成创建，等待 [wukong-robot](https://github.com/wukong-robot) 项目管理员的审核。
+完成后点击 【Create pull requset】 ，完成创建，等待 [wukong-robot](https://github.com/wukong-robot) 项目管理员的审核。如果你的插件包含自定义 UNIT 技能，在这段期间，管理员还会对你的 UNIT 技能进行测试，确认没问题后也会添加进 wukong-robot 的 UNIT 机器人中。
 
 ![创建一个 pull request](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/pull-request-created.png)
 
