@@ -40,6 +40,7 @@
 | 唐奋                    |         40 |  2018-5-16 |                                |
 | 布洛克                  |         30 |  2018-12-3 | 想入群交流                     |
 | *舒                   |         20 |  2018-1-20 | 期待腾讯课堂的分享            |
+| *仁超                  |        20 |   2019-02-22 |                         |
 
 > 部分捐赠者来自 [dingdang-robot](https://github.com/dingdang-robot/dingdang-robot) 项目。由于 [dingdang-robot](https://github.com/dingdang-robot/dingdang-robot) 已停止维护，捐赠者名单一并迁移到这个站点。
 
