@@ -75,7 +75,7 @@ class Plugin(AbstractPlugin):
         pass
 
     def isValidImmersive(self, text, parsed):
-        pass
+        return False
 
     def isValid(self, text, parsed):
         return "打个招呼" in text
