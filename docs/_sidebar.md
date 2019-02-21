@@ -16,4 +16,5 @@
   - [实战篇5：发布技能](writing-skill-publish)
 * [API接口](api)
 * [使用技巧](tips)
+* [麦克风选购](mic-choices)
 * [捐赠](donate)
