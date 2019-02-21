@@ -10,7 +10,6 @@ import requests
 import random
 import time
 from robot import config, logging, utils
-from robot.sdk import unit
 from robot.sdk.AbstractPlugin import AbstractPlugin
 
 logger = logging.getLogger(__name__)
@@ -133,19 +132,19 @@ class Plugin(AbstractPlugin):
         global music_player
         if not music_player:
             self.init_music_player(config.get('/{}/channel'.format(self.SLUG), DEFAULT_CHANNEL))
-        if unit.hasIntent(parsed, 'MUSICRANK') or any(word in text for word in [u"百度音乐", u"百度电台"]):
+        if self.nlu.hasIntent(parsed, 'MUSICRANK') or any(word in text for word in [u"百度音乐", u"百度电台"]):
             music_player.play()
-        elif unit.hasIntent(parsed, 'CHANGE_MUSIC'):
+        elif self.nlu.hasIntent(parsed, 'CHANGE_MUSIC'):
             self.say('换歌')
             self.init_music_player(random.choice(range(0, 40)))        
             music_player.play()
-        elif unit.hasIntent(parsed, 'CHANGE_TO_NEXT'):
+        elif self.nlu.hasIntent(parsed, 'CHANGE_TO_NEXT'):
             self.say('下一首歌')
             music_player.next()
-        elif unit.hasIntent(parsed, 'CHANGE_TO_LAST'):
+        elif self.nlu.hasIntent(parsed, 'CHANGE_TO_LAST'):
             self.say('上一首歌')
             music_player.prev()
-        elif unit.hasIntent(parsed, 'CLOSE_MUSIC') or unit.hasIntent(parsed, 'PAUSE'):        
+        elif self.nlu.hasIntent(parsed, 'CLOSE_MUSIC') or self.nlu.hasIntent(parsed, 'PAUSE'):        
             music_player.stop()
             self.say('退出播放')
         elif '什么歌' in text:
@@ -168,7 +167,7 @@ class Plugin(AbstractPlugin):
 
     def isValidImmersive(self, text, parsed):
         """ 判断是否当前音乐模式下的控制指令 """
-        return any(unit.hasIntent(parsed, intent) for intent in ['CHANGE_MUSIC', 'CHANGE_TO_LAST', 'CHANGE_TO_NEXT', 'CHANGE_VOL', 'CLOSE_MUSIC', 'PAUSE']) or '什么歌' in text
+        return any(self.nlu.hasIntent(parsed, intent) for intent in ['CHANGE_MUSIC', 'CHANGE_TO_LAST', 'CHANGE_TO_NEXT', 'CHANGE_VOL', 'CLOSE_MUSIC', 'PAUSE']) or '什么歌' in text
 
 
     def isValid(self, text, parsed):

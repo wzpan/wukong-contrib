@@ -4,7 +4,6 @@
 import requests
 import json
 from robot import config, logging
-from robot.sdk import unit
 from robot.sdk.AbstractPlugin import AbstractPlugin
 
 logger = logging.getLogger(__name__)
@@ -47,11 +46,10 @@ class Plugin(AbstractPlugin):
 
     def get_location(self, parsed):
         """ 获取位置 """
-        slots = unit.getSlots(parsed, 'USER_WEATHER')
+        words = self.nlu.getSlotWords(parsed, 'USER_WEATHER', 'user_loc')
         # 如果 query 里包含了地点，用该地名作为location
-        for slot in slots:
-            if slot['name'] == 'user_loc':
-                return slot['normalized_word']
+        if len(words) > 0:
+            return words[0]
         # 如果不包含地点，但配置文件指定了 location，则用 location
         else:
             return config.get('location', '深圳')
@@ -94,6 +92,6 @@ class Plugin(AbstractPlugin):
 
 
     def isValid(self, text, parsed):
-        return unit.hasIntent(parsed, 'USER_WEATHER')
+        return self.nlu.hasIntent(parsed, 'USER_WEATHER')
 
 
