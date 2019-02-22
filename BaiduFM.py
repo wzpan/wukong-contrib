@@ -157,7 +157,7 @@ class Plugin(AbstractPlugin):
                 time.sleep(3)
                 music_player.play()
         else:
-            self.say('没听懂你的意思呢，要退出播放，请说退出播放')
+            self.say('没听懂你的意思呢，要停止播放，请说停止播放')
             music_player.play()
 
     def restore(self):

@@ -18,8 +18,12 @@ wukong-robot 是一个简单、灵活、优雅的中文语音对话机器人/智
 
 ## Demo
 
-* Demo视频 - coming soon
-* 后台管理端Demo - https://bot.hahack.com/  （体验用户名：wukong；体验密码：wukong@2019）
+* Demo视频
+    - coming soon
+    - :movie_camera: 征集大家的作品视频中，请参见[近期公告](https://github.com/wzpan/wukong-robot/wiki/notice-board)。
+* 后台管理端Demo 
+    - 体验地址：https://bot.hahack.com/  （体验用户名：wukong；体验密码：wukong@2019）
+    - 备选体验地址：https://bot.sxzz.moe/ （体验用户名：wukong；体验密码：wukong@2019）
 
 ## 环境要求 ##
 
