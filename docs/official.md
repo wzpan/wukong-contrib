@@ -90,7 +90,8 @@ camera:
     count_down: 3           # 倒计时（秒），仅当开启倒计时时有效
     sendToUser: true        # 拍完照是否发送到邮箱/微信
     sound: true             # 是否有拍照音效
-    usb_camera: false              # 是否是 USB 摄像头
+    usb_camera: false       # 是否是 USB 摄像头
+    #device: /dev/video0     # USB 摄像头的设备号（可选）
 ```
 
 如果是 USB 摄像头，还需要确保安装了 fswebcam ：
