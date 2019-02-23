@@ -234,7 +234,7 @@ class MusicPlayer(object):
 <img src="http://hahack-1253537070.file.myqcloud.com/images/unit-music.png" alt="UNIT 预置的音乐技能"/>
 </center>
 
-特别要注意，对于音乐这种长时间出于沉浸模式的场景，你应该设计一个能调用退出沉浸模式 `clearImmersive()` 的指令，比如第 20~23 行中的实现：当用户说出的指令命中 `CLOSE_MUSIC` 或者 `PAUSE` 的意图时，停止播放并结束当前的沉浸模式。
+特别要注意，对于音乐这种长时间处于沉浸模式的场景，你应该设计一个能调用退出沉浸模式 `clearImmersive()` 的指令，比如第 20~23 行中的实现：当用户说出的指令命中 `CLOSE_MUSIC` 或者 `PAUSE` 的意图时，停止播放并结束当前的沉浸模式。
 
 ### `isValidImmersive()` 方法实现 ###
 
