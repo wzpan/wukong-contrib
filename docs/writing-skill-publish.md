@@ -39,7 +39,7 @@
 
 fork 完仓库后，在您的账户下也会有一个 wukong-contrib 项目，点击绿色的 【Clone or download】 按钮，记下新的仓库的地址。
 
-![复制新的仓库地址](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/wukong-contrib-forks.png)
+![复制新的仓库地址](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/wukong-contrib-forks.png)
 
 之后在树莓派中执行如下命令，添加新的仓库地址：
 
@@ -58,11 +58,11 @@ git push -u mine master
 
 完成后访问您的 wukong-contrib 仓库主页，可以看到一个创建 pull request 的提示：
 
-![创建pull request的提示](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/pull-request-hint.png)
+![创建pull request的提示](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/pull-request-hint.png)
 
 点击 【compare and pull request】 按钮，进入 pull request 创建页面，申请将您的改动合并到 wukong-contrib 项目中：
 
-![创建一个 pull request](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/new-pull-request.png)
+![创建一个 pull request](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/new-pull-request.png)
 
 在里头认真填写插件的相关信息。模板如下：
 

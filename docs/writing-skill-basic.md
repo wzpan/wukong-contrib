@@ -2,7 +2,7 @@
 
 ## wukong-robot 工作机制 ##
 
-![wukong-robot 的工作机制](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/wukong-robot.png)
+![wukong-robot 的工作机制](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/wukong-robot.png)
 
 wukong-robot 的工作机制如下：
 

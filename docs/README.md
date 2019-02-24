@@ -4,7 +4,7 @@ wukong-robot 是一个简单、灵活、优雅的中文语音对话机器人/智
 
 ## 特性
 
-![wukong-robot的特性](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/wukong-robot-mindmap.png)
+![wukong-robot的特性](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/wukong-robot-mindmap.png)
 
 * 模块化。功能插件、语音识别、语音合成、对话机器人都做到了高度模块化，第三方插件单独维护，方便继承和开发自己的插件。
 * 中文支持。集成百度、科大讯飞、阿里、腾讯等多家中文语音识别和语音合成技术，且可以继续扩展。

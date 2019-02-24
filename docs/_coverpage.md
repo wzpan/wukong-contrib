@@ -1,4 +1,4 @@
-![logo](http://hahack-1253537070.file.myqcloud.com/images/wukong-icons/256_256.png)
+![logo](https://hahack-1253537070.file.myqcloud.com/images/wukong-icons/256_256.png)
 
 # wukong-robot
 

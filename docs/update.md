@@ -4,7 +4,7 @@
 
 当有新的更新时，wukong-robot 的后台会提示升级，询问你是否需要更新：
 
-![](http://hahack-1253537070.file.myqcloud.com/images/update.jpg)
+![](https://hahack-1253537070.file.myqcloud.com/images/update.jpg)
 
 点击更新即可自动进入更新。
 

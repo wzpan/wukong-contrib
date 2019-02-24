@@ -64,23 +64,23 @@ class Plugin(AbstractPlugin):
 
 我们先在百度UNIT中训练这个技能。注册登录百度UNIT后，在 【[我的技能](https://ai.baidu.com/unit/v2#/sceneliblist)】 面板中点击 【新建技能】 按钮，在弹出的窗口中填好信息，完成创建。
 
-![创建新技能](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/hello-world-1.png)
+![创建新技能](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/hello-world-1.png)
 
 !> 在阅读下面的内容前，请先查阅百度UNIT的[官方教程](https://ai.baidu.com/docs#/UNIT-v2-download/top)。本文将略过对 UNIT 中各种术语的介绍。
 
 接下来我们来创建一个对话意图。进入这个技能后，点击 【新建对话意图】 按钮，新建一个叫做 `HELLO_WORLD` 的意图，并填好信息：
 
-![新建对话意图](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/hello-world-6.png)
+![新建对话意图](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/hello-world-6.png)
 
 在上面中我们定义了一个叫做 `user_person` 的可选词槽，用于确定要向谁问好。在创建的时候，可以复用 UNIT 自带的 `sys_per(人物，包含虚拟人物在内的各类人名)` 系统词槽，你还可以根据需要再添加多一些自定义词典。
 
 接下来我们在左侧面板点击 【训练数据】 -> 【对话样本集】，在对话样本集面板中点击 【新建对话样本集】 ，创建一个样本集。在样本集中尽可能丰富对话语料，并确保正确标定。
 
-![增加语料](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/hello-world-4.png)
+![增加语料](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/hello-world-4.png)
 
 完成后就可以对该技能进行训练和测试，确保模型正常工作，并且不会被误判为其他技能。如果意图判断不理想，可以继续补充语料，直到结果比较理想为止。
 
-![测试训练结果](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/hello-world-res.png)
+![测试训练结果](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/hello-world-res.png)
 
 ### 2. 使用 UNIT 技能 ###
 
@@ -123,7 +123,7 @@ class Plugin(AbstractPlugin):
 * 在第4～7行中，我们将自己创建的技能的 `service_id`、`api_key`、`secret_key` 写成几个全局变量（正式发布的时候无需用到，可以删除）。其中 `service_id` 是你的机器人 ID （例如我的值就是 `S13442`）：
 
 <center>
-<img src="http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/service-id.png" alt="service_id"/>
+<img src="https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/service-id.png" alt="service_id"/>
 </center>
 
 * 在 `isValid()` 的实现中，我们使用 `unit.hasIntent()` 方法从百度 UNIT 解析的结果中判断是否包含 `HELLO_WORLD` 意图，如果是，则命中这个技能。

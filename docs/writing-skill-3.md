@@ -71,11 +71,11 @@ class Plugin(AbstractPlugin):
 
 一种简单的思路是直接通过诸如“天气”之类的关键词来判断，不过这样可能会误判。例如，如果用户说的是“如果明天天气好，我就出去跑步”，此时突然回复天气就显得不太合适。所以，更智能的方案是使用百度 UNIT 来帮我们判断意图。在写 [智能版 Hello World](writing-skill-1?id=%e6%9b%b4%e6%99%ba%e8%83%bd%e7%9a%84%e7%89%88%e6%9c%ac%ef%bc%9a%e7%bb%93%e5%90%88-nlu) 技能时我们已经了解到了 UNIT 技能的训练方法。不过，百度 UNIT 其实也自带了一些预置技能，其中就包括[天气技能](https://ai.baidu.com/unit/v2#/preskilldetail/34838)：
 
-![百度UNIT预置的天气技能](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/unit-weather.png)
+![百度UNIT预置的天气技能](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/unit-weather.png)
 
 查看[这个技能的说明页](https://ai.baidu.com/unit/v2#/preskilldetail/34838)，可以看到它提供了非常多的意图。其中有一个查天气的意图 `USER_WEATHER` ，看起来就是我们需要的：
 
-![`USER_WEATHER` 意图](http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/USER_WEATHER.png)
+![`USER_WEATHER` 意图](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/USER_WEATHER.png)
 
 !> 如果你要实现的技能已经有现成的相应 UNIT 预置技能，那么你应该毫不犹豫地使用它，而不要自己训练。因为 UNIT 提供的预置技能往往有更强的泛化能力。这是因为训练这些预置技能时所选用的语料样本集比你自己能找到的要大得多。
 
