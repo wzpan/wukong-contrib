@@ -92,5 +92,5 @@ class Plugin(AbstractPlugin):
             self.say('抱歉，我没有获取到湿度', cache=True)
 
     def isValid(self, text, parsed):        
-        return importlib.utils.find_spec('RPI') and \
+        return importlib.util.find_spec('RPI') and \
             any(word in text for word in [u"室温", u"家中温度"])

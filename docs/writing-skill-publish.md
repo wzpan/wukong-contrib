@@ -11,7 +11,7 @@
 
   ![自定义技能需要提供一个分享码](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/share-skill.png)
 
-5. 如果依赖第三方库，则务必将其写进 `requirements.txt` 。但有一个例外：wukong-robot 的目的是能跑在尽可能多的设备上，所以一些平台特定的库（例如GPIO、wiringpi等）请先在 `isValid` 方法中引用以确认可用，例如：
+5. 如果依赖第三方库，则务必将其写进 `requirements.txt` 。但有一个例外：wukong-robot 的目的是能跑在尽可能多的设备上，所以一些平台特定的库（例如GPIO、wiringpi等）请先在 `isValid` 方法中使用 `importlib.util.find_spec()` 方法确认该库是否可用，例如：
 
     ``` python
     import importlib  # 用来判断模块是否存在
@@ -19,7 +19,7 @@
     ...
 
     def isValid(text):
-        return importlib.utils.find_spec('wiringpi') and \
+        return importlib.util.find_spec('wiringpi') and \
               "台灯" in text
     ```
 

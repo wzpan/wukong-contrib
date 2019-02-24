@@ -27,5 +27,5 @@ class Plugin(AbstractPlugin):
         return True
 
     def isValid(self, text, parsed):
-        return importlib.utils.find_spec('wiringpi') and \
+        return importlib.util.find_spec('wiringpi') and \
             "台灯" in text
