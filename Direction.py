@@ -1,10 +1,6 @@
 # -*- coding: utf-8-*-
-import sys
-import os
 import json
-import urllib
 import requests
-from urllib.parse import urlencode
 from robot import config, logging
 from robot.sdk.AbstractPlugin import AbstractPlugin
 

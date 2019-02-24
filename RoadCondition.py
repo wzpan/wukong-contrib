@@ -1,5 +1,4 @@
 # -*- coding: utf-8-*-
-import os
 import json
 import requests
 from robot import config, logging

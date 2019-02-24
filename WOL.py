@@ -1,6 +1,5 @@
 # -*- coding: utf-8-*-
 import socket
-import struct
 from robot import config, logging
 from robot.sdk.AbstractPlugin import AbstractPlugin
 

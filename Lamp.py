@@ -1,6 +1,6 @@
 # -*- coding: utf-8-*-
 # 台灯控制
-import os
+import importlib
 from robot import config, logging
 from robot.sdk.AbstractPlugin import AbstractPlugin
 
@@ -27,8 +27,5 @@ class Plugin(AbstractPlugin):
         return True
 
     def isValid(self, text, parsed):
-        try:
-            import wiringpi
-            return u"台灯" in text
-        except Exception:
-            return False
+        return importlib.utils.find_spec('wiringpi') and \
+            "台灯" in text

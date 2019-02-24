@@ -1,8 +1,7 @@
 # -*- coding: utf-8-*-
 # 获取室温插件
 import time
-import socket
-import subprocess
+import importlib
 from robot import config, logging
 from robot.sdk.AbstractPlugin import AbstractPlugin
 
@@ -13,7 +12,7 @@ class Plugin(AbstractPlugin):
     SLUG = "speak_temperature"
 
     def getTempperature(self, temp):
-        import RPi.GPIO as GPIO
+        from RPI import GPIO
         data = []
         j = 0
         channel =0 #输入GPIO号
@@ -71,7 +70,7 @@ class Plugin(AbstractPlugin):
            return "主人，当前家中温度"+str(temperature)+"摄氏度，湿度:百分之"+str(humidity)
         else:
           #return "抱歉主人，传感器犯了点小错"
-          getTempperature(channel)
+          self.getTempperature(channel)
         GPIO.cleanup()
 
     def handle(self, text, parsed):
@@ -85,16 +84,13 @@ class Plugin(AbstractPlugin):
         else:
             temp = profile['gpio']
         try:
-            temper = getTempperature(temp)
+            temper = self.getTempperature(temp)
             logger.debug('getTempperature: ', temper)
             self.say(temper)
         except Exception as e:
             logger.critical("配置异常 {}".format(e))
             self.say('抱歉，我没有获取到湿度', cache=True)
 
-    def isValid(self, text, parsed):
-        try:
-            import RPi.GPIO as GPIO
-            return any(word in text for word in [u"室温", u"家中温度"])
-        except Exception:
-            return False
+    def isValid(self, text, parsed):        
+        return importlib.utils.find_spec('RPI') and \
+            any(word in text for word in [u"室温", u"家中温度"])
