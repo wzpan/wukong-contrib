@@ -2,13 +2,10 @@
 # 有道翻译插件
 
 import json
-import urllib
-import time
 import re
 import requests
 import hashlib
 import random
-import sys
 from robot import config, logging
 from robot.sdk.AbstractPlugin import AbstractPlugin
 
@@ -55,13 +52,13 @@ class Plugin(AbstractPlugin):
     def handle(self, text, parsed):
         logger = logging.getLogger(__name__)
         profile = config.get()
-        if SLUG not in profile or \
-           'appId' not in profile[SLUG] or\
-           'appSecret' not in profile[SLUG]:
+        if self.SLUG not in profile or \
+           'appId' not in profile[self.SLUG] or\
+           'appSecret' not in profile[self.SLUG]:
             self.say('有道翻译插件配置有误，插件使用失败', cache=True)
             return
-        appId = profile[SLUG]['appId']
-        appSecret = profile[SLUG]['appSecret']
+        appId = profile[self.SLUG]['appId']
+        appSecret = profile[self.SLUG]['appSecret']
         sentence = self.getSentence(text)
         logger.info('sentence: ' + sentence)
         if sentence:
