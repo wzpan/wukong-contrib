@@ -26,6 +26,32 @@
            EditOnGithubPlugin.create(
                'https://github.com/wzpan/wukong-contrib/blob/master/docs/'
 		   ),
+           function (hook, vm) {
+             hook.beforeEach(function (html) {
+               return html
+                 + '<hr/>'
+                 + '上次更新：{docsify-updated} '
+             })
+           },
+           function (hook, vm) {
+             hook.mounted(function() {
+               var div = Docsify.dom.create('div')
+               div.id = 'gitalk-container'
+               var main = Docsify.dom.getNode('#main')
+               div.style = `width: ${main.clientWidth}px; margin: 0 auto 20px;`
+               Docsify.dom.appendTo(Docsify.dom.find('.content'), div)
+               var script = Docsify.dom.create('script')
+               script.async = true
+               var ctx = `gitalk.render('gitalk-container')`
+               script.textContent = ctx
+               Docsify.dom.appendTo(Docsify.dom.body, script)
+             })
+             hook.doneEach(function() {
+               var el = document.getElementById('gitalk-container')
+               while(el.hasChildNodes()) el.removeChild(el.firstChild)
+               gitalk.render('gitalk-container')
+             })
+           }
        ]
    }
   </script>
@@ -36,8 +62,7 @@
   <script src="//unpkg.com/prismjs/components/prism-yaml.min.js"></script>
   <script src="//unpkg.com/docsify/lib/plugins/emoji.min.js"></script>
   <script src="//unpkg.com/docsify/lib/plugins/zoom-image.min.js"></script>
-  <script src="//unpkg.com/docsify-copy-code"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
+  <script src="//unpkg.com/docsify-copy-code"></script>  
   <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
