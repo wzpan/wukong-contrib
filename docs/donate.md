@@ -7,7 +7,7 @@
 
 | 支付宝 | 微信支付 |
 | ------ | --------- |
-| <img src="https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/alipay.png" height="248px" width="164px" title="支付宝" style="display:inherit;"/> | <img src="http://hahack-1253537070.file.myqcloud.com/images/wukong-docs/wechatpay.jpeg" height="248px" width="164px" title="微信支付" style="display:inherit;"/>  |
+| <img src="https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/alipay.png" height="248px" width="164px" title="支付宝" style="display:inherit;"/> | <img src="https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/wechatpay.jpeg" height="248px" width="164px" title="微信支付" style="display:inherit;"/>  |
 
 ## 个人捐赠者名单 ##
 
