@@ -9,12 +9,12 @@ import random
 from robot import config, logging
 from robot.sdk.AbstractPlugin import AbstractPlugin
 
+
 class Plugin(AbstractPlugin):
 
     SLUG = "youdao"
 
     def translate(self, appId, appSecret, sentence):
-        logger = logging.getLogger(__name__)             
         url = 'https://openapi.youdao.com/api'
         salt = random.randint(1, 65536)
         sign = appId+sentence+str(salt)+appSecret
@@ -38,14 +38,14 @@ class Plugin(AbstractPlugin):
         pattern1 = re.compile("翻译.*?")
         pattern2 = re.compile(".*?的翻译")
 
-        if re.match(pattern1, text) != None:
+        if re.match(pattern1, text) is not None:
             sentence = text.replace("翻译", "")
-        elif re.match(pattern2, text) != None:
+        elif re.match(pattern2, text) is not None:
             sentence = text.replace("的翻译", "")
         else:
             sentence = ""
-        sentence = sentence.replace(",","")
-        sentence = sentence.replace("，","")
+        sentence = sentence.replace(",", "")
+        sentence = sentence.replace("，", "")
         return sentence
 
 
@@ -67,7 +67,7 @@ class Plugin(AbstractPlugin):
                 if s:
                     self.say(sentence+"的翻译是" + s, cache=False)
                 else:
-                    self.say("翻译" + sentence +"失败，请稍后再试", cache=False)
+                    self.say("翻译" + sentence + "失败，请稍后再试", cache=False)
             except Exception as e:
                 logger.error(e)
                 self.say('抱歉, 我不知道怎么翻译' + sentence, cache=False)
