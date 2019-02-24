@@ -28,7 +28,7 @@ docker run --rm -it -p 5000:5000 --device /dev/snd wzpan/wukong-robot:latest
 docker run --rm -it -p 5000:5000 wzpan/wukong-robot:latest
 ```
 
-因此 Mac 系统更推荐手动安装的方式。而 Windows ，则建议装个 Linux 虚拟机来跑 wukong-robot 。
+因此 Mac 系统更推荐手动安装的方式。而 Windows ，则可以参考 [其他安装方式](#其他安装方式) 中的一键自动安装脚本。
 
 !> 如果遇到 docker 拉取慢的问题，你或许需要考虑先配置好[docker加速器](https://www.daocloud.io/mirror#accelerator-doc)。
 
@@ -169,5 +169,5 @@ do_not_bother:
 
 除了官方提供的安装方法外，还有一些热心用户提供了其他可选的安装方案。
 
-1. 小白同学 @musistudio 提供了一个[一键自动安装脚本](https://github.com/musistudio/wukong-robot-install-script)，适用于 MacOS/Linux 系统。
+1. 小白同学 @musistudio 提供了一个[一键自动安装脚本](https://github.com/musistudio/wukong-robot-install-script)，适用于 MacOS/Ubuntu/WSL（Windows Subsystem for Linux） 系统。
 2. 用户QQ群（580447290）上还有一些用户提供了树莓派的安装镜像，可以入群索取。
