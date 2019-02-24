@@ -14,15 +14,18 @@
 5. 如果依赖第三方库，则务必将其写进 `requirements.txt` 。但有一个例外：wukong-robot 的目的是能跑在尽可能多的设备上，所以一些平台特定的库（例如GPIO、wiringpi等）请先在 `isValid` 方法中引用以确认可用，例如：
 
     ``` python
+    import importlib  # 用来判断模块是否存在
+
+    ...
+
     def isValid(text):
-        try:
-            import wiringpi
-            return u"台灯" in text
-        except Exception:
-            return False
+        return importlib.utils.find_spec('wiringpi') and \
+              "台灯" in text
     ```
 
-这类库不要写入 `requirements.txt` 文件中，而是放在该插件的相应 wiki 说明中，由需要的人按需安装。
+然后在 `handle()` 或者其他真正需要使用到这些库的的地方再 `import` 。
+
+同时这类库不要写入 `requirements.txt` 文件中，而是放在该插件的相应 wiki 说明中，由其他用户按需安装。
 
 ### 技能插件发布流程
 

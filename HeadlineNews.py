@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # 新闻插件
-import sys
-import os
 import json
 import urllib
 from urllib.parse import urlencode

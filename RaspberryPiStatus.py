@@ -17,7 +17,6 @@ class Plugin(AbstractPlugin):
             res = tempFile.read()
             result = float(res) / 1000
         except:
-            logger.error(e)
             self.say(u'抱歉，无法获取处理器温度', cache=True)
         return result
 

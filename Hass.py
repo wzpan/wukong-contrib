@@ -59,7 +59,7 @@ class Plugin(AbstractPlugin):
                         try:
                             measurement = attributes["unit_of_measurement"]
                         except Exception as e:
-                            pass
+                            logger.error(e)
                         if 'measurement' in locals().keys():
                             text = text + "状态是" + state + measurement
                             self.say(text, cache=True)
@@ -84,7 +84,7 @@ class Plugin(AbstractPlugin):
                                 self.say("对不起,执行失败", cache=True)
                                 print(format(request.status_code))
                         except Exception as e:
-                            pass
+                            logger.error(e)
                         break
         else:
             self.say("对不起,指令不存在", cache=True)

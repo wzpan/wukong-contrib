@@ -1,11 +1,6 @@
 # -*- coding: utf-8-*-
 import json
 import os
-import hashlib
-import socket
-import subprocess
-import tempfile
-import urllib
 import requests
 import random
 import time

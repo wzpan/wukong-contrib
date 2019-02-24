@@ -1,6 +1,5 @@
 # -*- coding: utf-8-*-
 # 关闭系统插件
-import sys
 import time
 import subprocess
 from robot import logging

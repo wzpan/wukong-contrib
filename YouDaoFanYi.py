@@ -9,12 +9,13 @@ import random
 from robot import config, logging
 from robot.sdk.AbstractPlugin import AbstractPlugin
 
+logger = logging.getLogger(__name__)
 
 class Plugin(AbstractPlugin):
 
     SLUG = "youdao"
 
-    def translate(self, appId, appSecret, sentence):
+    def translate(self, appId, appSecret, sentence):        
         url = 'https://openapi.youdao.com/api'
         salt = random.randint(1, 65536)
         sign = appId+sentence+str(salt)+appSecret
@@ -50,7 +51,6 @@ class Plugin(AbstractPlugin):
 
 
     def handle(self, text, parsed):
-        logger = logging.getLogger(__name__)
         profile = config.get()
         if self.SLUG not in profile or \
            'appId' not in profile[self.SLUG] or\
