@@ -106,7 +106,8 @@ brew install swig
 #### 构建 snowboy
 
 ``` bash
-git clone https://github.com/wzpan/snowboy.git  # 使用我fork出来的版本以确保接口兼容
+wget http://hahack-1253537070.file.myqcloud.com/misc/snowboy.tar.bz2  # 使用我fork出来的版本以确保接口兼容
+tar -xvjf snowboy.tar.bz2
 cd swig/Python3
 make
 cp _snowboydetect.so <wukon-robot的根目录/snowboy/>
