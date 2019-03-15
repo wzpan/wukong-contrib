@@ -4,7 +4,7 @@
 
 沉浸式技能最典型的应用场景是音乐播放器。通常的交互模式是唤醒 wukong-robot 后，说出指令并触发该技能插件，由其进入该技能的沉浸式场景中。在该技能的沉浸式场景下，用户唤醒 wukong-robot 后，允许响应更多指令以完成更丰富的操作（例如“下一首歌”、“这是什么歌”等指令）。如果唤醒后只是简单的聊天，而不是进入其他技能，那么还允许 wukong-robot 在回答后恢复该技能的沉浸式场景（例如，用户在音乐场景中唤醒 wukong-robot 并问完时间后，wukong-robot 可以自动恢复音乐播放）。
 
-编写一个沉浸式技能插件和普通技能插件大同小异，仅仅只需要设置 `IS_IMMERSIVE` 成员属性为 `True` ，并根据需求实现多两个方法： [`isValidImmersive()`](https://www.hahack.com/wukong-robot/robot.sdk.html#robot.sdk.AbstractPlugin.AbstractPlugin.isValidImmersive) 方法和 [`restore()`](https://www.hahack.com/wukong-robot/robot.sdk.html#robot.sdk.AbstractPlugin.AbstractPlugin.restore) 方法即可，这两个方法分别用来支持沉浸模式下更多指令的响应以及恢复技能。
+编写一个沉浸式技能插件和普通技能插件大同小异，仅仅只需要设置 `IS_IMMERSIVE` 成员属性为 `True` ，并根据需求实现多三个方法： [`isValidImmersive()`](https://www.hahack.com/wukong-robot/robot.sdk.html#robot.sdk.AbstractPlugin.AbstractPlugin.isValidImmersive) 方法、 [`restore()`](https://www.hahack.com/wukong-robot/robot.sdk.html#robot.sdk.AbstractPlugin.AbstractPlugin.restore) 方法和 `pause()` 方法即可，这三个方法分别用来支持沉浸模式下更多指令的响应、恢复技能和暂停技能。
 
 我们可以试着实现一个本地音乐播放器插件 LocalPlayer 。
 
@@ -58,7 +58,7 @@ class Plugin(AbstractPlugin):
         return "打个招呼" in text
 ```
 
-如上所述，沉浸式插件不外乎多设了个 `IS_IMMERSIVE` 属性和两个新方法，接下来我们先把它改造成沉浸式插件的模板：
+如上所述，沉浸式插件不外乎多设了个 `IS_IMMERSIVE` 属性和三个新方法，接下来我们先把它改造成沉浸式插件的模板：
 
 ``` python
 # -*- coding: utf-8-*-
@@ -71,6 +71,9 @@ class Plugin(AbstractPlugin):
     def handle(self, text, parsed):
         self.say('hello world!', cache=True)
 
+    def pause(self):
+        pass
+
     def restore(self):
         pass
 
@@ -82,7 +85,7 @@ class Plugin(AbstractPlugin):
 ```
 
 * 第 6 行我们设置了一个 `IS_IMMERSIVE` 成员变量，并将值改为 True 。用于告知 wukong-robot 这是一个沉浸式插件，它需要在适当时机执行额外的 `restore()` 方法和 `isValidImmersive()` 方法。
-* 第 11~15 行我们将两个新方法 `restore()` 方法和 `isValidImmersive()` 方法添加进来，并暂时提供一个空实现。我们将在后面完成这两个方法的实现。
+* 第 11~18 行我们将三个新方法 `pause()` 方法、 `restore()` 方法和 `isValidImmersive()` 方法添加进来，并暂时提供一个空实现。我们将在后面完成这三个方法的实现。
 
 ### `isValid()` 实现 ###
 
@@ -250,11 +253,19 @@ class MusicPlayer(object):
 
 这个方法告诉 wukong-robot 当处于 LocalPlayer 的沉浸模式下时，还能额外处理 `CHANGE_TO_LAST`、`CHANGE_TO_NEXT`、`CHANGE_VOL`、`CLOSE_MUSIC`、`PAUSE` 几种意图。
 
+### `pause()` 方法实现 ###
+
+`pause()` 方法用于将技能的处理状态暂停。比如如果你的技能用于持续地向一个地址发送心跳，当你唤醒 wukong-robot 时，这个持续操作应该暂停，以免这个技能永远暂停不了。
+
+?> 当然，这个方法是可选的，如果你并不希望暂停技能，可以不实现这个方法。
+
+不过，因为我们实际用的是插件自带的 Player 来实现音乐播放的，而 Player 在 wukong-robot 被唤醒时自动会暂停，所以我们无需自行处理音乐的暂停。这里我们可以不用自行实现技能的暂停。所以无需添加任何 `pause()` 的代码。
+
 ### `restore()` 方法实现 ###
 
 还有一个问题：当用户打断音乐播放时，wukong-robot 处理完用户打断的指令后，理想情况下应该是继续播放音乐。所以我们还可以再实现一个 `restore()` 方法，这个方法将在 wukong-robot 被打断后，恢复技能的处理。
 
-?> 当然，这个方法是可选的，如果你并不希望恢复技能，可以不实现这个方法。
+?> 当然，这个方法也是可选的，如果你并不希望恢复技能，可以不实现这个方法。
 
 ``` python
     def restore(self):

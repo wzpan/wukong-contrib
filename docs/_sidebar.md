@@ -17,4 +17,5 @@
 * [API接口](api)
 * [使用技巧](tips)
 * [麦克风选购](mic-choices)
+* [常见问题解答](https://github.com/wzpan/wukong-robot/wiki/troubleshooting)
 * [捐赠](donate)
