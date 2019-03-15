@@ -19,7 +19,7 @@ docker pull wzpan/wukong-robot:latest
 对于 Linux 系统，可以将 `/dev/snd` 桥接给 docker，这样可以实现声卡的支持：
 
 ``` bash
-docker run --rm -it -p 5000:5000 --device /dev/snd wzpan/wukong-robot:latest
+docker run -it -p 5000:5000 --device /dev/snd wzpan/wukong-robot:latest
 ```
 
 而对于 Mac 和 Windows 系统，则只能放弃声卡的支持：
