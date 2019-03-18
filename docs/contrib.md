@@ -318,6 +318,8 @@ switch.pump:
   wukong: {"开始浇水":"turn_on", "浇水":"turn_on", "停止浇水":"turn_off", "结束浇水":"turn_off"}  
 ``` 
 
+如果使用上遇到问题，不妨看看这个PR：https://github.com/wzpan/dingdang-robot/pull/42
+
 ## ControlMqtt ##
 
 * 通过 Mqtt 协议与其他开发板通讯传递数据。
