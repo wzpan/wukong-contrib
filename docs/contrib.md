@@ -322,7 +322,7 @@ key 处填写的内容如下：
 
 Bearer ABCDE
 
-用第二步获取到的密钥替换ABCDE(保留空格)，将其整体填入双引号中
+用第二步获取到的密钥替换ABCDE(保留Bearer和ABCDE之间的空格)，将其整体填入双引号中
  
 
 ### HomeAssistant 配置
