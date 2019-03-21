@@ -287,13 +287,36 @@ youdao:
 - 悟空：“执行成功”
 
 ### 配置
+原作者：Deschanel
+修改者：Patrick Chen
+官方api页面：https://home-assistant.io/developers/rest_api/
+
+第一步：
+在homeassistant的configuration.yaml里添加：
+
+``` yaml
+api：
+```
+
+第二步：
+
+登陆homeassistant网页，在侧拉菜单中点击homeassistant字样旁自己的头像，然后将页面拉至最底下找到“长期访问令牌”点击创建令牌，随意取一个名字如：wukong点击确认
+在随后弹出的窗口中复制并想办法记录自己的密钥
+
+第三步：
+打开wukong的配置文件，添加：
 
 ``` yaml
 homeassistant:
-    url: "http://127.0.0.1"    #切记加上http://，ip或者域名为你的homeassistant的主机
-    port: "8123"               # 端口为你的homeassistant的端口
-    password: ""               # 建议加上密码，增加安全性
-``` 
+    url: "http://127.0.0.1"   #切记加上http://，ip或者域名为你的homeassistant的主机
+    port: "8123"             # 端口为你的homeassistant的端口和网页端口一样
+    key: "" # 密钥
+```
+
+key处填写的内容如下：
+Bearer ABCDE
+用第二步获取到的密钥替换ABCDE(保留空格)，将其整体填入双引号中
+ 
 
 ### HomeAssistant 配置
 
@@ -318,7 +341,7 @@ switch.pump:
   wukong: {"开始浇水":"turn_on", "浇水":"turn_on", "停止浇水":"turn_off", "结束浇水":"turn_off"}  
 ``` 
 
-如果使用上遇到问题，不妨看看这个PR：https://github.com/wzpan/dingdang-robot/pull/42
+
 
 ## ControlMqtt ##
 
