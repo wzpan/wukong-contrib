@@ -288,7 +288,9 @@ youdao:
 
 ### 配置
 原作者：Deschanel
+
 修改者：Patrick Chen
+
 官方api页面：https://home-assistant.io/developers/rest_api/
 
 第一步：
@@ -301,6 +303,7 @@ api：
 第二步：
 
 登陆homeassistant网页，在侧拉菜单中点击homeassistant字样旁自己的头像，然后将页面拉至最底下找到“长期访问令牌”点击创建令牌，随意取一个名字如：wukong点击确认
+
 在随后弹出的窗口中复制并想办法记录自己的密钥
 
 第三步：
@@ -314,7 +317,9 @@ homeassistant:
 ```
 
 key处填写的内容如下：
+
 Bearer ABCDE
+
 用第二步获取到的密钥替换ABCDE(保留空格)，将其整体填入双引号中
  
 
