@@ -287,22 +287,24 @@ youdao:
 - 悟空：“执行成功”
 
 ### 配置
-原作者：Deschanel
+原作者： Deschanel
 
-修改者：Patrick Chen
+修改者： Patrick Chen
 
 官方api页面：https://home-assistant.io/developers/rest_api/
 
 第一步：
+
 在 homeassistant 的 configuration.yaml 里添加：
 
 ``` yaml
 api：
   api_password: 
 ```
-修改后api插件就启动了
 
-注意：api_password:后设置api接口密码，建议设置，但是这个密码在与wukong之间通信时用不到，以后自行开发homeassistant时可能用到这里的api密码，此密码的修改不影响wukong工作。（冒号之后有空格！在空格之后直接输入密码无需引号）
+修改后 api 插件就启动了
+
+注意： api_password: 后设置 api 接口密码，建议设置，但是这个密码在与 wukong 之间通信时用不到，以后自行开发 homeassistant 时可能用到这里的 api 密码，此密码的修改不影响 wukong 工作。（冒号之后有空格！在空格之后直接输入密码无需引号）
 
 第二步：
 
@@ -311,6 +313,7 @@ api：
 在随后弹出的窗口中复制并想办法记录自己的密钥
 
 第三步：
+
 打开 wukong 的配置文件（网页后台或直接修改都一样），添加：
 
 ``` yaml
