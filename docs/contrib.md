@@ -287,13 +287,48 @@ youdao:
 - 悟空：“执行成功”
 
 ### 配置
+原作者： Deschanel
+
+修改者： Patrick Chen
+
+官方api页面：https://home-assistant.io/developers/rest_api/
+
+第一步：
+
+在 homeassistant 的 configuration.yaml 里添加：
+
+``` yaml
+api：
+  api_password: 
+```
+
+修改后 api 插件就启动了
+
+注意:在`api_password: `后设置 api 接口密码，建议设置，但是这个密码在与 wukong 之间通信时用不到，以后自行开发 homeassistant 时可能用到这里的 api 密码，此密码的修改不影响 wukong 工作。（冒号之后有空格！在空格之后直接输入密码无需引号）
+
+第二步：
+
+登陆 homeassistant 网页，在侧拉菜单中点击 homeassistant 字样旁自己的头像，然后将页面拉至最底下找到“长期访问令牌”点击创建令牌，随意取一个名字如： wukong 点击确认
+
+在随后弹出的窗口中复制并想办法记录自己的密钥
+
+第三步：
+
+打开 wukong 的配置文件（网页后台或直接修改都一样），添加：
 
 ``` yaml
 homeassistant:
-    url: "http://127.0.0.1"    #切记加上http://，ip或者域名为你的homeassistant的主机
-    port: "8123"               # 端口为你的homeassistant的端口
-    password: ""               # 建议加上密码，增加安全性
-``` 
+    url: "http://127.0.0.1"   #切记加上http://，ip或者域名为你的homeassistant的主机
+    port: "8123"             # 端口为你的homeassistant的端口和网页端口一样
+    key: "" # 密钥
+```
+
+key 处填写的内容如下：
+
+Bearer ABCDE
+
+用第二步获取到的密钥替换 ABCDE (保留 Bearer 和 ABCDE 之间的空格)，将其整体填入双引号中
+ 
 
 ### HomeAssistant 配置
 
@@ -317,6 +352,8 @@ switch.pump:
   friendly_name: "浇水"
   wukong: {"开始浇水":"turn_on", "浇水":"turn_on", "停止浇水":"turn_off", "结束浇水":"turn_off"}  
 ``` 
+
+
 
 ## ControlMqtt ##
 

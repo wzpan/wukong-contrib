@@ -31,13 +31,13 @@ class Plugin(AbstractPlugin):
         profile = config.get()
         if self.SLUG not in profile or 'url' not in profile[self.SLUG] or \
            'port' not in profile[self.SLUG] or \
-           'password' not in profile[self.SLUG]:
+           'key' not in profile[self.SLUG]:
             self.say("HomeAssistant 插件配置有误", cache=True)
             return
         url = profile[self.SLUG]['url']
         port = profile[self.SLUG]['port']
-        password = profile[self.SLUG]['password']
-        headers = {'x-ha-access': password, 'content-type': 'application/json'}
+        key = profile[self.SLUG]['key']
+        headers = {'Authorization': key, 'content-type': 'application/json'}
         r = requests.get(url + ":" + port + "/api/states", headers=headers)
         r_jsons = r.json()
         devices = []
@@ -93,4 +93,4 @@ class Plugin(AbstractPlugin):
     def isValid(self, text, parsed):
         return any(word in text for word in ["开启家庭助手",
                                              "开启助手", "打开家庭助手", "打开助手",
-                                             "家庭助手", "帮我"])
+                                             "家庭助手", "帮我", "智能家居"])
