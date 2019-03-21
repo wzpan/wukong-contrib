@@ -304,7 +304,7 @@ api：
 
 修改后 api 插件就启动了
 
-注意： api_password: 后设置 api 接口密码，建议设置，但是这个密码在与 wukong 之间通信时用不到，以后自行开发 homeassistant 时可能用到这里的 api 密码，此密码的修改不影响 wukong 工作。（冒号之后有空格！在空格之后直接输入密码无需引号）
+注意'api_password: '设置 api 接口密码，建议设置，但是这个密码在与 wukong 之间通信时用不到，以后自行开发 homeassistant 时可能用到这里的 api 密码，此密码的修改不影响 wukong 工作。（冒号之后有空格！在空格之后直接输入密码无需引号）
 
 第二步：
 
@@ -327,7 +327,7 @@ key 处填写的内容如下：
 
 Bearer ABCDE
 
-用第二步获取到的密钥替换ABCDE(保留Bearer和ABCDE之间的空格)，将其整体填入双引号中
+用第二步获取到的密钥替换 ABCDE (保留 Bearer 和 ABCDE 之间的空格)，将其整体填入双引号中
  
 
 ### HomeAssistant 配置
