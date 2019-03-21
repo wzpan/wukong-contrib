@@ -294,7 +294,7 @@ youdao:
 官方api页面：https://home-assistant.io/developers/rest_api/
 
 第一步：
-在homeassistant的configuration.yaml里添加：
+在 homeassistant 的 configuration.yaml 里添加：
 
 ``` yaml
 api：
@@ -302,12 +302,12 @@ api：
 
 第二步：
 
-登陆homeassistant网页，在侧拉菜单中点击homeassistant字样旁自己的头像，然后将页面拉至最底下找到“长期访问令牌”点击创建令牌，随意取一个名字如：wukong点击确认
+登陆 homeassistant 网页，在侧拉菜单中点击 homeassistant 字样旁自己的头像，然后将页面拉至最底下找到“长期访问令牌”点击创建令牌，随意取一个名字如： wukong 点击确认
 
 在随后弹出的窗口中复制并想办法记录自己的密钥
 
 第三步：
-打开wukong的配置文件，添加：
+打开 wukong 的配置文件（网页后台或直接修改都一样），添加：
 
 ``` yaml
 homeassistant:
@@ -316,7 +316,7 @@ homeassistant:
     key: "" # 密钥
 ```
 
-key处填写的内容如下：
+key 处填写的内容如下：
 
 Bearer ABCDE
 
