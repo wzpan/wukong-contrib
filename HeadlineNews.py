@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 # 新闻插件
 import json
-import urllib
-from urllib.parse import urlencode
+import requests
 from robot import config, logging
 from robot.sdk.AbstractPlugin import AbstractPlugin
-
 logger = logging.getLogger(__name__)
 
 class Plugin(AbstractPlugin):
@@ -18,14 +16,8 @@ class Plugin(AbstractPlugin):
             "key" : appkey,
             "type" : type[1]
         }
-        params = urlencode(params)
-        if m == "GET":
-            f = urllib.request.urlopen("%s?%s" % (url, params))
-        else:
-            f = urllib.request.urlopen(url, params)
-
-        content = f.read()
-        res = json.loads(str(content))
+        req = requests.get(url,params=params)
+        res = req.json()
         if res:
             error_code = res["error_code"]
             if error_code == 0:
