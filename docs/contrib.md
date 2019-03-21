@@ -298,9 +298,11 @@ youdao:
 
 ``` yaml
 api：
+  api_password: 
 ```
+修改后api插件就启动了
 
-注意：请独立占一行，并且请勿“缩进”！！！
+注意：api_password:后设置api接口密码，建议设置，但是这个密码在与wukong之间通信时用不到，以后自行开发homeassistant时可能用到这里的api密码，此密码的修改不影响wukong工作。（冒号之后有空格！在空格之后直接输入密码无需引号）
 
 第二步：
 
