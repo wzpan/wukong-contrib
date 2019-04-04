@@ -2,9 +2,6 @@
 from robot.sdk import unit
 from robot.sdk.AbstractPlugin import AbstractPlugin
 from sdk.weibo import WeiBo
-import time
-import os
-import requests
 
 weibo = WeiBo()
 

@@ -108,14 +108,12 @@ ctl.!default {
 
 ### 呼吸灯
 
-如果希望 Respeaker 2 Mics 在使用 wukong-robot 的过程中有呼吸灯效果，可以打个呼吸灯补丁。
+如果希望 Respeaker 2 Mics 在使用 wukong-robot 的过程中有呼吸灯效果，可以切到 respeaker 分支。
 
 ``` bash
 cd wukong-robot 的根路径
-git cherry-pick c12ca91
+git checkout respeaker
 ```
-
-不过每次更新了 wukong-robot 后，这个补丁的效果会丢失，只需重新打一次补丁即可。
 
 ### 其他技巧
 

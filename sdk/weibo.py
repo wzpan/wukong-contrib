@@ -81,7 +81,7 @@ class WeiBo(object):
                         })
                     if '置顶' in response[0]['content']:
                         response.pop(0)
-            except json.decoder.JSONDecodeError as e:
+            except json.decoder.JSONDecodeError:
                 continue
         return response
 
