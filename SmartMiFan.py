@@ -1,9 +1,7 @@
 # -*- coding: utf-8-*-
 # 智米风扇控制插件
-import sys
-import socket
-import subprocess
 import re
+import importlib
 from robot import config, logging
 from robot.sdk.AbstractPlugin import AbstractPlugin
 
@@ -251,7 +249,7 @@ class Plugin(AbstractPlugin):
 
     def isValid(self, text, parsed):
         try:
-            import miio
-            return any(word in text for word in [u"风扇", u"自然风", u"风量", u"风力", u"风速", u"摇头"])
+            return importlib.util.find_spec('miio') and \
+                any(word in text for word in [u"风扇", u"自然风", u"风量", u"风力", u"风速", u"摇头"])
         except:
             return False
