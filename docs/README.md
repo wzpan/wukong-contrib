@@ -14,13 +14,13 @@ wukong-robot 是一个简单、灵活、优雅的中文语音对话机器人/智
 * 智能家居。支持和 mqtt、HomeAssistant 等智能家居协议联动，支持语音控制智能家电。
 * 后台配套支持。提供配套后台，可实现远程操控、修改配置和日志查看等功能。
 * 开放API。可利用后端开放的API，实现更丰富的功能。
+* 微信接入。配合 [wukong-itchat](http://github.com/wzpan/wukong-itchat) ，可实现通过微信远程操控自己家中的设备。
 * 安装简单，支持更多平台。相比 dingdang-robot ，舍弃了 PocketSphinx 的离线唤醒方案，安装变得更加简单，代码量更少，更易于维护并且能在 Mac 以及更多 Linux 系统中运行。
 
 ## Demo
 
 * Demo视频
     - coming soon
-    - :movie_camera: 征集大家的作品视频中，请参见[近期公告](https://github.com/wzpan/wukong-robot/wiki/notice-board)。
 * 后台管理端Demo 
     - 体验地址：https://bot.hahack.com/  （体验用户名：wukong；体验密码：wukong@2019）
     - 备选体验地址：https://bot.sxzz.moe/ （体验用户名：wukong；体验密码：wukong@2019）
