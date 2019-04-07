@@ -122,7 +122,7 @@ cp _snowboydetect.so <wukon-robot的根目录/snowboy/>
 * [Deepin](http://hahack-1253537070.file.myqcloud.com/misc/snowboy-deepin/_snowboydetect.so)
 * [Raspberry Pi](http://hahack-1253537070.file.myqcloud.com/misc/snowboy-pi/_snowboydetect.so)
 
-### 5. 安装第三方技能插件库 dingdang-contrib
+### 5. 安装第三方技能插件库 wukong-contrib
 
 ``` bash
 mkdir $HOME/.wukong

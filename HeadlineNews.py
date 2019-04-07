@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # 新闻插件
-import json
 import requests
 from robot import config, logging
 from robot.sdk.AbstractPlugin import AbstractPlugin
