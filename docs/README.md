@@ -25,7 +25,9 @@ coming soon
 
 * Demo视频2：ycy-robot 月芽特别定制版
     
-<iframe src="//player.bilibili.com/player.html?aid=48873736&cid=85589172&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<center>
+<iframe src="//player.bilibili.com/player.html?aid=48873736&cid=85589172&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
+</center>
     
 * 后台管理端Demo 
     - 体验地址：https://bot.hahack.com/  （体验用户名：wukong；体验密码：wukong@2019）
