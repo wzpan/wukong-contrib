@@ -4,7 +4,7 @@
 
 > 一个简单、灵活、优雅的中文语音对话机器人/智能音箱项目
 
-[GitHub](https://github.com/wzpan/wukong-robot/)
-[捐赠](donate)
-[课程](https://ke.qq.com/course/387931?tuin=1b8113f4)
-[进入文档](README)
+[:octocat: GitHub](https://github.com/wzpan/wukong-robot/)
+[:heart: 捐赠](donate)
+[:movie_camera: 课程](https://ke.qq.com/course/387931?tuin=1b8113f4)
+[:green_book: 进入文档](README)
