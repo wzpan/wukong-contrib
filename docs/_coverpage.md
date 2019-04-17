@@ -6,4 +6,5 @@
 
 [GitHub](https://github.com/wzpan/wukong-robot/)
 [捐赠](donate)
+[课程](https://ke.qq.com/course/387931?tuin=1b8113f4)
 [进入文档](README)
