@@ -63,11 +63,11 @@ LocalPlayer:
 
 ## Camera
 
-用于调起摄像头拍照（如果安装了摄像头的话）。
+用于调起摄像头拍照（如果安装了摄像头的话）。拍完后将在后台管理端的会话气泡中直接展示。
 
 ### 适用平台
 
-适用于树莓派或者带有USB摄像头的PC。
+适用于树莓派、带有USB摄像头的 PC 或者 Mac。
 
 ### 触发条件
 
@@ -91,23 +91,30 @@ LocalPlayer:
 
 ``` yaml
 # 拍照
+# 需接入摄像头才能使用
 camera:
-    enable: true
-    dest_path: "/home/pi/camera" # 保存目录
-    quality: 5              # 成像质量（0~100）
-    vertical_flip: false    # 竖直翻转
-    horizontal_flip: false  # 水平翻转
+    enable: false
+    type: 2                 # 摄像头类型 0：usb_camera，1：树莓派 5MP 摄像头，2：Mac 摄像头
+                            # 对于 Mac 摄像头，请先安装 imagesnap 。例如 Mac OSX： brew install imagesnap
+    dest_path: "/Users/panweizhou/Pictures/" # 保存目录
+    quality: 5              # 成像质量（0~100），不支持 imagesnap
+    vertical_flip: true     # 竖直翻转，不支持 imagesnap
+    horizontal_flip: false  # 水平翻转，不支持 imagesnap
     count_down: 3           # 倒计时（秒），仅当开启倒计时时有效
-    sendToUser: true        # 拍完照是否发送到邮箱
     sound: true             # 是否有拍照音效
-    usb_camera: false       # 是否是 USB 摄像头    
-    #device: /dev/video0     # USB 摄像头的设备号（可选，如果需要设置请反注释）
+    usb_camera: false       # 是否是 USB 摄像头（已废弃，请使用 type）
 ```
 
 如果是 USB 摄像头，还需要确保安装了 fswebcam ：
 
-``` sh
+``` bash
 sudo apt-get install fswebcam
+```
+
+如果是 Mac OSX 摄像头，则需要安装 imagesnap ：
+
+``` bash
+brew install imagesnap
 ```
 
 ## CleanCache
