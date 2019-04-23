@@ -90,6 +90,14 @@ LocalPlayer:
 ### 配置
 
 ``` yaml
+# 后台管理端
+server:
+    ...
+    host: '0.0.0.0'  # 这里改成当前运行 wukong-robot 的设备的局域网地址
+    ...
+
+...
+
 # 拍照
 # 需接入摄像头才能使用
 camera:
