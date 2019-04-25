@@ -119,6 +119,10 @@ camera:
 sudo apt-get install fswebcam
 ```
 
+如果是树莓派摄像头，请确保在 `raspi-config` 中已启用 Camera ：
+
+![](https://images2015.cnblogs.com/blog/1174662/201705/1174662-20170531164041180-332981382.jpg)
+
 如果是 Mac OSX 摄像头，则需要安装 imagesnap ：
 
 ``` bash
