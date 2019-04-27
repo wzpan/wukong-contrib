@@ -24,7 +24,6 @@ class Plugin(AbstractPlugin):
         elif any(word in text for word in [u"关闭",u"关掉",u"熄灭"]):
             wiringpi.digitalWrite(pin,1)
             self.say("好的，已经关闭台灯", cache=True)
-        return True
 
     def isValid(self, text, parsed):
         return importlib.util.find_spec('wiringpi') and \

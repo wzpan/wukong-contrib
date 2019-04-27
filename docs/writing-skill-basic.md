@@ -29,7 +29,7 @@ wukong-robot 支持两类技能插件：
 不论是哪种类型的插件，都只需继承同一个基类 [`robot.sdk.AbstractPlugin`](https://www.hahack.com/wukong-robot/_modules/robot/sdk/AbstractPlugin.html#AbstractPlugin) ，并实现相应相关接口即可。其中：
 
 * 普通技能插件只需实现 `isValid()` 和 `handle()` 两个接口，分别用来判断用户指令是否适合交给该技能插件处理，以及如何处理；
-* 沉浸式技能插件在普通技能插件的基础上，还需要设置 `IS_IMMERSIVE` 成员属性为 `True` ，此外还可以根据需求实现 `isValidImmersive()` 和 `restore()` 两个方法，分别用来支持沉浸模式下更多指令的响应以及恢复技能。
+* 沉浸式技能插件在普通技能插件的基础上，还需要设置 `IS_IMMERSIVE` 成员属性为 `True` ，此外还可以根据需求实现 `isValidImmersive()` 、 `restore()` 和 `pause()` 几个方法，分别用来支持沉浸模式下更多指令的响应以及恢复技能。
 
 ## 辅助模块 ##
 
