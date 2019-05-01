@@ -26,7 +26,7 @@ coming soon
 * Demo视频2：ycy-robot 月芽特别定制版
     
 <center>
-<iframe src="//player.bilibili.com/player.html?aid=48873736&cid=85589172&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
+    <iframe src="//player.bilibili.com/player.html?aid=50685517&cid=88726713&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
 </center>
     
 * 后台管理端Demo 
