@@ -6,7 +6,16 @@ python3 wukong.py
 
 第一次启动时将提示你是否要到用户目录下创建一个配置文件，输入 `y` 即可。
 
-然后通过唤醒词 “孙悟空” 唤醒 wukong-robot 进行交互（该唤醒词可自定义）。
+然后通过唤醒词 “孙悟空” 唤醒 wukong-robot 进行交互（该唤醒词可自定义，另外强烈建议[自训练一下唤醒词](/install?id=_6-更新唤醒词（可选，树莓派必须）) 以提升唤醒成功率和准确率）。
+
+启动时如遇到如下问题：
+
+```
+connect(2) call to /tmp/jack-1000/default/jack_0 failed (err=No such file or directory)
+attempt to connect to server failed 
+```
+
+不影响功能，只是pulseaudio的告警，可以忽略。
 
 要让 wukong-robot 暂时屏蔽离线监听，可以在配置文件中设置 `hotword_switch` 为 true：
 
@@ -17,6 +26,8 @@ do_not_bother:
     hotword_switch: false  # 是否使用唤醒词开关唤醒模式
     ...
 ```
+
+然后使用唤醒词 “悟空别吵” 屏蔽离线监听。需要时再通过 “悟空醒醒” 恢复监听。
 
 ## 管理端 ##
 
