@@ -44,6 +44,7 @@
 | j*y                    |        200 | 2019-3-28 | 致敬！辛苦了！……   |
 | *华                    |       20 |  2019-4-4 |                      |
 | *了                     |       20  | 2019-4-19 |                     |
+| *挂                     |       20  | 2019-7-3 |  太棒了！               |
 
 > 部分捐赠者来自 [dingdang-robot](https://github.com/dingdang-robot/dingdang-robot) 项目。由于 [dingdang-robot](https://github.com/dingdang-robot/dingdang-robot) 已停止维护，捐赠者名单一并迁移到这个站点。
 
