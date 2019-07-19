@@ -3,7 +3,7 @@
 您的捐赠将鼓励我继续完善 wukong-robot，一起让世界更智能！
 
 * 对于个人用户，可以使用支付宝或者微信进行捐赠，单笔超过 20 元的捐赠者，您的 ID 将可以出现在 wukong-robot 后台管理端的捐赠页面中。
-* 对于企业用户，建议[成为这个项目的 sponsor](https://opencollective.com/wukong-robot/contribute/tier/8131-sponsor)，您将可以把一个带链接的 logo 放在 wukong-robot 后台管理端的首页、捐赠页面以及 Github 项目首页中。
+* 对于企业用户，建议[成为这个项目的赞助商](https://opencollective.com/wukong-robot/contribute/tier/8131-sponsor)，您将可以把一个带链接的 logo 放在 wukong-robot 后台管理端的首页、捐赠页面以及 Github 项目首页中。
 
 | 支付宝 | 微信支付 |
 | ------ | --------- |
@@ -49,7 +49,7 @@
 
 > 部分捐赠者来自 [dingdang-robot](https://github.com/dingdang-robot/dingdang-robot) 项目。由于 [dingdang-robot](https://github.com/dingdang-robot/dingdang-robot) 已停止维护，捐赠者名单一并迁移到这个站点。
 
-## sponsor 列表 ##
+## 赞助商列表 ##
 
 <p align="center">
   <a href="https://opencollective.com/wukong-robot/sponsor/0/website" target="_blank"><img src="https://opencollective.com/wukong-robot/sponsor/0/avatar.svg"></a>
