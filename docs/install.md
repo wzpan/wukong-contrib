@@ -143,7 +143,7 @@ pip3 install -r contrib/requirements.txt
 python3 wukong.py
 ```
 
-第一次启动将提示你是否要到用户目录下创建一个配置文件，输入 `y` 即可。配置文件将会保存在 `~/.wukong/config.yml` 
+第一次启动将提示你是否要到用户目录下创建一个配置文件，输入 `y` 即可。配置文件将会保存在 `~/.wukong/config.yml` 。
 
 接下来我们来训练和更新唤醒词。比较建议到 [snowboy 官网](https://snowboy.kitt.ai/dashboard) 上训练自己的模型，然后把模型放在 `~/.wukong` 中，并修改 `~/.wukong/config.yml` 里的几个 hotword 指向的文件名（如果文件名没改，则不用变）。一共有三个唤醒词需要修改：
 
