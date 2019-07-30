@@ -137,7 +137,15 @@ pip3 install -r contrib/requirements.txt
 
 而树莓派上或者其他板子上接的麦克风可能和 PC 上的麦克风的声音畸变差异非常大，所以现有的模型更加不能直接在树莓派上工作，否则效果会非常糟糕。
 
-比较建议到 [snowboy 官网](https://snowboy.kitt.ai/dashboard) 上训练自己的模型，然后把模型放在 `~/.wukong` 中（如果没有这个目录，就请创建一个，注意保留前面的 `.` ），并修改 `~/.wukong/config.yml` 里的几个 hotword 指向的文件名（如果文件名没改，则不用变）。一共有三个唤醒词需要修改：
+如果你是第一次使用，需要先创建一个配置文件方便配置唤醒词。这个工作可以交给 wukong-robot 帮你完成。在 wukong-robot 的根目录下执行：
+
+``` bash
+python3 wukong.py
+```
+
+第一次启动将提示你是否要到用户目录下创建一个配置文件，输入 `y` 即可。配置文件将会保存在 `~/.wukong/config.yml` 
+
+接下来我们来训练和更新唤醒词。比较建议到 [snowboy 官网](https://snowboy.kitt.ai/dashboard) 上训练自己的模型，然后把模型放在 `~/.wukong` 中，并修改 `~/.wukong/config.yml` 里的几个 hotword 指向的文件名（如果文件名没改，则不用变）。一共有三个唤醒词需要修改：
 
 1. `hotword`：全局唤醒词。默认为 “孙悟空” （wukong.pmdl）
 2. `/do_not_bother/on_hotword`：让 wukong-robot 进入勿扰模式的唤醒词。默认为 “悟空别吵” （悟空别吵.pmdl）
