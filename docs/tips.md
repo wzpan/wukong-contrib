@@ -62,3 +62,67 @@ snowboy 的唤醒准确率和录制时的设备环境有很大的关系。建议
 * [可以实现内网穿透的几款工具](https://my.oschina.net/ZL520/blog/2086061)
 * [内网穿透哪家好？端口映射/DDNS/花生壳/Ngrok/Frp 逐一介绍分析](https://www.zhihu.in/archives/237)
 * [内网穿透的一点经验](https://sst.st/p/213)
+
+## 5. 设置开机自启动
+
+!> 以下方法仅在树莓派系统中测试通过，不保证在所有系统中可用。
+
+1. 确保 tmux 已安装
+
+``` bash
+sudo apt-get install -y tmux
+```
+
+2. 在用户目录下创建一个 wukong-launcher.sh 脚本，内容为：
+
+``` bash
+#!/bin/bash
+sleep 1
+
+session_name=wukong
+
+#Restore Configuration of AlsaMixer
+if [ -f $HOME/asound.state ]; then
+    alsactl --file=$HOME/asound.state restore
+    sleep 1
+fi
+
+#Start wukong-robot
+tmux new-session -d -s $session_name $HOME/wukong-robot/wukong.py
+sleep 1
+
+cd $HOME/wukong-robot
+```
+
+注意把脚本中的 `$HOME/wukong-robot` 改成你实际存放 wukong-robot 的位置。
+
+3. 给这个脚本添加可执行权限：
+
+``` bash
+sudo chmod +x wukong-launcher.sh
+```
+
+4. 创建一个启动项文件到 `$HOME/.config/autostart` 中，例如：
+
+``` bash
+touch $HOME/.config/autostart/wukong.desktop
+```
+
+5. 编辑这个 wukong.desktop ，粘贴如下内容：
+
+``` bash
+[Desktop Entry]
+Name=wukong
+Comment=wukong-robot
+Exec=sh /home/pi/wukong-launcher.sh
+Icon=/home/pi/python_games/4row_black.png
+Terminal=false
+MultipleArgs=false
+Type=Application
+Categories=Application;Development;
+StartupNotify=true
+```
+
+注意把上述内容中的 `/home/pi` 改成你实际的用户目录地址。
+
+完成后重启试试。
