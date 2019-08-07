@@ -98,6 +98,7 @@ $ curl -X POST localhost:5000/chat -d "type=text&query=%E7%8E%B0%E5%9C%A8%E5%87%
 | ---   | ----- |
 | code  | 返回码。0：成功；1：失败 |
 | message | 结果说明 |
+| audio | TTS 音频的 url 地址（注意：不缓存的音频将在一分钟后被自动清理）    |
 
 ### 对话历史
 
