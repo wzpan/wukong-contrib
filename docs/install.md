@@ -187,4 +187,4 @@ do_not_bother:
 这里收录一些网上一些人的非官方课程。如果你也录制了课程，欢迎[给这个文档仓库](https://github.com/wzpan/wukong-contrib)提PR。
 
 1. [树莓派语音机器人接入homeassistant控制nodemcu开发板教程](https://www.bilibili.com/video/av46877916?from=search&seid=7428641102072962094)
-2. [https://www.boxuegu.com/live/detail-1319](https://www.boxuegu.com/live/detail-1319)
+2. [人工智能开发实战：悟空智能音箱](https://www.boxuegu.com/live/detail-1319)
