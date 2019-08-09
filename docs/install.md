@@ -5,6 +5,7 @@
 * [docker 安装](/install?id=方式一：docker-安装)
 * [手动安装](/install?id=方式二：手动安装)
 * [其他安装方式](/install?id=其他安装方式)
+* [其他非官方教程](/install?id=其他非官方教程)
 
 ## 方式一：docker 安装
 
@@ -180,3 +181,10 @@ do_not_bother:
 
 1. 小白同学 @musistudio 提供了一个[一键自动安装脚本](https://github.com/musistudio/wukong-robot-install-script)，适用于 MacOS/Ubuntu/WSL（Windows Subsystem for Linux） 系统。
 2. 用户QQ群（580447290）上还有一些用户提供了树莓派的安装镜像，可以入群索取。
+
+## 其他非官方教程 ##
+
+这里收录一些网上一些人的非官方课程。如果你也录制了课程，欢迎[给这个文档仓库](https://github.com/wzpan/wukong-contrib)提PR。
+
+1. [树莓派语音机器人接入homeassistant控制nodemcu开发板教程](https://www.bilibili.com/video/av46877916?from=search&seid=7428641102072962094)
+2. [https://www.boxuegu.com/live/detail-1319](https://www.boxuegu.com/live/detail-1319)
