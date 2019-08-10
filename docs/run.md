@@ -24,7 +24,7 @@ JackShmReadWritePtr::~JackShmReadWritePtr - Init not done for -1, skipping unloc
 Cannot connect to server socket err = No such file or directory
 ```
 
-**不影响功能**，只是pulseaudio的告警，可以忽略。
+**不影响功能，只是pulseaudio的告警，可以忽略。**
 
 要让 wukong-robot 暂时屏蔽离线监听，可以在配置文件中设置 `hotword_switch` 为 true：
 
