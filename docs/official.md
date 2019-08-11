@@ -131,7 +131,7 @@ brew install imagesnap
 
 ## CleanCache
 
-用于清除 dingdang 运行时产生的所有临时数据（包括语音缓存数据）
+用于清除 wukong-robot 运行时产生的所有临时数据（包括语音缓存数据）
 
 ### 触发条件
 
