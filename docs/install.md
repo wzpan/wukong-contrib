@@ -128,7 +128,7 @@ cp _snowboydetect.so <wukon-robot的根目录/snowboy/>
 ``` bash
 mkdir $HOME/.wukong
 cd $HOME/.wukong
-git clone http://github.com/wzpan/wukong-contrib contrib
+git clone http://github.com/wzpan/wukong-contrib.git contrib
 pip3 install -r contrib/requirements.txt
 ```
 
