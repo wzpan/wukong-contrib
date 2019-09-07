@@ -179,6 +179,8 @@ do_not_bother:
 
 除了官方提供的安装方法外，还有一些热心用户提供了其他可选的安装方案。
 
+!> 使用第三方安装方式可能会无法正常获取更新，请慎重考虑。
+
 1. 小白同学 @musistudio 提供了一个[一键自动安装脚本](https://github.com/musistudio/wukong-robot-install-script)，适用于 MacOS/Ubuntu/WSL（Windows Subsystem for Linux） 系统。
 2. 用户QQ群（580447290）上还有一些用户提供了树莓派的安装镜像，可以入群索取。
 
