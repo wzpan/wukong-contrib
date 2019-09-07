@@ -108,6 +108,8 @@ sudo chmod +x wukong-launcher.sh
 touch $HOME/.config/autostart/wukong.desktop
 ```
 
+如果提示不存在 `.config/autostart` 目录，可以手动创建下。
+
 5. 编辑这个 wukong.desktop ，粘贴如下内容：
 
 ``` bash
