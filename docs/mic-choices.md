@@ -12,9 +12,7 @@ wukong-robot 能配合普通的麦克风正常工作。
 客观比较下两个的优劣：
 
 - PS3 Eye 同时带有麦克风和摄像头，价格更低，适用于对拾音质量要求不高、想省钱的朋友；
-- <del>ReSpeaker 2 Mics Pi HAT 为树莓派量身打造的阵列麦克风开发板，拾音质量更好，带呼吸灯，另外自带了声卡，解决了树莓派自带 3.5 mm 口电流声大的问题。适用于使用树莓派，希望有更好的拾音效果，想玩呼吸灯效果的发烧友。</del>
-
-!> 近期有不少用户反馈 Respeaker 无法正常工作，怀疑和 Respeaker 与树莓派系统版本兼容有关。建议使用 PS3 Eye 。
+- ReSpeaker 2 Mics Pi HAT 为树莓派量身打造的阵列麦克风开发板，拾音质量更好，带呼吸灯，另外自带了声卡，解决了树莓派自带 3.5 mm 口电流声大的问题。适用于使用树莓派，希望有更好的拾音效果，想玩呼吸灯效果的发烧友。
 
 ## PS3 Eye 安装配置
 
@@ -117,6 +115,53 @@ cd wukong-robot 的根路径
 git checkout respeaker
 ```
 
+不过 respeaker 分支的更新不如 master 分支快。且每次在管理端首页直接更新后，将会切回到没有呼吸灯效果的版本上。
+
+### 3.5mm 耳机孔不发声问题
+
+部分用户把音响插到 respeaker 2 Mics HAT 上的 3.5mm 耳机孔上后，发现没有声音输出。解决办法是把系统的声卡禁用掉。
+
+``` bash
+cd /etc/modprobe.d
+sudo echo "blacklist snd_bcm2835" >> alsa-blacklist.conf
+```
+
+然后重启：
+
+``` bash
+sudo reboot
+```
+
+完成后重新设置下 .asoundrc 即可。可以看看你的设备是否只剩下 respeaker ：
+
+``` bash
+aplay -l
+```
+
+此时如果你的设备只剩下 respeaker ，那么卡号应该就是 0 。可以这么配置：
+
+``` bash
+pcm.!default {
+        type asym
+        playback.pcm {
+            type plug
+            slave.pcm "hw:0,0"
+        }
+        capture.pcm {
+            type plug
+            slave.pcm "hw:0,0"
+        }
+}
+
+ctl.!default {
+        type hw
+        card 0
+}
+```
+
+现在可以试试没有声音的问题是否解决。
+
 ### 其他技巧
 
 如果希望利用开发板上的按钮来实现开关麦克风，可以使用 [ReSpeaker-Switcher](https://github.com/wzpan/ReSpeaker-Switcher)。
+

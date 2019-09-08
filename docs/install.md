@@ -86,8 +86,8 @@ sudo apt-get -y update
 sudo apt-get install -y libpcre3 libpcre3-dev
 ./configure --prefix=/usr --without-clisp --without-maximum-compile-warnings
 make
-make install
-install -v -m755 -d /usr/share/doc/swig-3.0.10
+sudo make install
+sudo install -v -m755 -d /usr/share/doc/swig-3.0.10
 sudo cp -v -R Doc/* /usr/share/doc/swig-3.0.10
 sudo apt-get install -y libatlas-base-dev
 ```
