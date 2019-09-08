@@ -102,13 +102,11 @@ cd $HOME/wukong-robot
 sudo chmod +x wukong-launcher.sh
 ```
 
-4. 创建一个启动项文件到 `$HOME/.config/autostart` 中，例如：
+4. 创建一个启动项文件到 `$HOME/.config/autostart` 中（如果不存在这个目录可以手动创建下），例如：
 
 ``` bash
 touch $HOME/.config/autostart/wukong.desktop
 ```
-
-如果提示不存在 `.config/autostart` 目录，可以手动创建下。
 
 5. 编辑这个 wukong.desktop ，粘贴如下内容：
 
