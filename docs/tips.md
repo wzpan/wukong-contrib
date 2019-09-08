@@ -77,7 +77,7 @@ ec -i plughw:0 -o plughw:0  # 编号请以实际为准！
 如果是 respaker 2 Mic Hat，建议把上面的脚本最后一句改为：
 
 ``` bash
-./ec -i plughw:0 -o plughw:0 -d 200  # 编号请以实际为准！
+ec -i plughw:0 -o plughw:0 -d 200  # 编号请以实际为准！
 ```
 
 注意以上的编号分别对应的是你的输入声卡和输出声卡的编号，请和 `.asoundrc` 里的配置保持一致。
