@@ -38,28 +38,52 @@ headline_news:
     key: 'AppKey'
 ```
 
-## Direction
+## BaiduMap ##
 
-* 通过和悟空进行交互，用户说出一个地名，可以获取一条推荐公交线路。插件利用[百度LBS的Web服务API](http://lbsyun.baidu.com/index.php?title=webapi)，使用了[Place suggestion](http://lbsyun.baidu.com/index.php?title=webapi/place-suggestion-api)和[Direction API v2.0](http://lbsyun.baidu.com/index.php?title=webapi/direction-api-v2)两个接口，用户需要在[百度地图开放平台](http://lbsyun.baidu.com/apiconsole/key)注册创建应用以获取app key。为了简化交互，目前只支持查询本市内的地点，而且只给出一条公交(地铁)线路规划。
-* 源码：https://github.com/wzpan/wukong-contrib/blob/HEAD/Direction.py
-
-### 交互示例
-
-- 用户：线路
-- 悟空：去哪里
-- 用户：世纪大道
-- 悟空：世纪大道-地铁站参考路线:步行169米.锦绣路站(4口)乘地铁7号线(花木路方向)经过2站到龙阳路站.站内换乘 步行170米.龙阳路站乘地铁2号线(徐泾东方向)经过3站到世纪大道站.
+* 根据之前的插件Direction的二次优化，主要优化的地方是运用[百度UNIT](https://ai.baidu.com/unit/v2)和多轮询问来提高用户体验以实现语音交互。插件方面依旧保留了[百度LBS的Web服务API](http://lbsyun.baidu.com/index.php?title=webapi)，使用了[Place suggestion](http://lbsyun.baidu.com/index.php?title=webapi/place-suggestion-api)和[Direction API v2.0](http://lbsyun.baidu.com/index.php?title=webapi/direction-api-v2)两个接口。
+* 目前能提供多条公交路线（通常五条）并优先播放耗时时间较短的路线，还能提供打车的费用和耗时。
+* 首先，需要在[百度地图开放平台](http://lbsyun.baidu.com/apiconsole/key)注册创建应用以获取app_key，切记！
+* 源码：[https://github.com/wzpan/wukong-contrib/blob/HEAD/BaiduMap.py](https://github.com/wzpan/wukong-contrib/blob/HEAD/BaiduMap.py)
 
 ### 配置
 
-``` yaml
-# 出行线路规划插件
-# 百度LBS Web服务API
+1. 首先先去[这里](http://api.map.baidu.com/lbsapi/getpoint/)输入你家的地址以获取经纬度。
+2. 接着再去[百度地图开放平台](http://lbsyun.baidu.com/apiconsole/key)以获取app_key。
+3. 然后在 config.yml 中添加如下配置。
+
+``` yml
+# 百度地图路线规划插件
 # http://lbsyun.baidu.com/index.php?title=webapi
-direction:
-    app_key: 你申请到的app key
-    origin: 出发起始地坐标，可在此http://api.map.baidu.com/lbsapi/getpoint/获取，如:"39.91405,116.404269",纬度在前，经度在后
+BaiduMap:
+    app_key: 你申请到的app_key
+    origin: 例子"39.91405,116.404269",切记切记纬度在前，经度在后，不然报错！
 ```
+### 依赖安装
+
+依赖 jsonpath 库：
+
+``` bash
+pip install jsonpath
+```
+
+### 交互示例
+- 用户：帮我导航呗 / 我想从我家去个地方，帮我导航 / 布吉地铁站怎么走呀
+- 悟空：想从哪里出发呢？ / 想去哪里呢？ / 那你是从哪里出发呀？
+- 用户：从后海到南山地铁站 / 去布吉吧 / 从家里出发 （多轮询问后直到得到关键信息）
+- 悟空：共找到了5条路线，这是第一条:茶光站乘7号线经过12站到福民站,接着福民站乘4号线经过1站到会展中心站,这条路线约耗时48分钟,想听别的路线还是打车信息？（类似这样的回复）
+- 用户：想听听第二条路线
+- 悟空：茶光站乘7号线经过10站到石厦站,接着福田区委站乘m390路经过3站到会展中心站,这条路线约耗时54分钟,想听别的路线还是打车信息？
+- 用户：那么打车的呢？
+- 悟空：坐出租车的话需要20分钟,白天大概要30块，黑夜就要45块，超贵的，对不对？还想听别的路线吗？
+- 用户：可以，不用了
+- 悟空：路上要小心哦！
+
+### 关于百度UNIT
+
+* 由于这次运用百度UNIT来到达获取意图和词槽(提取出发点和目的点)，所以在百度UNIT后台给它足够不同的询问方式(例：简直了，那地方太难找，帮我导航)到模型里，这样就可以识别到导航意图并触发此插件。
+* 至于要百度UNIT识别出海量的目的地，个人强烈建议自建百度UNIT的API以供给此插件使用，来到[搜狗输入法网站](https://pinyin.sogou.com/dict/cate/index/306)获取你目前城市的街道/地铁信息，并将大量街道和地铁名给百度UNIT学习。
+  * 搜索输入法网站提供下载.scel文件，来到[这里](http://tools.bugscaner.com/sceltotxt/)将 .scel文件转为.txt文件。
+* 最后，想学习和自建UNIT技能可以看看[此视频](http://bit.baidu.com/Course/detail/id/252.html)（免费的！），讲得很详细手把手教学。
 
 ## RoadCondition
 
