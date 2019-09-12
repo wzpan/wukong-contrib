@@ -63,7 +63,7 @@ BaiduMap:
 依赖 jsonpath 库：
 
 ``` bash
-pip install jsonpath
+pip3 install jsonpath
 ```
 
 ### 交互示例
