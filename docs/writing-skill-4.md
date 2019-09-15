@@ -152,52 +152,18 @@ class Plugin(AbstractPlugin):
 INFO:LocalPlayer:['perfume.mp3', '可惜没如果.mp3']
 ```
 
-接下来我们写个播放器，去处理这个播放列表，并支持上一首、下一首、停止播放等操作：
+接下来我们来编写逻辑处理这个播放列表，并支持上一首、下一首、停止播放等操作。为了达到这些目的，wukong-robot 已经提供了一个列表音乐播放器 [MusicPlayer](https://www.hahack.com/wukong-robot/robot.html#robot.Player.MusicPlayer) 类。
 
 ``` python
-class MusicPlayer(object):
-
-    def __init__(self, playlist, plugin):
-        super(MusicPlayer, self).__init__()
-        self.playlist = playlist
-        self.plugin = plugin
-        self.idx = 0
-        self.volume = 0.6
-        
-    def play(self):
-        logger.debug('MusicPlayer play')
-        path = self.playlist[self.idx]
-        if os.path.exists(path):
-            self.plugin.play(path, False, self.next, self.volume)
-        else:
-            logger.error('文件不存在: {}'.format(path))    
-
-    def next(self):
-        logger.debug('MusicPlayer next')
-        self.idx = (self.idx+1) % len(self.playlist)
-        self.play()
-
-    def prev(self):
-        logger.debug('MusicPlayer prev')
-        self.idx = (self.idx-1) % len(self.playlist)
-        self.play()
-
-    def stop(self):
-        logger.debug('MusicPlayer stop')
-        self.plugin.clearImmersive()  # 去掉沉浸式
-
-    def turnUp(self):
-        if self.volume < 0.2:
-            self.volume += 0.2
-        self.play()
-
-    def turnDown(self):
-        if self.volume > 0:
-            self.volume -= 0.2
-        self.play()
+    def init_music_player(self):
+        self.song_list = self.get_song_list(config.get('/LocalPlayer/path'))
+        if self.song_list == None:
+            logger.error('{} 插件配置有误'.format(self.SLUG))
+        logger.info('本地音乐列表：{}'.format(self.song_list))
+        return MusicPlayer(self.song_list, self)
 ```
 
-`MusicPlayer` 是我们封装的一个列表音乐播放器类，它在普通播放器 [`SoxPlayer`](https://www.hahack.com/wukong-robot/robot.html#robot.Player.SoxPlayer) 的基础上提供了诸如播放 `play()`、下一首 `next()`、上一首 `prev()`、停止播放 `stop()`、调大声 `turnUp()`、调小声 `turnDown()` 的功能。为了方便调用 `Plugin` 自带的方法，我们把 `Plugin` 的实例作为参数 `plugin` 传给 MusicPlayer 类。
+`MusicPlayer` 类在普通播放器 [`SoxPlayer`](https://www.hahack.com/wukong-robot/robot.html#robot.Player.SoxPlayer) 的基础上提供了诸如播放 `play()`、下一首 `next()`、上一首 `prev()`、停止播放 `stop()`、调大声 `turnUp()`、调小声 `turnDown()` 的功能。为了方便调用 `Plugin` 自带的方法，我们把 `Plugin` 的实例作为参数 `plugin` 传给 MusicPlayer 类。
 
 之后，我们就可以很方便地利用这个 `MusicPlayer` 类实现我们要的播放功能。将 `handle()` 方法改写如下：
 
@@ -205,28 +171,31 @@ class MusicPlayer(object):
     def handle(self, text, parsed):
         if not self.player:
             self.player = self.init_music_player()
+        if len(self.song_list) == 0:
+            self.clearImmersive()  # 去掉沉浸式
+            self.say('本地音乐目录并没有音乐文件，播放失败')
+            return
         if self.nlu.hasIntent(parsed, 'MUSICRANK'):
             self.player.play()
         elif self.nlu.hasIntent(parsed, 'CHANGE_TO_NEXT'):
-            self.say('下一首歌')
             self.player.next()
         elif self.nlu.hasIntent(parsed, 'CHANGE_TO_LAST'):
-            self.say('上一首歌')
             self.player.prev()
         elif self.nlu.hasIntent(parsed, 'CHANGE_VOL'):
             word = self.nlu.getSlotWords(parsed, 'CHANGE_VOL', 'user_vd')[0]
             if word == '--LOUDER--':
-                self.say('大声一点')
                 self.player.turnUp()
             else:
-                self.say('小声一点')
                 self.player.turnDown()
-        elif self.nlu.hasIntent(parsed, 'CLOSE_MUSIC') or self.nlu.hasIntent(parsed, 'PAUSE'):
+        elif self.nlu.hasIntent(parsed, 'PAUSE'):
+            self.player.pause()
+        elif self.nlu.hasIntent(parsed, 'CONTINUE'):
+            self.player.resume()
+        elif self.nlu.hasIntent(parsed, 'CLOSE_MUSIC'):
             self.player.stop()
             self.clearImmersive()  # 去掉沉浸式
-            self.say('退出播放')
         else:
-            self.say('没听懂你的意思呢，要停止播放，请说停止播放')
+            self.say('没听懂你的意思呢，要停止播放，请说停止播放', wait=True)
             self.player.play()
 ```
 
@@ -239,6 +208,8 @@ class MusicPlayer(object):
 
 特别要注意，对于音乐这种长时间处于沉浸模式的场景，你应该设计一个能调用退出沉浸模式 `clearImmersive()` 的指令，比如第 20~23 行中的实现：当用户说出的指令命中 `CLOSE_MUSIC` 或者 `PAUSE` 的意图时，停止播放并结束当前的沉浸模式。
 
+另外，在上面那段代码的倒数第二行，我们可以看到一个有趣的 `wait` 参数。关于这个 `wait` 参数，可以参见 [`say()` 方法的 wait 参数](https://github.com/wzpan/wukong-robot/wiki/update-notes#2-say-%E6%96%B9%E6%B3%95%E7%9A%84-wait-%E5%8F%82%E6%95%B0)。
+
 ### `isValidImmersive()` 方法实现 ###
 
 某些意图在进入这个技能前，其实并不能以此作为是否适用于这个技能处理的条件。比如，在你唤醒 wukong-robot 让它 “播放本地音乐” 之前，如果你先说 “上一首歌” ，此时并不应该交给 `LocalPlayer` 这个技能来处理。因为可能有非常多音乐插件都希望能在自己的模式下处理这个指令。如果你在 `isValid()` 方法里头通过判断这个意图就强制要求 `LocalPlayer` 处理，这就会导致其他音乐插件再也响应不了 “下一首歌” 这个指令。
@@ -247,7 +218,7 @@ class MusicPlayer(object):
 
 ``` python
     def isValidImmersive(self, text, parsed):
-        return any(self.nlu.hasIntent(parsed, intent) for intent in ['CHANGE_TO_LAST', 'CHANGE_TO_NEXT', 'CHANGE_VOL', 'CLOSE_MUSIC', 'PAUSE'])
+        return any(self.nlu.hasIntent(parsed, intent) for intent in ['CHANGE_TO_LAST', 'CHANGE_TO_NEXT', 'CHANGE_VOL', 'CLOSE_MUSIC', 'PAUSE', 'CONTINUE'])
 
 ```
 
@@ -259,7 +230,13 @@ class MusicPlayer(object):
 
 ?> 当然，这个方法是可选的，如果你并不希望暂停技能，可以不实现这个方法。
 
-不过，因为我们实际用的是插件自带的 Player 来实现音乐播放的，而 Player 在 wukong-robot 被唤醒时自动会暂停，所以我们无需自行处理音乐的暂停。这里我们可以不用自行实现技能的暂停。所以无需添加任何 `pause()` 的代码。
+对于我们这个播放器场景，我们可以调用 `MusicPlayer` 的 `stop()` 方法来实现音乐的暂停：
+
+``` python
+    def pause(self):
+        if self.player:
+            self.player.stop()
+```
 
 ### `restore()` 方法实现 ###
 
@@ -269,9 +246,11 @@ class MusicPlayer(object):
 
 ``` python
     def restore(self):
-        if self.player:
-            self.player.play()
+        if self.player and not self.player.is_pausing():
+            self.player.resume()
 ```
+
+注意这里还做了一个 `self.player.is_pausing()` 的判断：如果我们主动要求暂停播放，那么 wukong-robot 就不必在打断后恢复音乐的播放。
 
 ### 完整实现 ###
 
@@ -279,50 +258,10 @@ class MusicPlayer(object):
 # -*- coding: utf-8-*-
 import os
 from robot import config, logging
+from robot.Player import MusicPlayer
 from robot.sdk.AbstractPlugin import AbstractPlugin
 
 logger = logging.getLogger(__name__)
-
-class MusicPlayer(object):
-
-    def __init__(self, playlist, plugin):
-        super(MusicPlayer, self).__init__()
-        self.playlist = playlist
-        self.plugin = plugin
-        self.idx = 0
-        self.volume = 0.6
-        
-    def play(self):
-        logger.debug('MusicPlayer play')
-        path = self.playlist[self.idx]
-        if os.path.exists(path):
-            self.plugin.play(path, False, self.next, self.volume)
-        else:
-            logger.error('文件不存在: {}'.format(path))    
-
-    def next(self):
-        logger.debug('MusicPlayer next')
-        self.idx = (self.idx+1) % len(self.playlist)
-        self.play()
-
-    def prev(self):
-        logger.debug('MusicPlayer prev')
-        self.idx = (self.idx-1) % len(self.playlist)
-        self.play()
-
-    def stop(self):
-        logger.debug('MusicPlayer stop')
-
-    def turnUp(self):
-        if self.volume < 0.2:
-            self.volume += 0.2
-        self.play()
-
-    def turnDown(self):
-        if self.volume > 0:
-            self.volume -= 0.2
-        self.play()
-
 
 class Plugin(AbstractPlugin):
 
@@ -331,55 +270,75 @@ class Plugin(AbstractPlugin):
     def __init__(self, con):
         super(Plugin, self).__init__(con)
         self.player = None
+        self.song_list = None        
 
     def get_song_list(self, path):
         if not os.path.exists(path) or \
            not os.path.isdir(path):
             return []
-        song_list = list(filter(lambda d: d.endswith('.mp3'), os.listdir(path)))        
+        song_list = list(filter(lambda d: d.endswith('.mp3'), os.listdir(path)))
         return [os.path.join(path, song) for song in song_list]
 
     def init_music_player(self):
-        song_list = self.get_song_list(config.get('/LocalPlayer/path'))
-        if song_list == None:
+        self.song_list = self.get_song_list(config.get('/LocalPlayer/path'))
+        if self.song_list == None:
             logger.error('{} 插件配置有误'.format(self.SLUG))
-        logger.info(song_list)
-        return MusicPlayer(song_list, self)
+        logger.info('本地音乐列表：{}'.format(self.song_list))
+        return MusicPlayer(self.song_list, self)
 
     def handle(self, text, parsed):
         if not self.player:
             self.player = self.init_music_player()
+        if len(self.song_list) == 0:
+            self.clearImmersive()  # 去掉沉浸式
+            self.say('本地音乐目录并没有音乐文件，播放失败')
+            return
         if self.nlu.hasIntent(parsed, 'MUSICRANK'):
             self.player.play()
         elif self.nlu.hasIntent(parsed, 'CHANGE_TO_NEXT'):
-            self.say('下一首歌')
             self.player.next()
         elif self.nlu.hasIntent(parsed, 'CHANGE_TO_LAST'):
-            self.say('上一首歌')
             self.player.prev()
         elif self.nlu.hasIntent(parsed, 'CHANGE_VOL'):
-            word = self.nlu.getSlotWords(parsed, 'CHANGE_VOL', 'user_vd')[0]
-            if word == '--LOUDER--':
-                self.say('大声一点')
-                self.player.turnUp()
-            else:
-                self.say('小声一点')
-                self.player.turnDown()
-        elif self.nlu.hasIntent(parsed, 'CLOSE_MUSIC') or self.nlu.hasIntent(parsed, 'PAUSE'):
+            slots = self.nlu.getSlots(parsed, 'CHANGE_VOL')
+            for slot in slots:
+                if slot['name'] == 'user_d':
+                    word = self.nlu.getSlotWords(parsed, 'CHANGE_VOL', 'user_d')[0]
+                    if word == '--HIGHER--':
+                        self.player.turnUp()
+                    else:
+                        self.player.turnDown()
+                    return
+                elif slot['name'] == 'user_vd':
+                    word = self.nlu.getSlotWords(parsed, 'CHANGE_VOL', 'user_vd')[0]
+                    if word == '--LOUDER--':
+                        self.player.turnUp()
+                    else:
+                        self.player.turnDown()
+
+        elif self.nlu.hasIntent(parsed, 'PAUSE'):
+            self.player.pause()
+        elif self.nlu.hasIntent(parsed, 'CONTINUE'):
+            self.player.resume()
+        elif self.nlu.hasIntent(parsed, 'CLOSE_MUSIC'):
             self.player.stop()
             self.clearImmersive()  # 去掉沉浸式
-            self.say('退出播放')
         else:
-            self.say('没听懂你的意思呢，要停止播放，请说停止播放')
-            self.player.play()
+            self.say('没听懂你的意思呢，要停止播放，请说停止播放', wait=True)
+            self.player.resume()
+
+    def pause(self):
+        if self.player:
+            self.player.stop()
 
     def restore(self):
-        if self.player:
-            self.player.play()
+        if self.player and not self.player.is_pausing():
+            self.player.resume()
 
     def isValidImmersive(self, text, parsed):
-        return any(self.nlu.hasIntent(parsed, intent) for intent in ['CHANGE_TO_LAST', 'CHANGE_TO_NEXT', 'CHANGE_VOL', 'CLOSE_MUSIC', 'PAUSE'])
+        return any(self.nlu.hasIntent(parsed, intent) for intent in ['CHANGE_TO_LAST', 'CHANGE_TO_NEXT', 'CHANGE_VOL', 'CLOSE_MUSIC', 'PAUSE', 'CONTINUE'])
 
     def isValid(self, text, parsed):
         return "本地音乐" in text
+
 ```
