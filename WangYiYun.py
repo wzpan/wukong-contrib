@@ -81,7 +81,7 @@ class WangYiYunPlayer(SoxPlayer):
         logger.debug('MusicPlayer replay')
         path = self.playlist[self.idx]['mp3_url']
         super().stop()
-        super().play(path, False, self.replay)
+        super().play(path, False, onCompleted=self.replay)
 
     def next(self):
         logger.debug('MusicPlayer next')
@@ -238,6 +238,46 @@ class Plugin(AbstractPlugin):
         listNumber = number.findall(text)[0]
         return int(listNumber) if listNumber.isdigit() else cn2an.cn2an(listNumber, "normal")
 
+    def handle_playlists(self, input):
+        if any(word in input for word in [u"我要", u"好", u"继续", u"听"]) and len(self.player.multi_playlist) > 5:
+            playlists_info = self.player.get_playlists_portions(self.playlist_number_cut)
+            self.playlist_number_cut += 1
+            logger.info(playlists_info)
+            if self.playlist_number_cut  > math.ceil(len(self.player.multi_playlist)/5):
+                self.say(playlists_info + '你想听哪一张呢，就这么多歌单了，要我重新报一次吗？', onCompleted=lambda: self.handle_playlists(self.activeListen()))
+            else:
+                self.say(playlists_info + '你想听哪一张呢，还是要不要听下去呢', onCompleted=lambda: self.handle_playlists(self.activeListen()))
+        
+        elif any(word in input for word in [u"重新", u"报"]):
+            self.playlist_number_cut = 1
+            playlists_info = self.player.get_playlists_portions(self.playlist_number_cut)
+            self.say('这么纠结呀，好的吧。' + playlists_info + '你想听哪一张呢', onCompleted=lambda: self.handle_playlists(self.activeListen()))
+
+        elif any(word in input for word in ['啥', '什么', '叫']) and self.hasNumbers(input):
+            listNumber = self.whichNumber(input) - 1
+            if listNumber < len(self.player.multi_playlist):
+                self.say('第{}歌单叫{}！'.format(listNumber+1, self.player.multi_playlist[listNumber]['playlist_name']), onCompleted=lambda: self.handle_playlists(self.activeListen()))
+            else:
+                self.say('都说了只有{}张歌单啦，哼！'.format(len(self.player.multi_playlist)), onCompleted=lambda: self.handle_playlists(self.activeListen()))
+
+        elif u"第" in input and self.hasNumbers(input):
+            listNumber = self.whichNumber(input) - 1
+            if listNumber < len(self.player.multi_playlist):
+                self.player.list_idx = listNumber
+                self.player.playlist = self.player.get_playlist_detail(self.player.multi_playlist[listNumber]['playlist_id'])
+                self.player.shuffle_songs()
+                #logger.debug([each_song['song_name'] for each_song in self.player.playlist])
+                self.say('选择了第{}张'.format(listNumber+1), wait=True)
+                self.player.play()
+            else:
+                self.say('都说了只有{}张歌单啦，哼！'.format(len(self.player.multi_playlist)), onCompleted=lambda: self.handle_playlists(self.activeListen()))
+        
+        elif any(word in input for word in [u"不要", u"算了", u"不用"]):
+            self.say('哼！白浪费帮你找来了这么多歌单。', cache=True)
+
+        else:
+            self.say('别岔开话题，到底想听哪张歌单~混蛋', cache=True, onCompleted=lambda: self.handle_playlists(self.activeListen()))
+
     def handle(self, text, parsed):
         #需要给网易云插件配置相关的信息
         profile = config.get()
@@ -249,130 +289,101 @@ class Plugin(AbstractPlugin):
         if not self.player:
             self.player = WangYiYunPlayer(profile[self.SLUG]['account'], profile[self.SLUG]['md5pass'], self)
 
-        # 插件核心处理逻辑
-        ##################################获取每日推荐歌曲####################################
-        if any(word in text for word in ['推荐歌曲', '推荐的歌', '歌推荐', '每日推荐']):
-            self.player.playlist = self.player.get_recommend_songs()
-            logger.info([song['song_name'] for song in self.player.playlist])
-            self.say('一共有{}首推荐歌曲噢！'.format(len(self.player.playlist)), wait=True)
-            self.player.play()
-
-        ###################################获取每日推荐歌单####################################
-        elif any(word in text for word in ['推荐歌单', '歌单推荐']):
-            playlists_info = self.player.get_recommend_playlist()
-            self.playlist_number_cut += 1
-            logger.info(playlists_info)
-            self.say('共找到了{}张歌单哦！'.format(len(self.player.multi_playlist)) + playlists_info + '想听哪一张，或者要不要继续听下去呢？')
-
-        ###################################获取我的歌单####################################
-        elif any(word in text for word in ['我的歌单', '网易云歌单']):
-            playlists_info = self.player.get_user_playlist()
-            logger.info(playlists_info)
-            if len(self.player.multi_playlist) > 5:
-                self.playlist_number_cut += 1
-                self.say('你一共有{}张歌单哦！'.format(len(self.player.multi_playlist)) + playlists_info + '想听哪一张，或者要不要继续听下去呢？')
-            else:
-                self.say('你一共有{}张歌单哦！'.format(len(self.player.multi_playlist)) + playlists_info + '你想听哪一张呢？')
-
-        ###################################播放更多的歌单####################################
-        elif any(word in text for word in ['继续听', '听下去', '重新']) and self.player.multi_playlist:
-            playlists_info = self.player.get_playlists_portions(self.playlist_number_cut)
-            self.playlist_number_cut += 1
-            logger.info(playlists_info)
-            if self.playlist_number_cut  > math.ceil(len(self.player.multi_playlist)/5):
-                self.say(playlists_info + '你想听哪一张呢，就这么多歌单了，要我重新报一次吗？')
-                self.playlist_number_cut = 1
-            else:
-                self.say(playlists_info + '你想听哪一张呢，还是要不要听下去呢？')
-
-        ###################################询问歌单名字或者当前歌名####################################
-        elif any(word in text for word in ['啥', '什么', '叫']):
-            if self.player.multi_playlist and u"歌单" in text:
-                if self.player.list_idx:
-                    self.say('目前播放的歌单叫{}！'.format(self.player.multi_playlist[self.player.list_idx]['playlist_name']), wait=True)
-                    self.player.resume()
-                elif self.hasNumbers(text):
-                    listNumber = self.whichNumber(text) - 1
-                    if listNumber < len(self.player.multi_playlist):
-                        self.say('第{}歌单叫{}！'.format(listNumber+1, self.player.multi_playlist[listNumber]['playlist_name']))
-                    else:
-                        self.say('都说了只有{}张歌单啦，哼！'.format(len(self.player.multi_playlist)))
-                else:
-                    self.say('你都还没有选歌单呢，我咋知道，哼！', cache=True)
-            elif self.player.playlist:
-                logger.info(self.player.playlist[self.player.idx])
-                self.say('这首歌叫{}, 是{}唱的！'.format(self.player.playlist[self.player.idx]['song_name'], self.player.playlist[self.player.idx]['artist']), wait=True)
-                self.player.resume()
-            else:
-                self.say('你都没有播放歌曲，我咋知道，哼！', cache=True)
-
-        ###################################收藏当前播放的歌曲或歌单###########################################
-        elif u"收藏" in text and self.player.playlist:
-            if u"歌单" in text and self.player.list_idx:
-                if self.player.api.subscribe_playlist(self.player.multi_playlist[self.player.list_idx]['playlist_id']):
-                    self.say('目前的歌单已收藏成功！', cache=True, wait=True)
-                else:
-                    self.say('这歌单收藏失败，估计之前就收藏了吧', cache=True, wait=True)
-                self.player.resume()
-            elif u"歌" in text:
-                if self.player.api.like_song(self.player.playlist[self.player.idx]['song_id']):
-                    self.say('这歌已收藏成功啦！', cache=True, wait=True)
-                else:
-                    self.say('这歌收藏失败了，估计之前就收藏了吧', cache=True, wait=True)
-                self.player.resume()
-            else:
-                self.say('你得告诉是要收藏歌单还是歌呀！哼！', cache=True, wait=True)
-                self.player.resume()
-
-        ###################################选择哪一张歌单####################################
-        elif u"第" in text and self.hasNumbers(text) and self.player.multi_playlist:
-            listNumber = self.whichNumber(text) - 1
-            if listNumber < len(self.player.multi_playlist):
-                self.player.list_idx = listNumber
-                self.player.playlist = self.player.get_playlist_detail(self.player.multi_playlist[listNumber]['playlist_id'])
-                self.player.shuffle_songs()
-                self.playlist_number_cut = 1
-                logger.info([each_song['song_name'] for each_song in self.player.playlist])
-                self.say('选择了第{}张'.format(listNumber+1), wait=True)
+        try:
+            # 插件核心处理逻辑
+            ##################################获取每日推荐歌曲####################################
+            if any(word in text for word in ['推荐歌曲', '推荐的歌曲', '歌推荐', '每日推荐']):
+                self.player.playlist = self.player.get_recommend_songs()
+                self.say('一共有{}首推荐歌曲噢！'.format(len(self.player.playlist)), wait=True)
                 self.player.play()
+
+            ###################################获取每日推荐歌单####################################
+            elif u"歌单推荐" in text or u"推荐歌单" in text:
+                playlists_info = self.player.get_recommend_playlist()
+                self.playlist_number_cut += 1
+                logger.info(playlists_info)
+                self.say('共找到了{}张歌单哦！'.format(len(self.player.multi_playlist)) + playlists_info + '想听哪一张，或者要不要继续听下去呢', onCompleted=lambda: self.handle_playlists(self.activeListen()))
+
+            ###################################获取我的歌单####################################
+            elif any(word in text for word in ['我的歌单', '网易云歌单']):
+                playlists_info = self.player.get_user_playlist()
+                logger.info(playlists_info)
+                if len(self.player.multi_playlist) > 5:
+                    self.playlist_number_cut += 1
+                    self.say('你一共有{}张歌单哦！'.format(len(self.player.multi_playlist)) + playlists_info + '想听哪一张，或者要不要继续听下去呢', onCompleted=lambda: self.handle_playlists(self.activeListen()))
+                else:
+                    self.say('你一共有{}张歌单哦！'.format(len(self.player.multi_playlist)) + playlists_info + '你想听哪一张呢，或者需要我重新报一次吗', onCompleted=lambda: self.handle_playlists(self.activeListen()))
+
+            ###################################询问歌单名字或者当前歌名####################################
+            elif self.player.playlist and any(word in text for word in ['啥', '什么', '叫']):
+                if self.player.multi_playlist and u"歌单" in text:
+                    if self.player.list_idx:
+                        logger.info(self.player.multi_playlist[self.player.list_idx]['playlist_name'])
+                        self.say('目前播放的歌单叫{}！'.format(self.player.multi_playlist[self.player.list_idx]['playlist_name']), wait=True)
+                        self.player.resume()
+                    else:
+                        self.say('你选的推荐歌曲，怎么会有歌单名呢，哼！', cache=True)
+                else:
+                    logger.info(self.player.playlist[self.player.idx])
+                    self.say('这首歌叫{}, 是{}唱的！'.format(self.player.playlist[self.player.idx]['song_name'], self.player.playlist[self.player.idx]['artist']), wait=True)
+                    self.player.resume()
+
+            ###################################收藏当前播放的歌曲或歌单###########################################
+            elif self.player.playlist and self.nlu.hasIntent(parsed, 'SAVE'):
+                if u"歌单" in text and self.player.list_idx:
+                    if self.player.api.subscribe_playlist(self.player.multi_playlist[self.player.list_idx]['playlist_id']):
+                        self.say('目前的歌单已收藏成功！', cache=True, wait=True)
+                    else:
+                        self.say('这歌单收藏失败，估计之前就收藏了吧', cache=True, wait=True)
+                    self.player.resume()
+                elif u"歌" in text:
+                    if self.player.api.like_song(self.player.playlist[self.player.idx]['song_id']):
+                        self.say('这歌已收藏成功啦！', cache=True, wait=True)
+                    else:
+                        self.say('这歌收藏失败了，估计之前就收藏了吧', cache=True, wait=True)
+                    self.player.resume()
+                else:
+                    self.say('你得告诉是要收藏歌单还是歌呀！哼！', cache=True, wait=True)
+                    self.player.resume()
+
+            ###################################播放器的基本操作####################################
+            elif self.nlu.hasIntent(parsed, 'CHANGE_TO_NEXT'):
+                self.say('下一首歌', cache=True, wait=True)
+                self.player.next()
+            elif self.nlu.hasIntent(parsed, 'CHANGE_TO_LAST'):
+                self.say('上一首歌', cache=True, wait=True)
+                self.player.prev()
+            elif self.nlu.hasIntent(parsed, 'CHANGE_VOL'):
+                slots = self.nlu.getSlots(parsed, 'CHANGE_VOL')
+                for slot in slots:
+                    if slot['name'] == 'user_d':
+                        word = self.nlu.getSlotWords(parsed, 'CHANGE_VOL', 'user_d')[0]
+                        if word == '--HIGHER--':
+                            self.player.turnUp()
+                        else:
+                            self.player.turnDown()
+                        return
+                    elif slot['name'] == 'user_vd':
+                        word = self.nlu.getSlotWords(parsed, 'CHANGE_VOL', 'user_vd')[0]
+                        if word == '--LOUDER--':
+                            self.player.turnUp()
+                        else:
+                            self.player.turnDown()
+            elif self.nlu.hasIntent(parsed, 'PAUSE'):
+                self.player.pause()
+            elif self.nlu.hasIntent(parsed, 'CONTINUE'):
+                self.player.resume()
+            elif self.nlu.hasIntent(parsed, 'RESTART_MUSIC'):
+                self.player.play()
+            elif self.nlu.hasIntent(parsed, 'CLOSE_MUSIC') or u"退出" in text:
+                self.player.stop()
+                self.clearImmersive()  # 去掉沉浸式
+                self.say('退出网易云', cache=True)
             else:
-                self.say('都说了只有{}张歌单啦，哼！'.format(len(self.player.multi_playlist)), onCompleted=lambda: self.con.doResponse(self.activeListen()))
-        
-        ###################################播放器的基本操作####################################
-        elif self.nlu.hasIntent(parsed, 'CHANGE_TO_NEXT'):
-            self.say('下一首歌', cache=True, wait=True)
-            self.player.next()
-        elif self.nlu.hasIntent(parsed, 'CHANGE_TO_LAST'):
-            self.say('上一首歌', cache=True, wait=True)
-            self.player.prev()
-        elif self.nlu.hasIntent(parsed, 'CHANGE_VOL'):
-            slots = self.nlu.getSlots(parsed, 'CHANGE_VOL')
-            for slot in slots:
-                if slot['name'] == 'user_d':
-                    word = self.nlu.getSlotWords(parsed, 'CHANGE_VOL', 'user_d')[0]
-                    if word == '--HIGHER--':
-                        self.player.turnUp()
-                    else:
-                        self.player.turnDown()
-                    return
-                elif slot['name'] == 'user_vd':
-                    word = self.nlu.getSlotWords(parsed, 'CHANGE_VOL', 'user_vd')[0]
-                    if word == '--LOUDER--':
-                        self.player.turnUp()
-                    else:
-                        self.player.turnDown()
-        elif self.nlu.hasIntent(parsed, 'PAUSE'):
-            self.player.pause()
-        elif self.nlu.hasIntent(parsed, 'CONTINUE'):
-            self.player.resume()
-        elif self.nlu.hasIntent(parsed, 'RESTART_MUSIC'):
-            self.player.play()
-        elif self.nlu.hasIntent(parsed, 'CLOSE_MUSIC') or u"退出" in text:
-            self.player.stop()
-            self.clearImmersive()  # 去掉沉浸式
-            self.say('退出网易云', cache=True)
-        else:
-            self.say('你想播放什么呢？推荐歌曲，推荐歌单还是你的歌单？', cache=True)
+                self.say('你想播放什么呢？推荐歌曲，推荐歌单还是你的歌单？', cache=True)
+        except Exception as e:
+            logger.error(e)
+            self.say('哎呀！处理语句出错~赶紧检查一下吧！', cache=True)
 
     def pause(self):
         if self.player:
@@ -383,8 +394,8 @@ class Plugin(AbstractPlugin):
             self.player.resume()
 
     def isValidImmersive(self, text, parsed):
-        return any(self.nlu.hasIntent(parsed, intent) for intent in ['CHANGE_TO_LAST', 'CHANGE_TO_NEXT', 'CHANGE_VOL', 'CLOSE_MUSIC', 'PAUSE', 'CONTINUE', 'RESTART_MUSIC']) or \
-        any(word in text for word in [u"歌单", u"推荐", u"什么", u"啥", u"继续", u"听", u"重新", u"退出", u"第", u"收藏"])
+        return any(self.nlu.hasIntent(parsed, intent) for intent in ['CHANGE_TO_LAST', 'CHANGE_TO_NEXT', 'CHANGE_VOL', 'CLOSE_MUSIC', 'PAUSE', 'CONTINUE', 'RESTART_MUSIC', 'SAVE']) or \
+        any(word in text for word in [u"什么", u"啥", u"退出", u"歌单", u"推荐"])
 
     def isValid(self, text, parsed):
         return u"网易云" in text or \
