@@ -523,4 +523,56 @@ SmartMiFan:
 | $num $unit 后关闭风扇 | $num 是数字，$unit 可以是秒/分钟/小时  | 预约关机 |
 
 
+## WangYiYun ##
 
+* 根据Github上的[musicbox](https://github.com/darknessomi/musicbox)所提供的api文件进行抽离和修改，当中也要感谢wzpan大佬之前写的[API](https://github.com/wzpan/MusicBoxApi)。
+* 目前主要围绕**每日推荐歌单**，**每日推荐歌曲**和**我的歌单**功能进行开发，其中还包括**自动签到**，**收藏歌单和歌曲**, **询问当前播放歌曲信息**和**基本播放器**功能，往后还会有更多功能请敬请期待一下。
+* 花费的时间较多在if-else的逻辑判断，也就是插件的handle方法，欢迎大家多出建议和问题来改良（代码稍微有些欠缺）。
+* 源码：[https://github.com/wzpan/wukong-contrib/blob/HEAD/BaiduMap.py](https://github.com/wzpan/wukong-contrib/blob/HEAD/WangYiYun.py)
+
+### 配置
+1. 首先请将账号信息配置在config.yml，如以下的方式配置。
+``` yml
+# 网易云音乐插件
+WangYiYun:
+    account: 'XXXXXXXX'  # 网易云音乐账号
+    #密码的 md5，可以用 python3 wukong.py md5 "密码" 获得
+    md5pass: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx' 
+```
+2. 将~/.wukong/contrib主库更新一下以获取WangYiYun.py插件，还有需要下载一些额外的第三方库。
+``` sh
+git pull
+pip3 install -r requirements.txt
+``` 
+
+### 关于首次登陆的那些事
+* 首次登陆会通过账号信息尝试获取两周有效期的Cookies并保存于本地~/.wukong/，同时会定期检查有效期。
+* ~/.wukong/文件有一个名为reqcache文件，用于requests的缓存。
+* 首次登陆后会在config.yml写入userid和nickname，便于往后的查询请求。
+
+
+### 交互示例
+> 为了简化交互和满足不同的问句，一次的播报信息中只会包含五个歌单名称，可以对悟空喊：“我想听下去”来了解更多歌单名称。
+---> 每日推荐歌单 / 我的歌单
+- 用户：打开网易云的推荐歌单 / 打开我的网易云歌单
+- 悟空：共找到X张歌单，第1张叫XXX，第2张叫XXX...想听哪一张，或者要不要继续听下去呢？
+- 用户：我想听下去 / 我要继续听更多
+- 悟空：共找到X张歌单，第6张叫XXX，第7张叫XXX...想听哪一张，或者要不要继续听下去呢？
+- 用户：刚刚第4张歌单叫什么来的
+- 悟空：第四张歌单叫XXXX
+- 用户：那我要听第4张
+- 悟空：选了第4张
+
+---> 每日推荐歌曲
+- 用户：打开网易云的推荐歌曲
+- 悟空：一共有X首推荐歌曲噢！（然后播放歌曲）
+
+---> 播放歌曲时的语句：
+- 用户：这首歌叫什么
+- 悟空：这首歌叫XXX，是XXX唱的
+- 用户：这张歌单叫什么名字
+- 悟空：目前播放的歌单叫XXX
+- 用户：我想要收藏这首歌  / 我要收藏这个歌单
+- 悟空：这首歌已帮你收藏成功 / 目前的歌单已收藏成功！
+- 用户：再放一遍吧
+- 悟空：重新播放当前的歌曲

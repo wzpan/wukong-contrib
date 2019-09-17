@@ -5,11 +5,9 @@ import cn2an
 import math
 import subprocess
 import platform
-import _thread as thread
 from random import shuffle
 from robot.sdk.AbstractPlugin import AbstractPlugin
 from robot.Player import SoxPlayer
-from robot.sdk import unit
 from robot import config, logging, constants, utils
 from sdk import NetEaseApi
 
@@ -42,26 +40,28 @@ class WangYiYunPlayer(SoxPlayer):
         ## 首次登陆则需发起请求获取cookies，cookies过期则需发起请求
         if len(self.api.session.cookies) == 0:
             self.login()
-            #self.daily_checkin()
+            self.daily_checkin()
         else:
             self.userid = config.get('/' + self.plugin.SLUG + '/userid')
             self.nickname = config.get('/' + self.plugin.SLUG + '/nickname')
-            #self.daily_checkin()
+            self.daily_checkin()
 
     def login(self):
         resp = self.api.login(self.account, self.md5pass)
         if resp["code"] == 200:
             self.userid = resp["account"]["id"]
             self.nickname = resp["profile"]["nickname"]
-            temp = open('add_info', 'w')
-            with open(constants.getConfigPath(), 'r') as f:
-                for line in f:
-                    if line.startswith('    md5pass'):
-                        line = line + "    userid: \'" + str(self.userid) + "\'\n    nickname: \'" + str(self.nickname) + "\'\n"
-                    temp.write(line)
-            temp.close()
-            shutil.move('add_info', constants.getConfigPath())
-            self.plugin.say('首次登陆成功，哇哈哈哈!', cache=True, wait=True)
+            profile = config.get()
+            if 'userid' not in profile[self.plugin.SLUG] and 'nickname' not in profile[self.plugin.SLUG]:
+                temp = open('add_info', 'w')
+                with open(constants.getConfigPath(), 'r') as f:
+                    for line in f:
+                        if line.startswith('    md5pass'):
+                            line = line + "    userid: \'" + str(self.userid) + "\'\n    nickname: \'" + str(self.nickname) + "\'\n"
+                        temp.write(line)
+                temp.close()
+                shutil.move('add_info', constants.getConfigPath())
+                self.plugin.say('首次登陆成功，哇哈哈哈!', cache=True, wait=True)
         else:
             self.plugin.say('登陆失败，是不是密码错了呢？', cache=True, wait=True)
             logger.error('状态码:{}'.format(resp['code']))
@@ -239,7 +239,7 @@ class Plugin(AbstractPlugin):
         return int(listNumber) if listNumber.isdigit() else cn2an.cn2an(listNumber, "normal")
 
     def handle(self, text, parsed):
-        ##需在配置文件给百度地图的API
+        #需要给网易云插件配置相关的信息
         profile = config.get()
         if self.SLUG not in profile or \
            'account' not in profile[self.SLUG] or \
@@ -275,7 +275,7 @@ class Plugin(AbstractPlugin):
                 self.say('你一共有{}张歌单哦！'.format(len(self.player.multi_playlist)) + playlists_info + '你想听哪一张呢？')
 
         ###################################播放更多的歌单####################################
-        elif any(word in text for word in ['继续听', '听下去', '重新报']) and self.player.multi_playlist:
+        elif any(word in text for word in ['继续听', '听下去', '重新']) and self.player.multi_playlist:
             playlists_info = self.player.get_playlists_portions(self.playlist_number_cut)
             self.playlist_number_cut += 1
             logger.info(playlists_info)
@@ -306,7 +306,7 @@ class Plugin(AbstractPlugin):
             else:
                 self.say('你都没有播放歌曲，我咋知道，哼！', cache=True)
 
-        ###################################询问歌单名字或者当前歌名####################################
+        ###################################收藏当前播放的歌曲或歌单###########################################
         elif u"收藏" in text and self.player.playlist:
             if u"歌单" in text and self.player.list_idx:
                 if self.player.api.subscribe_playlist(self.player.multi_playlist[self.player.list_idx]['playlist_id']):
@@ -325,7 +325,7 @@ class Plugin(AbstractPlugin):
                 self.player.resume()
 
         ###################################选择哪一张歌单####################################
-        elif self.hasNumbers(text) and any(word in text for word in ['第', '张']) and self.player.multi_playlist:
+        elif u"第" in text and self.hasNumbers(text) and self.player.multi_playlist:
             listNumber = self.whichNumber(text) - 1
             if listNumber < len(self.player.multi_playlist):
                 self.player.list_idx = listNumber
@@ -384,7 +384,7 @@ class Plugin(AbstractPlugin):
 
     def isValidImmersive(self, text, parsed):
         return any(self.nlu.hasIntent(parsed, intent) for intent in ['CHANGE_TO_LAST', 'CHANGE_TO_NEXT', 'CHANGE_VOL', 'CLOSE_MUSIC', 'PAUSE', 'CONTINUE', 'RESTART_MUSIC']) or \
-        any(word in text for word in [u"歌单", u"推荐", u"什么", u"啥", u"继续", u"听", u"退出", u"第", u"收藏"])
+        any(word in text for word in [u"歌单", u"推荐", u"什么", u"啥", u"继续", u"听", u"重新", u"退出", u"第", u"收藏"])
 
     def isValid(self, text, parsed):
         return u"网易云" in text or \

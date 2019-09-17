@@ -5,12 +5,9 @@
 '''
 网易云音乐 Api
 '''
-from builtins import chr
 from builtins import int
-from builtins import map
 from builtins import open
 from builtins import range
-from builtins import str
 from builtins import pow
 
 import re
@@ -18,10 +15,8 @@ import os
 import json
 import time
 import hashlib
-import random
 import base64
 import binascii
-import sys
 
 from Crypto.Cipher import AES
 from http.cookiejar import LWPCookieJar
@@ -285,7 +280,7 @@ class NetEase(object):
         self.session.cookies.load()
         for cookie in self.session.cookies:
             if cookie.is_expired():
-                cookie_jar.clear()
+                self.session.cookies.clear()
 
     def create_file(self, path, default="#LWP-Cookies-2.0\n"):
         if not os.path.exists(path):
@@ -373,7 +368,7 @@ class NetEase(object):
             return {'code': 501}
 
     # 每日签到  --- 已修改 
-    def daily_signin(self, is_mobile):
+    def daily_task(self, is_mobile):
         action = 'http://music.163.com/weapi/point/dailyTask'
         text = dict(type=0 if is_mobile else 1)
         data = encrypted_request(text)
@@ -577,7 +572,7 @@ class NetEase(object):
             if cookie.name == '__csrf':
                 csrf = cookie.value
         if csrf == '':
-            notify('You Need Login', 1)
+            log.error('You Need Login', 1)
         action += csrf
         data = {'ids': music_ids, 'br': bit_rate, 'csrf_token': csrf}
         connection = self.session.post(action,
