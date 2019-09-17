@@ -3,12 +3,10 @@ import shutil
 import re
 import cn2an
 import math
-import subprocess
-import platform
 from random import shuffle
 from robot.sdk.AbstractPlugin import AbstractPlugin
 from robot.Player import MusicPlayer
-from robot import config, logging, constants, utils
+from robot import config, logging, constants
 from sdk import NetEaseApi
 
 logger = logging.getLogger(__name__)
