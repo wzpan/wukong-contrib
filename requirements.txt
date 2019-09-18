@@ -1,2 +1,4 @@
 paho-mqtt>=1.3.0
 eyeD3>=0.8
+cn2an==0.3.7
+requests_cache==0.5.2
