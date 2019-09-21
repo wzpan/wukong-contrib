@@ -7,10 +7,8 @@
 """
 from builtins import int
 from builtins import open
-from builtins import range
 from builtins import pow
 
-import re
 import os
 import json
 import time
@@ -411,7 +409,7 @@ class NetEase(object):
         except requests.exceptions.RequestException as e:
             log.error(e)
         except ValueError as e:
-            log.error("Path: {}, response: {}".format(path, resp.text[:200]))
+            log.error("Error: {}, Path: {}, response: {}".format(e, path, resp.text[:200]))
         finally:
             return data
 
