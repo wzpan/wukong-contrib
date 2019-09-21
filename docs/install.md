@@ -14,19 +14,19 @@ docker 镜像安装更适用于 PC 的 Linux 系统。对于 Windows 和 Mac ，
 !> 目前 docker 镜像不支持 ARM 架构，请不要在树莓派等 ARM 板上尝试。
 
 ``` bash
-docker pull wzpan/wukong-robot:latest
+docker pull docker.pkg.github.com/wzpan/wukong-robot/wukong:latest
 ```
 
 对于 Linux 系统，可以将 `/dev/snd` 桥接给 docker，这样可以实现声卡的支持：
 
 ``` bash
-docker run -it -p 5000:5000 --device /dev/snd wzpan/wukong-robot:latest
+docker run -it -p 5000:5000 --device /dev/snd docker.pkg.github.com/wzpan/wukong-robot/wukong:latest
 ```
 
 而对于 Mac 和 Windows 系统，则只能放弃声卡的支持：
 
 ``` bash
-docker run -it -p 5000:5000 wzpan/wukong-robot:latest
+docker run -it -p 5000:5000 docker.pkg.github.com/wzpan/wukong-robot/wukong:latest
 ```
 
 因此 Mac 系统更推荐手动安装的方式。而 Windows ，则可以参考 [其他安装方式](#其他安装方式) 中的一键自动安装脚本。
