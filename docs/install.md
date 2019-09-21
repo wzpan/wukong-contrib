@@ -52,6 +52,8 @@ sudo apt-get install portaudio19-dev python-pyaudio python3-pyaudio sox pulseaud
 pip3 install pyaudio
 ```
 
+?> 如果遇到 pip3 安装慢的问题，可以考虑使用 Pypi 镜像。例如 [清华大学 Pypi 镜像](https://mirror.tuna.tsinghua.edu.cn/help/pypi/) 。
+
 #### Mac 系统：
 
 ``` bash
