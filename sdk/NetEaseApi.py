@@ -17,13 +17,14 @@ import base64
 import binascii
 import platform
 
+from pathlib import Path
 from collections import OrderedDict
 from Crypto.Cipher import AES
 from http.cookiejar import LWPCookieJar
 from http.cookiejar import Cookie
 import requests
 import requests_cache
-from robot import constants, logging
+from robot import logging
 log = logging.getLogger(__name__)
 
 # 歌曲榜单地址
@@ -179,7 +180,13 @@ class Parse(object):
     @classmethod
     def song_album(cls, song):
         # 对新老接口进行处理
-        if "al" in song:
+        if "al" in song and type(song['al']) == list:
+            album_name = ", ".join([a["name"] for a in song["al"] if a["name"] is not None])
+            album_id = ", ".join(str(a["id"]) for a in song["al"] if a["id"] is not None)
+            if album_name == "":
+                album_name = "未知专辑"
+                album_id = ""
+        elif "al" in song:
             if song["al"] is not None:
                 album_name = song["al"]["name"]
                 album_id = song["al"]["id"]
@@ -190,6 +197,20 @@ class Parse(object):
             if song["album"] is not None:
                 album_name = song["album"]["name"]
                 album_id = song["album"]["id"]
+            else:
+                album_name = "未知专辑"
+                album_id = ""
+        elif 'songInfo' in song:
+            if song['songInfo']["al"] is not None:
+                album_name = song['songInfo']["al"]["name"]
+                album_id = song['songInfo']["al"]["id"]
+            else:
+                album_name = "未知专辑"
+                album_id = ""
+        elif 'song' in song:
+            if song['song']["album"] is not None:
+                album_name = song['song']["album"]["name"]
+                album_id = song['song']["album"]["id"]
             else:
                 album_name = "未知专辑"
                 album_id = ""
@@ -217,6 +238,10 @@ class Parse(object):
                 artist = "未知艺术家" if song["pc"]["ar"] is None else song["pc"]["ar"]
         elif "artists" in song:
             artist = ", ".join([a["name"] for a in song["artists"]])
+        elif "songInfo" in song:
+            artist = ", ".join([a["name"] for a in song['songInfo']["ar"] if a["name"] is not None])
+        elif "song" in song:
+            artist = ", ".join([a["name"] for a in song['song']["artists"]])
         else:
             artist = "未知艺术家"
 
@@ -234,7 +259,7 @@ class Parse(object):
             song_info = {
                 "song_id": song["id"],
                 "artist": Parse.song_artist(song),
-                "song_name": song["name"],
+                "song_name": song['name'] if 'name' in song else song['songInfo']['name'],
                 "album_name": album_name,
                 "album_id": album_id,
                 "mp3_url": url,
@@ -274,6 +299,16 @@ class Parse(object):
                 "playlist_id": pl["id"],
                 "playlist_name": pl["name"],
                 "creator_name": pl["creator"]["nickname"],
+            }
+            for pl in playlists
+        ]
+
+    @classmethod
+    def personalized_playlists(cls, playlists):
+        return [
+            {
+                "playlist_id": pl["id"],
+                "playlist_name": pl["name"]
             }
             for pl in playlists
         ]
@@ -334,19 +369,19 @@ class NetEase(object):
         self.cookies = {'appver': '1.5.2'}
         self.playlist_class_dict = {}
         self.session = requests.Session()
-        self.create_file(constants.getConfigData('cookies'))
-        self.create_file(os.path.join(constants.TEMP_PATH, 'reqcache'))
-        requests_cache.install_cache(os.path.join(constants.TEMP_PATH, 'reqcache'), expire_after=3600)
-        self.session.cookies = LWPCookieJar(constants.getConfigData('cookies'))
+        self.check_file(os.path.join(Path.home(), ".neteasemusic/cookies"), isCookies=True)
+        self.check_file(os.path.join(Path.home(), ".neteasemusic/reqcache"), isCookies=False)
+        requests_cache.install_cache(os.path.join(Path.home(), ".neteasemusic/reqcache"), expire_after=3600)
+        self.session.cookies = LWPCookieJar(os.path.join(Path.home(), ".neteasemusic/cookies"))
         self.session.cookies.load()
         for cookie in self.session.cookies:
             if cookie.is_expired():
                 self.session.cookies.clear()
 
-    def create_file(self, path, default="#LWP-Cookies-2.0\n"):
+    def check_file(self, path, default="#LWP-Cookies-2.0\n", isCookies=False):
         if not os.path.exists(path):
             with open(path, "w") as f:
-                f.write(default)
+                f.write(default) if isCookies else f.write('')
 
     @property
     def toplists(self):
@@ -447,21 +482,57 @@ class NetEase(object):
         params = dict(uid=uid, offset=offset, limit=limit, csrf_token="")
         return self.request("POST", path, params).get("playlist", [])
 
+    # 个性化的用户新歌单
+    def personalized_playlist(self, total=True, offset=0, limit=30):
+        path = "/weapi/personalized/playlist"  # NOQA
+        params = dict(total=total, offset=offset, limit=limit, n=1000, csrf_token="")
+        return self.request("POST", path, params).get("result", [])
+
+    # 个性化的用户新歌
+    def personalized_newsong(self, total=True, offset=0, limit=25):
+        path = "/weapi/personalized/newsong"  # NOQA
+        params = dict(type='recommend', total=total, offset=offset, limit=limit, csrf_token="")
+        return self.request("POST", path, params).get("result", [])
+
     # 每日推荐歌单
     def recommend_resource(self):
         path = "/weapi/v1/discovery/recommend/resource"
         return self.request("POST", path).get("recommend", [])
 
     # 每日推荐歌曲
-    def recommend_playlist(self, total=True, offset=0, limit=20):
+    def recommend_songs(self, total=True, offset=0, limit=20):
         path = "/weapi/v1/discovery/recommend/songs"  # NOQA
         params = dict(total=total, offset=offset, limit=limit, csrf_token="")
         return self.request("POST", path, params).get("recommend", [])
+
+    # 获得相似歌单
+    def similar_playlist(self, songid, total=True,offset=0, limit=50):
+        path = "/weapi/discovery/simiPlaylist"
+        params = dict(songid=songid, total=total, offset=offset, limit=limit, csrf_token="")
+        return self.request("POST", path, params)
+
+    # 获得相似歌曲
+    def similar_song(self, songid, total=True,offset=0, limit=50):
+        path = "/weapi/v1/discovery/simiSong"
+        params = dict(songid=songid, total=total, offset=offset, limit=limit, csrf_token="")
+        return self.request("POST", path, params)
 
     # 私人FM
     def personal_fm(self):
         path = "/weapi/v1/radio/get"
         return self.request("POST", path).get("data", [])
+
+    # 用户喜欢（红心）的列表
+    def like_playlist(self, uid):
+        path = "/weapi/song/like/get"
+        params = dict(uid=uid, csrf_token="")
+        return self.request("POST", path, params).get("ids", [])
+
+    # 开启心动播放
+    def playmode_intelligence(self, sid, pid, type='fromPlayOne', count=1):
+        path = "/weapi/playmode/intelligence/list"
+        params = dict(songId=sid, type='fromPlayOne', playlistId=pid, startMusicId=sid, count=count, csrf_token="")
+        return self.request("POST", path, params).get("data", [])
 
     # like
     def like_song(self, songid, like=True, time=25, alg="itembased"):
@@ -472,9 +543,9 @@ class NetEase(object):
         return self.request("POST", path, params)["code"] == 200
 
    # 收藏歌单
-    def subscribe_playlist(self, playlist_id):
+    def subscribe_playlist(self, playlist_id, subscribe=True):
         path = 'weapi/playlist/subscribe'
-        params = dict(id=playlist_id, t=1)
+        params = dict(id=playlist_id, t="true" if subscribe else "false")
         return self.request("POST", path, params)["code"] == 200
 
     # FM trash
@@ -495,7 +566,7 @@ class NetEase(object):
         params = dict(area="ALL", offset=offset, total=True, limit=limit)
         return self.request("POST", path, params).get("albums", [])
 
-    # 歌单（网友精选碟） hot||new http://music.163.com/#/discover/playlist/
+    # 歌单（网友精选碟） 选风格！！！  hot||new http://music.163.com/#/discover/playlist/
     def top_playlists(self, category="全部", order="hot", offset=0, limit=50):
         path = "/weapi/playlist/list"
         params = dict(
@@ -539,6 +610,17 @@ class NetEase(object):
         path = "/weapi/artist/albums/{}".format(artist_id)
         params = dict(offset=offset, total=True, limit=limit)
         return self.request("POST", path, params).get("hotAlbums", [])
+
+    # 用户数字专辑
+    def purchased_albums(self, offset=0, limit=50):
+        path = "/api/digitalAlbum/purchased"
+        params = dict(offset=offset, total=True, limit=limit)
+        return self.request("POST", path, params).get("paidAlbums", [])
+
+    # 最新专辑
+    def latest_albums(self):
+        path = "/api/discovery/newAlbum"
+        return self.request("POST", path).get('albums', [])
 
     # album id --> song id set
     def album(self, album_id):
@@ -619,6 +701,27 @@ class NetEase(object):
                 s["get_time"] = timestamp
             return Parse.songs(data)
 
+        elif dig_type == "likesongs":
+            urls = self.songs_url(data)
+            timestamp = time.time()
+            infos = self.songs_detail(data)
+
+            url_id_index = {}
+            for index, info in enumerate(infos):
+                url_id_index[info["id"]] = index
+
+            for s in urls:
+                url_index = url_id_index.get(s["id"])
+                if url_index is None:
+                    log.error("can't get song info, id: %s", s["id"])
+                    continue
+                s['name'] = infos[url_index]["name"]
+                s['ar'] = infos[url_index]["ar"]
+                s['al'] = infos[url_index]["ar"]
+                s['expires'] = s.pop('expi')
+                s['get_time'] = timestamp
+            return Parse.songs(urls)
+
         elif dig_type == "refresh_urls":
             urls_info = self.songs_url(data)
             timestamp = time.time()
@@ -641,6 +744,9 @@ class NetEase(object):
 
         elif dig_type == "playlists" or dig_type == "top_playlists":
             return Parse.playlists(data)
+
+        elif dig_type == 'personalized_playlists':
+            return Parse.personalized_playlists(data)
 
         elif dig_type == "playlist_classes":
             return list(PLAYLIST_CLASSES.keys())
