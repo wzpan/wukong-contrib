@@ -93,4 +93,4 @@ class Plugin(AbstractPlugin):
     def isValid(self, text, parsed):
         return any(word in text for word in ["开启家庭助手",
                                              "开启助手", "打开家庭助手", "打开助手",
-                                             "家庭助手", "帮我", "智能家居"])
+                                             "家庭助手", "智能家居"])

@@ -523,42 +523,46 @@ SmartMiFan:
 | $num $unit 后关闭风扇 | $num 是数字，$unit 可以是秒/分钟/小时  | 预约关机 |
 
 
-## WangYiYun ##
 
-* 根据Github上的[musicbox](https://github.com/darknessomi/musicbox)所提供的api文件进行抽离和修改。
+## NeteaseMusic ##
+
+* 根据Github上的[musicbox](https://github.com/darknessomi/musicbox)所提供的api文件进行抽离和修改，配合wukong项目达到语音交互型的NeteaseMusic插件。
 * 目前功能：
-  1. **每日推荐歌单**
+  1. **个性化推荐歌单**
   2. **每日推荐歌曲**
-  3. **我的歌单**
+  3. **个人账号下的“我的歌单”**
   4. **搜索歌手/歌名/歌手+歌名**
   5. **自动签到**
-  6. **收藏当前播放歌单和歌曲到个人账号**
-  7. **询问当前播放歌曲信息**
-  8. **基本的播放器操作**
-  9. **往后还会有更多功能，请敬请期待一下...**
+  6. **收藏当前播放的歌单到个人账号**
+  7. **收藏当前播放的歌曲到红心歌单（我喜欢的音乐歌单）**
+  8. **当播放红心歌单，开启心动模式（红心歌单的歌曲+推荐相似的新歌）**
+  9. **询问当前播放歌曲信息**
+  10. **基本的播放器操作**
+  11. **往后还会有更多功能，请敬请期待一下...**
 * 代码比较啰嗦，希望多多学习，欢迎大家多出建议和问题来改良。
 * 源码：[https://github.com/wzpan/wukong-contrib/blob/HEAD/BaiduMap.py](https://github.com/wzpan/wukong-contrib/blob/HEAD/WangYiYun.py)
 
 ### 配置
-1. 首先请将账号信息配置在config.yml，如以下的方式配置。
+1. 首先请将账号信息配置在用户目录~/.wukong/config.yml，在文件最尾处添加类似下方的方式配置。
 ``` yml
 # 网易云音乐插件
-WangYiYun:
+NeteaseMusic:
     account: 'XXXXXXXX'  # 网易云音乐账号
     #密码的 md5，可以用 python3 wukong.py md5 "密码" 获得
     md5pass: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx' 
 ```
-2. 将~/.wukong/contrib主库更新一下以获取WangYiYun.py插件，还有需要下载一些额外的第三方库requests_cache。
+2. 将~/.wukong/contrib主库更新一下以获取WangYiYun.py插件，还有调用pip3下载一些额外的依赖库requests_cache。
 ``` sh
-cd $HOME/.wukong
+cd $HOME/.wukong/contrib
+git pull
+cd ../
 pip3 install -r contrib/requirements.txt
 ``` 
 
 ### 关于首次登陆的那些事
-* 首次登陆会通过账号信息account和md5pass尝试获取两周有效期的Cookies并保存于本地~/.wukong/cookies，同时会定期检查有效期。
-* ~/wukong-robot/temp文件有一个名为reqcache文件，用于requests的缓存。
-* 首次登陆后会在config.yml写入userid和nickname，便于往后的查询请求。
-
+* 首次登陆会通过账号信息account和md5pass尝试获取两周有效期的Cookies并保存于本地~/.neteasemusic/cookies，同时会定期检查有效期。
+* 在~/.neteasemusic/目录有一个名为reqcache文件，用于requests的缓存。
+* 还有~/.neteasemusic/目录有一个名为database.json文件，用于保存用户的个人信息以便于往后的查询请求，例如userid和个人歌单。
 
 ### 交互示例
 为了简化交互和满足不同的问句，一次的播报信息中只会包含五个歌单名称，可以对悟空喊：“我想听下去”来了解更多歌单名称。
@@ -569,15 +573,23 @@ pip3 install -r contrib/requirements.txt
 - 悟空：共找到X张歌单，第1张叫XXX，第2张叫XXX...想听哪一张，或者要不要继续听下去呢？
 - 用户：我想听下去 / 我要继续听更多
 - 悟空：共找到X张歌单，第6张叫XXX，第7张叫XXX...想听哪一张，或者要不要继续听下去呢？
-- 用户：刚刚第4张歌单叫什么来的
+- 用户：（中途可打断悟空）悟空悟空，我要听第8张。（然后播放歌曲）
+- 用户：刚刚第4张歌单叫什么来的？
 - 悟空：第四张歌单叫XXXX
 - 用户：那我要听第4张
 - 悟空：选了第4张
 
 > 每日推荐歌曲
 
-- 用户：播放网易云的推荐歌曲
-- 悟空：一共有X首推荐歌曲噢！（然后播放歌曲）
+- 用户：播放网易云的推荐歌曲 / 今天网易云有什么推荐的歌曲
+- 悟空：今天共有X首推荐歌曲噢！（然后播放歌曲）
+
+> 打开红心歌单和开启心动模式 (我喜欢的音乐歌单)
+
+- 用户：播放网易云的红心歌单
+- 悟空：红心歌单共有X首歌曲噢！
+- 用户：开启/打开心动模式
+- 悟空：已成功开启心动模式，目前有X首歌曲！
 
 > 搜索歌手/歌名（模板抓取，""双引号的字必须说, |表示or）
 
@@ -585,7 +597,7 @@ pip3 install -r contrib/requirements.txt
 - 悟空：你要听你荣号，对吗？不对的话，请重新说一次！
 - 用户：不对，我要“听”李荣浩的“歌曲”
 - 悟空：你要听李荣浩，对吗？不对的话，请重新说一次！
-- 用户：对的|是的
+- 用户：对的|是的|确认
 - 悟空：找到了李荣浩的XX。（然后播放歌曲）
 
 or 
