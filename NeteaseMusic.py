@@ -8,7 +8,7 @@ from pathlib import Path
 from random import shuffle
 from robot.sdk.AbstractPlugin import AbstractPlugin
 from robot.Player import MusicPlayer
-from robot import config, logging, constants, utils
+from robot import config, logging
 from sdk import NetEaseApi
 
 logger = logging.getLogger(__name__)
@@ -111,7 +111,7 @@ class Storage(object):
                     else:
                         self.database[k] = v
         except (OSError, KeyError, ValueError) as e:
-            pass
+            logger.error('加载database.json文件失败，请检查！原因是{}'.format(e))
         self.save()
 
     def save(self):
@@ -220,6 +220,7 @@ class NeteaseMusicPlayer(MusicPlayer):
     def get_playlist(self, fromUser=False):
         if not fromUser:
             datalist = self.api.dig_info(self.api.personalized_playlist(), 'personalized_playlists')
+            self.multi_listChoices = self.pack_info(datalist, "playlist_id", "playlist_name")
         else:
             self.multi_listChoices = self.preference['user_playlists']
 

@@ -24,7 +24,7 @@ from http.cookiejar import LWPCookieJar
 from http.cookiejar import Cookie
 import requests
 import requests_cache
-from robot import constants, logging
+from robot import logging
 log = logging.getLogger(__name__)
 
 # 歌曲榜单地址
@@ -184,7 +184,7 @@ class Parse(object):
             album_name = ", ".join([a["name"] for a in song["al"] if a["name"] is not None])
             album_id = ", ".join(str(a["id"]) for a in song["al"] if a["id"] is not None)
             if album_name == "":
-                artist = "未知专辑"
+                album_name = "未知专辑"
                 album_id = ""
         elif "al" in song:
             if song["al"] is not None:
@@ -312,26 +312,6 @@ class Parse(object):
             }
             for pl in playlists
         ]
-
-def __get_eapi_params(self, eapi_url, first_param):
-    """
-    获取eapi Form Data中的params(通过一次AES加密)
-
-    :param eapi_url: 请求url 字符串
-    :param first_param:  第一个参数字典 字符串
-    :return: 一次加密后的params
-    """
-    first_param = first_param.encode()
-    eapi_url = eapi_url.encode()
-    params = b'nobody' + eapi_url + b'use' + first_param + b'md5forencrypt'
-    md5 = hashlib.md5()
-    md5.update(params)
-    params = eapi_url + b'-36cd479b6b5-' + first_param + b'-36cd479b6b5-' + md5.hexdigest().encode()
-    pad = 16 - len(params) % 16
-    params = params + bytearray([pad] * pad)
-    crypt = AES.new(config.eapikey, AES.MODE_ECB)
-    params = crypt.encrypt(params)
-    return b2a_hex(params).upper()
 
 # 歌曲加密算法, 基于https://github.com/yanunon/NeteaseCloudMusic脚本实现
 def encrypted_id(id):
