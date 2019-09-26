@@ -9,13 +9,19 @@
 
 ## 方式一：docker 安装
 
-docker 镜像安装更适用于 PC 的 Linux 系统。对于 Windows 和 Mac ，由于底层音频驱动方式不同，没办法实现离线唤醒和语音播放的功能，但后台端的文本或录音的交互依然可用。
+docker 镜像安装更适用于 Linux 系统。对于 Windows 和 Mac ，由于底层音频驱动方式不同，没办法实现离线唤醒和语音播放的功能，但后台端的文本或录音的交互依然可用。
 
-!> 目前 docker 镜像不支持 ARM 架构，请不要在树莓派等 ARM 板上尝试。
+### X86-64 架构设备
+
+首先确保已经 [安装 docker](https://docs.docker.com/install/)。
+
+如果你的设备是普通的 X86-64 架构设备（例如 PC 或 Mac） ，可以使用 wzpan/wukong-robot 镜像：
 
 ``` bash
 docker pull wzpan/wukong-robot:latest
 ```
+
+!> 如果遇到 docker 拉取慢的问题，你或许需要考虑先配置好[docker加速器](https://www.daocloud.io/mirror#accelerator-doc)。
 
 对于 Linux 系统，可以将 `/dev/snd` 桥接给 docker，这样可以实现声卡的支持：
 
@@ -31,7 +37,23 @@ docker run -it -p 5000:5000 wzpan/wukong-robot:latest
 
 因此 Mac 系统更推荐手动安装的方式。而 Windows ，则可以参考 [其他安装方式](#其他安装方式) 中的一键自动安装脚本。
 
-!> 如果遇到 docker 拉取慢的问题，你或许需要考虑先配置好[docker加速器](https://www.daocloud.io/mirror#accelerator-doc)。
+`docker run` 完成后，就可以参考 [运行](/?id=运行) 一节，启动 wukong-robot 了。
+
+### ARM 架构设备
+
+如果你的设备是 ARM 架构设备（例如树莓派），可以使用 wzpan/wukong-robot-arm 镜像：
+
+``` bash
+git clone https://github.com/wzpan/wukong-robot-pi-installer.git
+cd wukong-robot-pi-installer
+sudo ./pi_installer
+```
+
+然后使用如下命令启动 docker 镜像即可：
+
+``` bash
+docker run -it -p 5000:5000 --device /dev/snd -e LANG=C.UTF-8 wzpan/wukong-robot:latest
+```
 
 `docker run` 完成后，就可以参考 [运行](/?id=运行) 一节，启动 wukong-robot 了。
 
