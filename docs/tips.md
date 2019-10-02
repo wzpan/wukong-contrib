@@ -63,7 +63,13 @@ make
 cp ec /usr/local/bin/
 ```
 
-之后我们可以写一个脚本来实现回声消除（请先确保已安装 pulseaudio ）：
+然后根据你的板子是否带有硬件音频回路（hardware audio loopback），有不同的配置方案：
+
+#### 不支持硬音频回路 ####
+
+普通的麦克风以及 respeaker 2 Mic HAT 不支持硬音频回路。所以我们需要使用软件的方式来进行回声消除。
+
+可以写一个脚本来实现回声消除（请先确保已安装 pulseaudio ）：
 
 ``` bash
 pacmd load-module module-pipe-sink sink_name=ec.sink format=s16 rate=16000 channels=1 file=/tmp/ec.input
@@ -101,7 +107,11 @@ No playback, bypass AEC
 
 说明回声消除已经启用。
 
-!> 如无必要尽量避免重启 ec ，否则可能会导致录音无法正常工作。如果遇到这个问题，可以重启设备解决。
+#### 支持硬音频回路 ####
+
+可以使用 `ec_hw` 来实现回声消除，详见 [`ec_hw` for devices with hardware audio loopback](https://github.com/voice-engine/ec#ec_hw-for-devices-with-hardware-audio-loopback) 。
+
+!> 如无必要尽量避免重启 `ec` 或 `ec_hw` ，否则可能会导致录音无法正常工作。如果遇到这个问题，可以重启设备解决。
 
 ## 4. 提升语音识别准确率
 

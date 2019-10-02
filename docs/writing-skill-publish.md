@@ -41,7 +41,7 @@ fork 完仓库后，在您的账户下也会有一个 wukong-contrib 项目，�
 
 ![复制新的仓库地址](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/wukong-contrib-forks.png)
 
-之后在树莓派中执行如下命令，添加新的仓库地址：
+之后在你装有 wukong-robot 的设备中执行如下命令，添加新的仓库地址：
 
 ``` bash
 cd ~/.wukong/contrib

@@ -3,6 +3,7 @@
 * [运行](run)
 * [退出](kill)
 * [配置](configure)
+* [AnyQ](anyq)
 * [升级](update)
 * [技能](official?id=悟空的官方插件)
   - [官方技能](official)

@@ -214,3 +214,50 @@ do_not_bother:
 
 1. [树莓派语音机器人接入homeassistant控制nodemcu开发板教程](https://www.bilibili.com/video/av46877916?from=search&seid=7428641102072962094)
 2. [人工智能开发实战：悟空智能音箱](https://www.boxuegu.com/live/detail-1319)
+
+## AnyQ 安装 ##
+
+如果希望使用 [AnyQ](https://github.com/baidu/AnyQ) 作为聊天机器人，需要先安装 AnyQ 。
+
+### X86-64 架构设备 ###
+
+对于 X86-64 架构（例如 PC 或 Mac），推荐使用 docker 安装：
+
+``` bash
+docker pull keejo/anyq:latest
+```
+
+然后使用如下命令启动 AnyQ 服务和 solr 引擎：
+
+``` bash
+docker run -it -p 8999:8999 -p 8900:8900 keejo/anyq:latest ./run.sh
+```
+
+然后可以在当前机器上访问 <http://localhost:8999/anyq?question=账号> 确认是否正常返回。
+
+### ARM 架构设备 ###
+
+ARM 架构设备（例如树莓派）需要则手动编译安装。安装前请确保满足以下依赖：
+
+* cmake 3.0以上(推荐3.2.2版本)
+* g++ >=4.8.2
+* bison >=3.0
+
+安装命令：
+
+``` bash
+mkdir build && cd build && cmake .. && make
+```
+
+完成后执行如下命令启动 AnyQ 服务和 solr 引擎：
+
+``` bash
+# 进入目录
+cd /home/AnyQ/build
+# 启动solr
+sh solr_script/anyq_solr.sh solr_script/sample_docs
+# 启动AnyQ
+./run_server
+```
+
+然后可以在当前机器上访问 <http://localhost:8999/anyq?question=账号> 确认是否正常返回。
