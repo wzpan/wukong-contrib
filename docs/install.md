@@ -224,13 +224,13 @@ do_not_bother:
 对于 X86-64 架构（例如 PC 或 Mac），推荐使用 docker 安装：
 
 ``` bash
-docker pull keejo/anyq:latest
+docker pull keejo/anyq:1.0
 ```
 
 然后使用如下命令启动 AnyQ 服务和 solr 引擎：
 
 ``` bash
-docker run -it -p 8999:8999 -p 8900:8900 keejo/anyq:latest ./run.sh
+docker run -it -p 8999:8999 -p 8900:8900 keejo/anyq:1.0 ./run.sh
 ```
 
 然后可以在当前机器上访问 <http://localhost:8999/anyq?question=账号> 确认是否正常返回。
