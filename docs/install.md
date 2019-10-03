@@ -266,5 +266,27 @@ sh solr_script/anyq_solr.sh solr_script/sample_docs
 
 如果要使用 HanTTS 以实现本地 TTS 服务，则需要先从 SourceForge 下载语音库 [syllables.zip](https://sourceforge.net/projects/hantts/files/?source=navbar) 。完成后解压到 ~/.wukong 目录下。
 
+相关配置：
+
+``` yaml
+# 语音合成服务配置
+# 可选值：
+# han-tts       - HanTTS
+# baidu-tts     - 百度语音合成（推荐）
+# xunfei-tts    - 讯飞语音合成
+# ali-tts       - 阿里语音合成（推荐）
+# tencent-tts   - 腾讯云语音合成（推荐）
+tts_engine: han-tts
+
+# HanTTS 服务
+han-tts:
+    # 所使用的语音库目录
+    # 需放在 ~/.wukong/ 目录下
+    # 也支持自行录制，详见：
+    # https://github.com/junzew/HanTTS
+    voice: 'syllables'
+```
+
 如果希望自己录制语音，可以参见 [HanTTS 提供的官方教程](https://github.com/junzew/HanTTS/blob/master/README.zh.md#%E5%BD%95%E5%88%B6%E6%96%B0%E7%9A%84%E8%AF%AD%E9%9F%B3%E5%BA%93)。
+
 
