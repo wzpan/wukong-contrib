@@ -215,7 +215,7 @@ do_not_bother:
 1. [树莓派语音机器人接入homeassistant控制nodemcu开发板教程](https://www.bilibili.com/video/av46877916?from=search&seid=7428641102072962094)
 2. [人工智能开发实战：悟空智能音箱](https://www.boxuegu.com/live/detail-1319)
 
-## AnyQ 安装 ##
+## AnyQ 安装（可选） ##
 
 如果希望使用 [AnyQ](https://github.com/baidu/AnyQ) 作为聊天机器人，需要先安装 AnyQ 。
 
@@ -262,7 +262,7 @@ sh solr_script/anyq_solr.sh solr_script/sample_docs
 
 然后可以在当前机器上访问 <http://localhost:8999/anyq?question=账号> 确认是否正常返回。
 
-## HanTTS 安装 ##
+## HanTTS 安装（可选） ##
 
 如果要使用 HanTTS 以实现本地 TTS 服务，则需要先从 SourceForge 下载语音库 [syllables.zip](https://sourceforge.net/projects/hantts/files/?source=navbar) 。完成后解压到 ~/.wukong 目录下。
 

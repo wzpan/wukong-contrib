@@ -4,7 +4,7 @@
 
 ## 安装 AnyQ ##
 
-详见 [AnyQ 安装](/install?id=anyq-%e5%ae%89%e8%a3%85) 。
+详见 [AnyQ 安装](/install?id=anyq-%e5%ae%89%e8%a3%85（可选）) 。
 
 ## 配置 AnyQ ##
 
