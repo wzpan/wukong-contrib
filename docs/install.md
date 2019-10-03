@@ -262,8 +262,9 @@ sh solr_script/anyq_solr.sh solr_script/sample_docs
 
 然后可以在当前机器上访问 <http://localhost:8999/anyq?question=账号> 确认是否正常返回。
 
-## HanTTS 配置 ##
+## HanTTS 安装 ##
 
 如果要使用 HanTTS 以实现本地 TTS 服务，则需要先从 SourceForge 下载语音库 [syllables.zip](https://sourceforge.net/projects/hantts/files/?source=navbar) 。完成后解压到 ~/.wukong 目录下。
 
 如果希望自己录制语音，可以参见 [HanTTS 提供的官方教程](https://github.com/junzew/HanTTS/blob/master/README.zh.md#%E5%BD%95%E5%88%B6%E6%96%B0%E7%9A%84%E8%AF%AD%E9%9F%B3%E5%BA%93)。
+
