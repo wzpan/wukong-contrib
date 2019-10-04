@@ -37,7 +37,7 @@ docker run -it -p 5000:5000 wzpan/wukong-robot:latest
 
 因此 Mac 系统更推荐手动安装的方式。而 Windows ，则可以参考 [其他安装方式](#其他安装方式) 中的一键自动安装脚本。
 
-`docker run` 完成后，就可以参考 [运行](/?id=运行) 一节，启动 wukong-robot 了。
+`docker run` 完成后，就可以参考 [运行](/run?id=运行) 一节，启动 wukong-robot 了。
 
 ### ARM 架构设备
 
@@ -198,6 +198,33 @@ do_not_bother:
 但是同样建议到 [snowboy 官网](https://snowboy.kitt.ai/dashboard) 自己训练。snowboy 官方建议在树莓派上先用 `rec t.wav` 这样的命令录制唤醒词，然后在训练的时候通过上传按钮上传到服务器中进行训练：
 
 ![](http://docs.kitt.ai/snowboy/_images/upload.png)
+
+也可以使用 wukong.py 提供的 `train` 命令来进行训练。
+
+- 首先使用 `rec` 或者 `arecord` 来录制唤醒词的三段语音。例如：
+
+``` bash
+cd $HOME
+arecord a.wav
+arecord b.wav
+arecord c.wav
+```
+
+- 然后，如果你还没有在 config.yml 配置文件中填写 `snowboy_token` 的配置，可以先访问 https://snowboy.kitt.ai ，在 “Profile settings” 中找到你的 token ：
+
+![](http://docs.kitt.ai/snowboy/_images/profile_token.png)
+
+然后把它填进 config.yml 中。
+
+- 之后，使用如下命令训练成唤醒词：
+
+``` bash
+python3 wukong.py train $HOME/a.wav $HOME/b.wav $HOME/c.wav $HOME/.wukong/mywords.pmdl
+```
+
+其中 `mywords.pmdl` 即是要生成的 pmdl 的名字。你也可以换成你喜欢的名字（但尽量不要用中文）。
+
+- 完成后修改下 config.yml 把唤醒词改成刚刚训练的唤醒词即可。
 
 ## 其他安装方式 ##
 
