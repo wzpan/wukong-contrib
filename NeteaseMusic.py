@@ -217,6 +217,10 @@ class NeteaseMusicPlayer(MusicPlayer):
         self.idx = (self.idx+1) % len(self.playlist)
         self.play()
 
+    def resume(self):
+        super().resume()
+        self.onCompleteds = [self.next]
+
     def get_playlist(self, fromUser=False):
         if not fromUser:
             datalist = self.api.dig_info(self.api.personalized_playlist(), 'personalized_playlists')
@@ -282,6 +286,7 @@ class NeteaseMusicPlayer(MusicPlayer):
         ### 当获取到多张歌单，选了某张歌单时
         elif listNumber:
             self.playlist = self.get_playlist_detail(self.multi_listChoices[listNumber]['playlist_id'])
+            self.shuffle_songs()
         ### 当获取到红心歌单/我喜欢的音乐歌单时
         elif isLikeList:
             self.playlist = self.get_likelist_songs()
@@ -372,6 +377,14 @@ class Plugin(AbstractPlugin):
                 self.player.list_idx = listNumber
                 self.isContinueAsking = False
                 self.playlist_number_cut = 1
+                self.isOpenLikelist = True if self.player.list_idx == 0 else False
+
+                self.player.set_playlist(listNumber=self.player.list_idx)
+                if self.player.playlist:
+                    self.say('选择了第{}张'.format(self.player.list_idx+1), wait=True)
+                    self.player.play()
+                else:
+                    self.say('哎！获取不到相关的信息！不好意思。', wait=True)
         ###################################选择退出此循环###########################################
         elif any(word in text for word in [u"不要", u"算了", u"不用"]):
             self.playlist_number_cut = 1
@@ -410,6 +423,8 @@ class Plugin(AbstractPlugin):
                 singerOrSong = self.isSearch.groups()[0] if self.isSearch.groups()[0] else self.isSearch.groups()[3]
                 if self.isSearch.groups()[1]:
                     self.say('你要听{}的{}歌曲，对吗？不对的话，请重新说一次！'.format(self.isSearch.groups()[1], self.isSearch.groups()[2]), onCompleted=lambda: self.handle_search(self.activeListen()), wait=True)
+                elif self.isSearch.groups()[0]:
+                    self.say('你要听{}这位歌手，对吗？不对的话，请重新说一次！'.format(singerOrSong), onCompleted=lambda: self.handle_search(self.activeListen()), wait=True)
                 else:
                     self.say('你要听{}这首歌，对吗？不对的话，请重新说一次！'.format(singerOrSong), onCompleted=lambda: self.handle_search(self.activeListen()), wait=True)
             else:
@@ -438,13 +453,6 @@ class Plugin(AbstractPlugin):
             ###################################播报歌单信息时被打断，直接进入多轮询问###########################################
             elif self.isContinueAsking:
                 self.handle_multilists(text)
-                if self.player.list_idx:
-                    self.player.set_playlist(listNumber=self.player.list_idx)
-                    if self.player.playlist:
-                        self.say('选择了第{}张'.format(self.player.list_idx+1), wait=True)
-                        self.player.play()
-                    else:
-                        self.say('哎！获取不到相关的信息！不好意思。', wait=True)
 
             ###################################尚未播放歌曲，获取用户的每日推荐歌曲###########################################
             elif any(word in text for word in ['推荐歌曲', '推荐的歌曲', '歌推荐', '每日推荐']):
@@ -466,15 +474,6 @@ class Plugin(AbstractPlugin):
                     self.playlist_number_cut += 1
                     self.isContinueAsking = True
                     self.say('共找到了{}张歌单噢！'.format(len(self.player.multi_listChoices)) + playlists_info + '想听哪一张，或者要不要继续听下去呢', onCompleted=lambda: self.handle_multilists(self.activeListen()))
-
-                if self.player.list_idx:
-                    self.player.set_playlist(listNumber=self.player.list_idx)
-                    self.isOpenLikelist = False
-                    if self.player.playlist:
-                        self.say('选择了第{}张'.format(self.player.list_idx+1), wait=True)
-                        self.player.play()
-                    else:
-                        self.say('哎！获取不到相关的信息！不好意思。', wait=True)
 
             ###################################获取用户的红心歌单（用户喜欢的音乐）###########################################
             elif any(word in text for word in ['红心歌单', '红星歌单', '喜欢的音乐']):
@@ -500,15 +499,6 @@ class Plugin(AbstractPlugin):
                 else:
                     self.isContinueAsking = True
                     self.say('你一共有{}张歌单噢！'.format(len(self.player.multi_listChoices)) + playlists_info + '你想听哪一张呢，或者需要我重新报一次吗', onCompleted=lambda: self.handle_multilists(self.activeListen()))
-
-                if self.player.list_idx:
-                    self.isOpenLikelist = True if self.player.list_idx == 0 else False
-                    self.player.set_playlist(listNumber=self.player.list_idx)
-                    if self.player.playlist:
-                        self.say('选择了第{}张'.format(self.player.list_idx+1), wait=True)
-                        self.player.play()
-                    else:
-                        self.say('哎！获取不到相关的信息！不好意思。', wait=True)
 
             ###################################播放我的红心歌单时，开启心动模式（将你自己的红心曲目与系统推荐的新歌交替进行播放）###########################################
             elif u'心动模式' in text  and self.player.playlist:
