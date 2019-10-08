@@ -212,7 +212,7 @@ python3 -m pip install --upgrade homeassistant
   ]
 }
 ```
-**由于配置文件暂时不能设置为自己的用户名密码，因此请勿将homeassistant所在设备ip地址上的21端口到外网！！！**
+**由于配置文件暂时不能设置为自己的用户名密码，因此请勿将homeassistant所在设备ip地址上的21端口映射到外网！！！**
 
 **若您需要直接浏览或编辑homeassistant内的文件，请安装Samba share插件，尽可能避免使用ftp，且ftp是无法直接编辑文件的，也推荐使用Samba代替，关于Samba share相关配置教程请在Samba share插件页面内寻找**
 
