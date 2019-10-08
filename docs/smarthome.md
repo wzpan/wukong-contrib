@@ -222,6 +222,9 @@ python3 -m pip install --upgrade homeassistant
 
 第八步：进入后您应该看到一个名叫**share**的文件夹，打开这个文件夹，在**share**下新建一个文件夹，命名为**wukongdata**
 
-第九步：点击[这里](https://github.com/PatrickChina/wukonghass/raw/master/wukong/config.yml)下载wukong-robot的默认配置文件，下载后将其复制到您新建的**wukongdata**文件夹目录下，请不要重命名！
+第九步：右键点击[这里](https://github.com/PatrickChina/wukonghass/raw/master/wukong/config.yml)，选择**链接另存为（windows chrome）**或**从链接另存文件为（ubuntu firefox）**或您系统的同义选项来下载wukong-robot的默认配置文件，下载后将其复制到您新建的**wukongdata**文件夹目录下，请不要重命名！
+
+### 至此您已经顺利完成了自动备份的配置，下面开始进行语音交互的配置
+
 
 
