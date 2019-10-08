@@ -60,7 +60,7 @@ Intel-Nuc
 
 !> 强烈建议使用高品质sd卡来保障流畅的使用体验，低速或低容量的TF卡可导致极为糟糕的使用体验
 
-本方法安装后您可以在```http://hassio.local```和```http://ipaddress:8123/```连接到您的homeassistant前端ui
+本方法安装后您可以在```http://hassio.local:8123```和```http://ipaddress:8123/```连接到您的homeassistant前端ui
 
 #### 从您已有的homeassistant迁移全部配置到最新版本的hass.io版本
 
