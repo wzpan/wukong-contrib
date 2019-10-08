@@ -377,7 +377,79 @@ switch.pump:
   wukong: {"开始浇水":"turn_on", "浇水":"turn_on", "停止浇水":"turn_off", "结束浇水":"turn_off"}  
 ``` 
 
+### 测试版（beta）
+试用最新版本的 hass 插件，新版 hass 插件支持百度 unit ，实现一句命令完成操作，无需像之前一样先进入插件后操作，由于本插件处于 beta 状态，unit 词典库正在拓充中，暂时使用 apikey 的方式请求 unit的使用。为确保不想使用beta版本的用户的正常使用，本版本与正式版暂时独立
+启用本版本需使用如下配置方式：
 
+打开 wukong 的配置文件（网页后台或直接修改都可以），
+第一步：
+
+在 homeassistant 的 configuration.yaml 里添加：
+
+``` yaml
+api：
+  api_password: 
+```
+
+修改后 api 插件就启动了
+
+注意:在`api_password: `后设置 api 接口密码，建议设置，但是这个密码在与 wukong 之间通信时用不到，以后自行开发 homeassistant 时可能用到这里的 api 密码，此密码的修改不影响 wukong 工作。（冒号之后有空格！在空格之后直接输入密码无需引号）
+
+第二步：
+
+登陆 homeassistant 网页，在侧拉菜单中点击 homeassistant 字样旁自己的头像，然后将页面拉至最底下找到“长期访问令牌”点击创建令牌，随意取一个名字如： wukong 点击确认
+
+在随后弹出的窗口中复制并想办法记录自己的密钥
+
+第三步：
+
+打开 wukong 的配置文件（网页后台或直接修改都一样），添加：
+
+``` yaml
+homeassistantunit:
+    url: "http://127.0.0.1"   #切记加上http://，ip或者域名为你的homeassistant的主机
+    port: "8123"             # 端口为你的homeassistant的端口和网页端口一样
+    key: "" # 密钥
+```
+
+key 处填写的内容如下：
+
+Bearer ABCDE
+
+用第二步获取到的密钥替换 ABCDE (保留 Bearer 和 ABCDE 之间的空格)，将其整体填入双引号中
+ 
+
+### HomeAssistant 配置
+
+configuration.yaml 相同目录下添加 customize.yaml 并 include 进配置文件。
+
+查看状态类的设备(传感器等)将命令写成 list；控制类的设备命令写成 dict，控制命令为 key ，动作为 value。
+
+如下是示例的部分配置：
+
+``` yaml
+sensor.tempareture:
+  friendly_name: "环境温度"
+  wukong: ["查看环境温度", "当前环境温度", "环境温度"]
+sensor.humidity:
+  friendly_name: "环境湿度"
+  wukong: ["查看环境湿度度", "当前环境湿度", "环境湿度"]
+switch.light:
+  friendly_name: "补光"
+  wukong: {"开始补光":"turn_on", "补光":"turn_on", "停止补光":"turn_off", "结束补光":"turn_off"}
+switch.pump:
+  friendly_name: "浇水"
+  wukong: {"开始浇水":"turn_on", "浇水":"turn_on", "停止浇水":"turn_off", "结束浇水":"turn_off"}  
+``` 
+
+本插件由于处于测试状态，因此不确保稳定运行，如果您有对稳定性的要求，请勿使用此版本。
+如果遇到任何问题请提issue或在官方群聊内报告，谢谢
+如果你对参与 homeassistant 和 wukong-robot 协作运行的进一步开发有兴趣，可以在群聊内 @杭州-PatrickChen 或者群主
+
+如果您在中国以外的国家使用是遇到了问题（wukong回复未找到配置），请修改您本地 hassunit.py 中的第31行为：
+```
+text = text.decode('unicode_escape')
+```
 
 ## ControlMqtt ##
 
