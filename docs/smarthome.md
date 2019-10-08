@@ -172,5 +172,49 @@ python3 -m pip install --upgrade homeassistant
 
 ### 配置自动备份
 
+第一步：参考上一段，再次进入ADD-ON STORE
 
+第二步：ADD-on store 内寻找插件**FTP**
+
+第三步：点击INSTALL，等待hass.io完成安装
+
+第四步：切换到DASH BOARD选项卡，点击插件FTP，进入页面后不要START！请保持**Start on boot**开关处于激活状态。向下滚页面，直至显示**config**配置框
+
+第五步：使用以下内容**覆盖**默认配置，请**不要**修改任何配置内容**包括**用户名密码！
+```
+{
+  "port": 21,
+  "data_port": 20,
+  "banner": "Welcome to the Hass.io FTP service.",
+  "pasv": true,
+  "pasv_min_port": 30000,
+  "pasv_max_port": 30010,
+  "pasv_address": "",
+  "ssl": false,
+  "certfile": "fullchain.pem",
+  "keyfile": "privkey.pem",
+  "implicit_ssl": false,
+  "max_clients": 5,
+  "users": [
+    {
+      "username": "hassio",
+      "password": "wukong2019hassio",
+      "allow_chmod": true,
+      "allow_download": true,
+      "allow_upload": true,
+      "allow_dirlist": true,
+      "addons": false,
+      "backup": false,
+      "config": false,
+      "share": true,
+      "ssl": false
+    }
+  ]
+}
+```
+**由于配置文件暂时不能设置为自己的用户名密码，因此请勿将homeassistant所在设备ip地址上的21端口到外网！！！**
+
+**若您需要直接浏览或编辑homeassistant内的文件，请安装Samba share插件，尽可能避免使用ftp，且ftp是无法直接编辑文件的，也推荐使用Samba代替，关于Samba share相关配置教程请在Samba share插件页面内寻找**
+
+第六步：点击Start，启动FTP插件。
 
