@@ -2,8 +2,7 @@
 
 你可以选择 docker 安装或者手动安装两种方式。
 
-若您想要将wukong-robot与homeassistant搭配使用，请参照**智能家庭**章节进行操作。或您想要使用wukong-robot控制您家里的智能家电，您可以
-使用homeassistant来达成该目的，您可以在该章节找到homeassistant的安装方式。
+若您想要将wukong-robot与homeassistant搭配使用，请参照**智能家庭**章节进行操作。或您想要使用wukong-robot控制您家里的智能家电，甚至改装您的旧家电使其支持智能控制，您可以使用homeassistant来达成该目的，您可以在**智能家庭**章节找到homeassistant的安装方式。
 
 * [docker 安装](/install?id=方式一：docker-安装)
 * [手动安装](/install?id=方式二：手动安装)
