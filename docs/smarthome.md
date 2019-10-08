@@ -16,6 +16,10 @@
 
 本章节中产生的问题您可以前往homeassistant[官网](https://www.home-assistant.io/hassio/installation/)或[论坛](https://community.home-assistant.io/)尝试寻找答案
 
+所有的homeassistant前端ui都可以在```http://ipaddress:8123/```访问，**ipadress**是您安装homeassistant的机器的局域网ip地址，一般您可以在
+
+路由器的管理页面中找到
+
 ### 方法1：部署含有hass.io的系统（强烈推荐）
 
 hass.io是一个为homeassistant开发的**插件**，您可以将其理解成一个系统管理器。他可以帮助你用最简单的方式安装大量有用的插件，且保护您的系
@@ -58,6 +62,7 @@ Intel-Nuc
 
 !> 强烈建议使用高品质sd卡来保障流畅的使用体验，低速或低容量的TF卡可导致极为糟糕的使用体验
 
+本方法安装后您可以在```http://hassio.local```和```http://ipaddress:8123/```连接到您的homeassistant前端ui
 
 #### 从您已有的homeassistant迁移全部配置到最新版本的hass.io版本
 
@@ -139,3 +144,6 @@ python3 -m pip install --upgrade homeassistant
 ```
 
 本方法安装后您可以在```http://ipaddress:8123/```连接到您的homeassistant前端ui界面
+
+
+## 在您的homeassistant系统（hass.io）上通过安装插件以快速安装wukong-robot
