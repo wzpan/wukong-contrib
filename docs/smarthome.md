@@ -11,6 +11,35 @@
 * [配置wukong-robot的homeassistant技能插件](/install?id=其他安装方式)
 * [trouble shooting问题与解决方案](/install?id=其他安装方式)
 
-##安装homeassistant
+## 安装homeassistant
 
-###
+### 方法1：部署hass.io
+
+兼容以下设备：
+
+Raspberry Pi Zero （不推荐）
+
+Raspberry Pi Zero W （不推荐）
+
+Raspberry Pi 1 Model B（不推荐）
+
+Raspberry Pi 2 Model B
+
+Raspberry Pi 3 Model B and B+  (推荐)
+
+(RC) Raspberry Pi 4 Model B  (推荐)
+
+Tinkerboard
+
+Odroid-C2
+
+Odroid-XU4
+
+OrangePi-Prime
+
+Intel-Nuc
+
+或使用虚拟机：
+
+官方提供VHDX、VMDK、VDI的虚拟磁盘镜像，覆盖大多数需求
+
