@@ -15,6 +15,8 @@
 
 ### 方法1：部署hass.io
 
+#### 使用已封装的镜像进行快速安装（强烈推荐）
+
 兼容以下设备：
 
 Raspberry Pi Zero （不推荐）
@@ -27,7 +29,7 @@ Raspberry Pi 2 Model B
 
 Raspberry Pi 3 Model B and B+  (推荐)
 
-(RC) Raspberry Pi 4 Model B  (推荐)
+Raspberry Pi 4 Model B  (推荐)
 
 Tinkerboard
 
@@ -42,4 +44,12 @@ Intel-Nuc
 或使用虚拟机：
 
 官方提供VHDX、VMDK、VDI的虚拟磁盘镜像，覆盖大多数需求
+
+点击[此处](https://www.home-assistant.io/hassio/installation/)前往官网下载官方对应您设备的的hassbian
+
+使用 balenaEtcher将下载好的系统镜像压缩包解压后写入一张大于等于16GB的TF卡
+
+!> 强烈建议使用高品质sd卡来保障流畅的使用体验，低速或低容量的TF卡可导致极为糟糕的使用体验
+
+
 
