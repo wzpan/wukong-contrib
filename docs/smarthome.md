@@ -166,9 +166,11 @@ python3 -m pip install --upgrade homeassistant
 
 **每次重启homeassistant后wukong-robot的配置丢失**此问题是由hass.io将插件构建为docker容器运行所导致的，但是经过开发人员的通宵努我们带来了解决方案，此解决方案可能会在未来被更换为更可靠的方案
 
-**无法使用语音与wukong-robot交互**此问题同样由docker的特性导致，但是所幸我们以及有了可靠的解决方案，请继续阅读
+**无法使用语音与wukong-robot交互**此问题同样由docker的特性导致，所幸我们已经有了可靠的解决方案，请继续阅读
 
 **点击START 后 wukong-robot没有正常启动**这是由第一条问题采用的自动备份逻辑解决方案所导致的，在完成本章节的配置后您的wukong-robot将正常启动，若您不想配置自动备份，请切换到trouble shooting寻找替代方案。
+
+### 配置自动备份
 
 
 
