@@ -7,6 +7,7 @@
 * [技能](official?id=悟空的官方插件)
   - [官方技能](official)
   - [用户贡献技能](contrib)
+* [](official?id=悟空的官方插件) 
 * [技能开发](writing-skill)
   - [准备篇](writing-skill-basic)
   - [实战篇1：hello world](writing-skill-1)
