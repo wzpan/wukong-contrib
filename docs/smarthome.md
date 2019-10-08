@@ -1,7 +1,7 @@
 # 在您的系统上部署homeassistant以及wukong-robot
 
 
-您可以在这里找到这些知识
+您可以在这里找到这些内容
 
 * [安装homeassistant](/install?id=方式二：手动安装)
 * [在您的homeassistant系统（hass.io）上通过安装插件以快速安装wukong-robot](/install?id=方式二：手动安装)
