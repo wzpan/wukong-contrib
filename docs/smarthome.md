@@ -107,6 +107,6 @@ orangepi-prime
 
 ### 只安装homeassistant，不安装hass.io
 
-!>使用此方法您将无法使用wukong-robot插件，若您依旧想使用wukong-robot，请参照文档**安装**章节进行安装，然后回到本章节的*配置wukong-robot的homeassistant技能插件* 段落进行配置
+!>使用此方法您将无法使用wukong-robot插件，若您依旧想使用wukong-robot，请参照文档**安装**章节进行安装，然后回到本章节的**配置wukong-robot的homeassistant技能插件** 段落进行配置
 
 
