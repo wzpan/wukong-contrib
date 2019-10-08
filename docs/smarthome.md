@@ -9,7 +9,7 @@
 * [进行简单的homeassistant配置](/install?id=其他安装方式)
 * [制作一个简单的兼容homeassistant的传感器或一个wifi开关](/install?id=其他安装方式)
 * [配置wukong-robot的homeassistant技能插件](/install?id=其他安装方式)
-* [trouble shooting问题与解决方案](/install?id=其他安装方式)
+* [trouble shooting  问题与解决方案](/install?id=其他安装方式)
 
 ## 安装homeassistant
 
