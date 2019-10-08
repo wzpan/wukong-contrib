@@ -1,5 +1,7 @@
 # 在您的系统上部署homeassistant以及wukong-robot
 
+homeassistant是一个开源项目，其logo与源代码版权由原作者所有，与本项目作者没有任何关系
+
 关于homeassistant部署的其他问题，组件使用方式或了解更多请进入[官网](https://www.home-assistant.io)寻找答案
 
 您可以在本文档找到这些指引
