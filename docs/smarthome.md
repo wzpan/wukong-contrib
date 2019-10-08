@@ -15,6 +15,10 @@
 
 ### 方法1：部署含有hass.io的系统（强烈推荐）
 
+hass.io是一个为homeassistant开发的**插件**，您可以将其理解成一个系统管理器。他可以帮助你用最简单的方式安装大量有用的插件，且保护您的系
+
+不受不良插件影响。hass.io采用应用商店的设计，通过添加不同存储库，您可以免费安装世界各地开发者的优秀插件，包括本文中的wukong-robot插件
+
 #### 使用已封装的镜像进行快速安装（强烈推荐）
 
 兼容以下设备：
@@ -58,7 +62,51 @@ Intel-Nuc
 
 并停止您旧的homeassistant服务，即可完全无损迁移安装。
 
-#### 若您已通过别的办法进行了homeassistant的安装，或您的设备不在镜像支持列表内，您可以使用下列方法单独手动部署安装hass.io，而无需从头安装。
+#### 若您已通过别的办法进行了homeassistant的安装，或您的设备不在镜像支持列表内，您可以使用下列方法手动部署安装hass.io组件，而无需从头安装整个homeassistant。
 
+第一步：安装依赖，使你的系统可以安装hass.io
+```
+sudo -i
+apt-get install software-properties-common
+add-apt-repository universe
+apt-get update
+apt-get install -y apparmor-utils apt-transport-https avahi-daemon ca-certificates curl dbus jq network-manager socat
+curl -fsSL get.docker.com | sh
+```
+
+第二步：安装hass.io
+
+在多数通用linux系统上您通过这条命令即可安装
+
+```
+curl -sL "https://raw.githubusercontent.com/home-assistant/hassio-installer/master/hassio_install.sh" | bash -s
+```
+
+在部分系统上您需要输入额外的```arguement```（额外选项）来选择机器型号例如：您使用树莓派3，命令则是
+
+```
+curl -sL "https://raw.githubusercontent.com/home-assistant/hassio-installer/master/hassio_install.sh" | bash -s -- -m raspberrypi3
+```
+规律是：```-m 机器型号```
+
+机器型号有下列选择：（若您的设备不在列表中，请使用第一条命令进行通用安装）
+```
+intel-nuc
+raspberrypi
+raspberrypi2
+raspberrypi3
+raspberrypi3-64
+odroid-c2
+odroid-cu2
+odroid-xu
+orangepi-prime
+```
+
+备注：若出现依赖错误，请尝试自行百度解决
+
+
+### 只安装homeassistant，不安装hass.io
+
+!>使用此方法您将无法使用wukong-robot插件，若您依旧想使用wukong-robot，请参照文档**安装**章节进行安装，然后回到本章节的*配置wukong-robot的homeassistant技能插件* 段落进行配置
 
 
