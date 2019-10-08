@@ -18,9 +18,7 @@ homeassistant是一个开源项目，其logo与源代码版权由原作者所有
 
 本章节中产生的问题您可以前往homeassistant[官网](https://www.home-assistant.io/hassio/installation/)或[论坛](https://community.home-assistant.io/)尝试寻找答案
 
-所有的homeassistant前端ui都可以在```http://ipaddress:8123/```访问，**ipadress**是您安装homeassistant的机器的局域网ip地址，一般您可以在
-
-路由器的管理页面中找到
+所有的homeassistant前端ui都可以在```http://ipaddress:8123/```访问，**ipadress**是您安装homeassistant的机器的局域网ip地址，一般您可以在路由器的管理页面中找到
 
 ### 方法1：部署含有hass.io的系统（强烈推荐）
 
