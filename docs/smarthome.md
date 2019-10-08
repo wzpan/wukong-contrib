@@ -1,5 +1,6 @@
 # 在您的系统上部署homeassistant以及wukong-robot
 
+关于homeassistant部署的其他问题，组件使用方式或了解更多请进入[官网](https://www.home-assistant.io)寻找答案
 
 您可以在本文档找到这些指引
 
@@ -12,6 +13,8 @@
 * [trouble shooting  问题与解决方案](/install?id=其他安装方式)
 
 ## 安装homeassistant
+
+本章节中产生的问题您可以前往homeassistant[官网](https://www.home-assistant.io/hassio/installation/)或[论坛](https://community.home-assistant.io/)尝试寻找答案
 
 ### 方法1：部署含有hass.io的系统（强烈推荐）
 
@@ -76,7 +79,7 @@ curl -fsSL get.docker.com | sh
 
 第二步：安装hass.io
 
-在多数通用linux系统上您通过这条命令即可安装
+在多数通用linux系统上您通过这条命令即可安装(arch linux/debian/ubuntu)
 
 ```
 curl -sL "https://raw.githubusercontent.com/home-assistant/hassio-installer/master/hassio_install.sh" | bash -s
@@ -109,4 +112,30 @@ orangepi-prime
 
 !>使用此方法您将无法使用wukong-robot插件，若您依旧想使用wukong-robot，请参照文档**安装**章节进行安装，然后回到本章节的**配置wukong-robot的homeassistant技能插件** 段落进行配置
 
+依次运行这些命令来进行安装
 
+如果出现权限错误，尝试命令前加上**sudo**
+
+```
+python3 -m venv homeassistant
+cd homeassistant
+source bin/activate
+python3 -m pip install homeassistant
+```
+运行：
+
+```
+hass --open-ui
+```
+
+升级：
+
+首先停止homeassistant
+
+```
+cd homeassistant
+source bin/activate
+python3 -m pip install --upgrade homeassistant
+```
+
+本方法安装后您可以在```http://ipaddress:8123/```连接到您的homeassistant前端ui界面
