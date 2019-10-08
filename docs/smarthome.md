@@ -218,3 +218,10 @@ python3 -m pip install --upgrade homeassistant
 
 第六步：点击Start，启动FTP插件。
 
+第七步：使用您电脑上的windows资源管理器或访达连接到homeassistant的FTP服务器地址是：```ftp://yourhassip```将**yourhassip**替换成您homeassistant的局域网ip地址
+
+第八步：进入后您应该看到一个名叫**share**的文件夹，打开这个文件夹，在**share**下新建一个文件夹，命名为**wukongdata**
+
+第九步：点击[这里](https://github.com/PatrickChina/wukonghass/raw/master/wukong/config.yml)下载wukong-robot的默认配置文件，下载后将其复制到您新建的**wukongdata**文件夹目录下，请不要重命名！
+
+
