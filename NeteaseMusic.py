@@ -12,7 +12,7 @@ from robot import config, logging
 from sdk import NetEaseApi
 
 logger = logging.getLogger(__name__)
-CONF_PATH = os.path.join(Path.home(), ".neteasemusic")
+CONF_PATH = os.path.expanduser("~/.neteasemusic")
 CN_NUM = {
     '〇' : 0, '一' : 1, '二' : 2, '三' : 3, '四' : 4, '五' : 5, '六' : 6, '七' : 7, '八' : 8, '九' : 9, '零' : 0,
     '壹' : 1, '贰' : 2, '叁' : 3, '肆' : 4, '伍' : 5, '陆' : 6, '柒' : 7, '捌' : 8, '玖' : 9, '貮' : 2, '两' : 2,
