@@ -251,10 +251,10 @@ python3 -m pip install --upgrade homeassistant
 
 先为大家推荐两个论坛地址和两篇教程
 
--论坛1.hassbian 网址 https://bbs.hassbian.com
--论坛2.HAchina  网址https://www.hachina.io/
--教程1：https://bbs.hassbian.com/thread-370-1-1.html
--教程2：https://bbs.hassbian.com/thread-31-1-1.html
+- 论坛1.hassbian 网址 https://bbs.hassbian.com
+- 论坛2.HAchina  网址https://www.hachina.io/
+- 教程1：https://bbs.hassbian.com/thread-370-1-1.html
+- 教程2：https://bbs.hassbian.com/thread-31-1-1.html
 
 !>仅是作者个人推荐，选择了主观上质量相对优秀的论坛和教程进行推荐。论坛与作者和wzpan无关，内容不由我们可控，因此我们不对推荐链接中的内容负任何责任，也不保证内容质量
 
