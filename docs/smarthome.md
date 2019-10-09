@@ -255,7 +255,95 @@ python3 -m pip install --upgrade homeassistant
 至此，对于wukong-robot插件的配置已经完全完成，基本保留所有功能不受影响。我后续将会发布一个homeassitant插件，让您在lovelce中可以直接和wukong对话。
 
 
+#### 进行简单的homeassistant配置
 
+由于作者依旧在努力完善百度NLU数据库，暂时没有时间亲自写入门教程，后续将会补上含有作者经验的入门及进阶教程
 
+先为大家推荐两个论坛地址和两篇教程
+
+论坛1.hassbian 网址 https://bbs.hassbian.com
+论坛2.HAchina  网址https://www.hachina.io/
+
+教程1：https://bbs.hassbian.com/thread-370-1-1.html
+教程2：https://bbs.hassbian.com/thread-31-1-1.html
+
+!>仅是作者个人推荐，选择了主观上质量相对优秀的论坛和教程进行推荐。论坛与作者和wzpan无关，内容不由我们可控，因此我们不对推荐链接中的内容负任何责任，也不保证内容质量
+
+## 配置wukong-robot的homeassistant技能插件
+
+最新版本插件基于baidu NLU进行了改良，可实现一轮对话完成交互，也可使用后台web界面进行交互
+
+由于目前没有百度没有提供智能家庭相关NLU字典库的支持，因此作者正努力完善自建词典库来实现更准确的命中和更多的语法
+
+如果遇到配置正常，命中插件，wukong却不回应的情况，说明遇到了词典库的缺失，请尽可能简化您的语法，并将词典库的缺失内容反馈到电子邮箱**cyk0317@sina.com**，或qq群内@杭州-PatrickChen。作者将尽快更新，本插件的完善将离不开大家的支持。
+
+### 示例
+
+- 用户：“智能家庭当前温度”
+- 悟空：“温度状态是22.6摄氏度”
+
+### 配置
+
+官方api页面：https://home-assistant.io/developers/rest_api/
+
+第一步：
+
+在 homeassistant 的 configuration.yaml 里添加：
+
+``` yaml
+api：
+  api_password: 
+```
+
+修改后 api 插件就启动了
+
+注意:在`api_password: `后设置 api 接口密码，建议设置，但是这个密码在与 wukong 之间通信时用不到，以后自行开发 homeassistant 时可能用到这里的 api 密码，此密码的修改不影响 wukong 工作。（冒号之后有空格！在空格之后直接输入密码无需引号）
+
+第二步：
+
+登陆 homeassistant 网页，在侧拉菜单中点击 homeassistant 字样旁自己的头像，然后将页面拉至最底下找到“长期访问令牌”点击创建令牌，随意取一个名字如： wukong 点击确认
+
+在随后弹出的窗口中复制并想办法记录自己的密钥
+
+第三步：
+
+打开 wukong 的配置文件（网页后台或直接修改都一样），添加：
+
+``` yaml
+homeassistant:
+    url: "http://127.0.0.1"   #切记加上http://，ip或者域名为你的homeassistant的主机
+    port: "8123"             # 端口为你的homeassistant的端口和网页端口一样
+    key: "" # 密钥
+```
+
+key 处填写的内容如下：
+
+Bearer ABCDE
+
+用第二步获取到的密钥替换 ABCDE (保留 Bearer 和 ABCDE 之间的空格)，将其整体填入双引号中
+ 
+
+### HomeAssistant 配置
+
+configuration.yaml 相同目录下添加 customize.yaml 并 include 进配置文件。
+
+查看状态类的设备(传感器等)将命令写成 list；控制类的设备命令写成 dict，控制命令为 key ，动作为 value。
+
+如下是示例的部分配置：
+
+``` yaml
+sensor.tempareture:
+  friendly_name: "环境温度"
+  wukong: ["查看环境温度", "当前环境温度", "环境温度"]
+sensor.humidity:
+  friendly_name: "环境湿度"
+  wukong: ["查看环境湿度度", "当前环境湿度", "环境湿度"]
+switch.light:
+  friendly_name: "补光"
+  wukong: {"开始补光":"turn_on", "补光":"turn_on", "停止补光":"turn_off", "结束补光":"turn_off"}
+switch.pump:
+  friendly_name: "浇水"
+  wukong: {"开始浇水":"turn_on", "浇水":"turn_on", "停止浇水":"turn_off", "结束浇水":"turn_off"}  
+``` 
 
 
