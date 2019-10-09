@@ -28,17 +28,17 @@ hass.io是一个为homeassistant开发的**插件**，您可以将其理解成�
 
 兼容以下设备：
 
--Raspberry Pi Zero （不推荐）
--Raspberry Pi Zero W （不推荐）
--Raspberry Pi 1 Model B（不推荐）
--Raspberry Pi 2 Model B
--Raspberry Pi 3 Model B and B+  (推荐)
--Raspberry Pi 4 Model B  (推荐)
--Tinkerboard
--Odroid-C2
--Odroid-XU4
--OrangePi-Prime
--Intel-Nuc
+- Raspberry Pi Zero （不推荐）
+- Raspberry Pi Zero W （不推荐）
+- Raspberry Pi 1 Model B（不推荐）
+- Raspberry Pi 2 Model B
+- Raspberry Pi 3 Model B and B+  (推荐)
+- Raspberry Pi 4 Model B  (推荐)
+- Tinkerboard
+- Odroid-C2
+- Odroid-XU4
+- OrangePi-Prime
+- Intel-Nuc
 
 或使用虚拟机：
 
