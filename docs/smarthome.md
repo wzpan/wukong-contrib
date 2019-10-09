@@ -6,9 +6,9 @@ homeassistant是一个开源项目，其logo与源代码版权由原作者所有
 
 您可以在本文档找到这些指引
 
-* [安装homeassistant](/install?id=方式二：手动安装)
-* [在您的homeassistant系统（hass.io）上通过安装插件以快速安装wukong-robot](/install?id=方式二：手动安装)
-* [在hass.io上配置并运行您的wukong-robot插件](/install?id=其他安装方式)
+* [安装homeassistant](/smarthome?id=安装homeassistant)
+* [在您的homeassistant系统（hass.io）上通过安装插件以快速安装wukong-robot](/smarthome?id=在您的homeassistant系统（hass.io）上通过安装插件以快速安装wukong-robot)
+* [在hass.io上配置并运行您的wukong-robot插件](/smarthome?id=在hass.io上配置并运行您的wukong-robot插件)
 * [进行简单的homeassistant配置](/install?id=其他安装方式)
 * [制作一个简单的兼容homeassistant的传感器或一个wifi开关](/install?id=其他安装方式)
 * [配置wukong-robot的homeassistant技能插件](/install?id=其他安装方式)
@@ -70,6 +70,8 @@ Intel-Nuc
 
 #### 若您已通过别的办法进行了homeassistant的安装，或您的设备不在镜像支持列表内，您可以使用下列方法手动部署安装hass.io组件，而无需从头安装整个homeassistant。
 
+!>若您是所谓的**小白**，不具备基本的linux系统知识或者问题解决能力，或者您只求简单稳妥，作者不推荐您进行手动安装，失败率会相对高。作者建议您使用第一段落的镜像安装方式进行安装，然后迁移您的配置。
+
 第一步：安装依赖，使你的系统可以安装hass.io
 ```
 sudo -i
@@ -110,10 +112,18 @@ orangepi-prime
 
 备注：若出现依赖错误，请尝试自行百度解决
 
+安装完毕后请打开homeassistant的配置文件**configuration.yaml**
 
-### 只安装homeassistant，不安装hass.io
+在其中添加独立的两行（均顶格）：
+```
+discovery:
 
-!>使用此方法您将无法使用wukong-robot插件，若您依旧想使用wukong-robot，请参照文档**安装**章节进行安装，然后回到本章节的**配置wukong-robot的homeassistant技能插件** 段落进行配置
+hassio：
+```
+
+### 方法2：只安装homeassistant，不安装hass.io
+
+!>使用此方法您将无法使用wukong-robot插件，若您依旧想使用wukong-robot，请参照文档**安装**章节进行安装，然后回到本章节的**配置wukong-robot的homeassistant技能插件** 段落进行配置，您的homeassistant和wukong-robot将是完全独立的。由于手动安装wukong-robot相对麻烦，作者推荐若您有将wukong-robot与homeassistant配套使用的需求，请尽可能使用hass.io插件进行安装
 
 依次运行这些命令来进行安装
 
@@ -224,7 +234,26 @@ python3 -m pip install --upgrade homeassistant
 
 第九步：右键点击[这里](https://github.com/PatrickChina/wukonghass/raw/master/wukong/config.yml)，选择**链接另存为（windows chrome）**或**从链接另存文件为（ubuntu firefox）**或您系统的同义选项来下载wukong-robot的默认配置文件，下载后将其复制到您新建的**wukongdata**文件夹目录下，请不要重命名！
 
+剩下关于自动备份的操作已经被作者集成在插件中，wukong将在启动时自动为您搞定
+
 ### 至此您已经顺利完成了自动备份的配置，下面开始进行语音交互的配置
+
+为本插件配置音频极为简单，您只需执行这些步骤：
+
+第一步：插入您的usb麦克风，请注意**respeaker**暂不被支持，作者个人推荐使用**ps3eye**，在3.5mm接口插入您的扬声器，或您也可以选择使用usb声卡来同时解决麦克风和扬声器
+
+第二步：进入homeassistant的配置页面，点击服务控制，点击重启服务，等待5分钟左右
+
+第三步：重新进入hass.io选项卡并点击wukong-robot，此时由于系统进行了重启，因此wukong-robot已经自动开始运行，请点击**STOP**使其停止运行后再进行后续操作
+
+第四步：向下拉动页面找到**Audio**配置框，在**input**处设定您的输入设备，在**output**处选择您的输出设备（bcm2835_alsa-bcm.2835 ALSA:0是树莓派的板载3.5mm接口输出），配置后点击**SAVE**保存您的配置
+
+第五步：向上滑动页面点击**START**来启动您的wukong-robot服务。
+
+至此，对于wukong-robot插件的配置已经完全完成，基本保留所有功能不受影响。我后续将会发布一个homeassitant插件，让您在lovelce中可以直接和wukong对话。
+
+
+
 
 
 
