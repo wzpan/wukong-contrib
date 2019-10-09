@@ -10,7 +10,7 @@ homeassistant是一个开源项目，其logo与源代码版权由原作者所有
 * [在您的homeassistant系统（hass.io）上通过安装插件以快速安装wukong-robot](/smarthome?id=在您的homeassistant系统（hass.io）上通过安装插件以快速安装wukong-robot)
 * [在hass.io上配置并运行您的wukong-robot插件](/smarthome?id=在hass.io上配置并运行您的wukong-robot插件)
 * [进行简单的homeassistant配置](/install?id=其他安装方式)
-* [制作一个简单的兼容homeassistant的传感器或一个wifi开关](/install?id=其他安装方式)
+* [制作一个简单的兼容homeassistant的传感器或一个wifi开关（comming soon）](/install?id=其他安装方式)
 * [配置wukong-robot的homeassistant技能插件](/install?id=其他安装方式)
 * [trouble shooting  问题与解决方案](/install?id=其他安装方式)
 
@@ -140,6 +140,8 @@ python3 -m pip install homeassistant
 ```
 hass --open-ui
 ```
+ 
+第一次运行需要以root权限运行Homeassistant，即```sudo hass --open-ui```
 
 升级：
 
