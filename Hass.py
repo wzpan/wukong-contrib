@@ -6,9 +6,6 @@ from robot import config
 from robot.sdk import unit
 from robot.sdk.AbstractPlugin import AbstractPlugin
 
-SERVICE_ID='S22704'
-API_KEY='I0CV0s4Hr4G3E2FqOGeoOTCF'
-SECRET_KEY='KUirM0FLAz2M0VHRahDigYZreE0M01hm'
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +14,6 @@ class Plugin(AbstractPlugin):
     SLUG = "homeassistantunit"
 
     def handle(self, text, parsed):
-        parsed = unit.getUnit(text, SERVICE_ID, API_KEY, SECRET_KEY)
         slots = unit.getSlots(parsed, 'RUNHASS')
         for slot in slots:
             if slot['name'] == 'user_smarthome':
@@ -92,5 +88,4 @@ class Plugin(AbstractPlugin):
 
 
     def isValid(self, text, parsed):
-        parsed = unit.getUnit(text, SERVICE_ID, API_KEY, SECRET_KEY)
         return unit.hasIntent(parsed, 'RUNHASS')
