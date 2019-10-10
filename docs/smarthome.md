@@ -368,7 +368,7 @@ switch.pump:
 - 问1 :我不想配置wukong-robot hass.io插件的自动备份
 - 答1:若您是担心备份配置文件导致隐私泄露，您无需有这个担忧，因为数据存储在本地，不会以任何形式上传到任何外部服务器。若您坚持不配置自动备份，在添加插件存储库URL时请添加这个地址```https://github.com/PatrickChina/wukonghass-avoidbackup```,来替代原本应使用的wukonghass存储库
 
-!>由于两个库的结构，版本，hass.io插件部署文件一样，因此严禁坐着的两个插件库同时存在，请明确您的目的后选择正确的存储库添加
+!>由于两个库的结构，版本，hass.io插件部署文件一样，因此严禁作者的两个插件库同时存在，请明确您的目的后选择正确的存储库添加
 
 - 问2:文档内提到将```customize.yaml```include到```configuration.yaml```中，这该如何操作？
 - 答2:您只需要在```configuration.yaml```同目录下创建```customize.yaml```若已存在则无需再创建。然后将这段代码复制到```configuration.yaml```中即可
