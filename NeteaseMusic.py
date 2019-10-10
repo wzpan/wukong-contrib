@@ -4,7 +4,6 @@ import os
 import math
 import time
 import json
-from pathlib import Path
 from random import shuffle
 from robot.sdk.AbstractPlugin import AbstractPlugin
 from robot.Player import MusicPlayer
