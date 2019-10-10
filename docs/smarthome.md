@@ -1,26 +1,24 @@
 # 在您的系统上部署 homeassistant 以及 wukong-robot
 
-homeassistant 是一个开源项目，其 logo 与源代码版权由原作者所有，与本项目作者没有任何关系
+homeassistant 是一个开源项目，其 logo 与源代码版权由原作者所有，与本项目作者没有任何关系。
 
-智能家庭支持由PatrickChen（github：PatrickChina,QQ：@杭州-PatrickChen）提供，特别感谢wzpan的大力支持
+智能家庭支持由PatrickChen（github：PatrickChina, QQ：@杭州-PatrickChen）提供，特别感谢wzpan的大力支持。
 
-关于 homeassistant 部署的其他问题，组件使用方式或了解更多请进入[官网](https://www.home-assistant.io)寻找答案
+关于 homeassistant 部署的其他问题，组件使用方式或了解更多请进入[官网](https://www.home-assistant.io)寻找答案。
 
-您可以在本文档找到这些指引
+您可以在本文档找到这些指引：
 
-* [安装 homeassistant](/smarthome?id=安装homeassistant)
-* [在您的 homeassistant 系统（hass.io）上通过安装插件以快速安装 wukong-robot](/smarthome?id=在您的homeassistant系统（hass.io）上通过安装插件以快速安装wukong-robot)
-* [在 hass.io 上配置并运行您的 wukong-robot 插件](/smarthome?id=在 hass.io上配置并运行您的wukong-robot插件)
-* [进行简单的 homeassistant 配置](/install?id=进行简单的homeassistant配置)
-* [制作一个简单的兼容 homeassistant 的传感器或一个 wifi 开关（comming soon）](/install?id=配置wukong-robot的homeassistant 技能插件)
-* [配置 wukong-robot 的 homeassistant 技能插件](/install?id=配置wukong-robot的homeassistant 技能插件)
-* [trouble shooting  问题与解决方案](/install?id=无)
+* [安装 homeassistant](/smarthome?id=安装-homeassistant)
+* [在您的 homeassistant 系统（hass.io）上通过安装插件以快速安装 wukong-robot](/smarthome?id=在您的-homeassistant-系统（hassio）上通过安装插件以快速安装-wukong-robot)
+* [在 hass.io 上配置并运行您的 wukong-robot 插件](/smarthome?id=在-hassio-上配置并运行您的-wukong-robot-插件)
+* [进行简单的 homeassistant 配置](/smarthome?id=进行简单的-homeassistant-配置)
+* [配置 wukong-robot 的 homeassistant 技能插件](/smarthome?id=配置-wukong-robot-的-homeassistant-技能插件)
 
 ## 安装 homeassistant
 
-本章节中产生的问题您可以前往 homeassistant [官网](https://www.home-assistant.io/hassio/installation/)或[论坛](https://community.home-assistant.io/)尝试寻找答案
+本章节中产生的问题您可以前往 homeassistant [官网](https://www.home-assistant.io/hassio/installation/)或[论坛](https://community.home-assistant.io/)尝试寻找答案。
 
-所有的 homeassistant 前端 ui 都可以在```http://ipaddress:8123/```访问，**ipadress**是您安装homeassistant的机器的局域网ip地址，一般您可以在路由器的管理页面中找到
+所有的 homeassistant 前端 ui 都可以在```http://ipaddress:8123/```访问，**ipadress**是您安装homeassistant的机器的局域网ip地址，一般您可以在路由器的管理页面中找到。
 
 ### 方法1：部署含有 hass.io 的系统（强烈推荐）
 
@@ -102,7 +100,7 @@ odroid-xu
 orangepi-prime
 ```
 
-备注：若出现依赖错误，请尝试自行百度解决
+备注：若出现依赖错误，请尝试自行百度解决。
 
 安装完毕后请打开 homeassistant 的配置文件**configuration.yaml**
 
@@ -115,11 +113,11 @@ hassio：
 
 ### 方法2：只安装 homeassistant，不安装 hass.io
 
-!>使用此方法您将无法使用 wukong-robot hass.io addon 插件，若您依旧想使用 wukong-robot，请参照文档**安装**章节进行安装，然后回到本章节的**配置wukong-robot的homeassistant技能插件** 段落进行配置，您的 homeassistant 和 wukong-robot 将是完全独立的。由于手动安装 wukong-robot 相对麻烦，作者推荐若您有将 wukong-robot 与 homeassistant 配套使用的需求，请尽可能使用 hass.io 插件进行安装
+!>使用此方法您将无法使用 wukong-robot hass.io addon 插件，若您依旧想使用 wukong-robot，请参照文档**安装**章节进行安装，然后回到本章节的**配置wukong-robot的homeassistant技能插件** 段落进行配置，您的 homeassistant 和 wukong-robot 将是完全独立的。由于手动安装 wukong-robot 相对麻烦，作者推荐若您有将 wukong-robot 与 homeassistant 配套使用的需求，请尽可能使用 hass.io 插件进行安装。
 
-依次运行这些命令来进行安装
+依次运行这些命令来进行安装。
 
-如果出现权限错误，尝试命令前加上**sudo**
+如果出现权限错误，尝试命令前加上**sudo**。
 
 ```
 python3 -m venv homeassistant
