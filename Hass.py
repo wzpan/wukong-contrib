@@ -24,7 +24,7 @@ class Plugin(AbstractPlugin):
 
     def hass(self, text):
         if isinstance(text, bytes):
-            text = text.decode('unicode_escape')
+            text = text.decode('utf8')
         profile = config.get()
         if self.SLUG not in profile or 'url' not in profile[self.SLUG] or \
            'port' not in profile[self.SLUG] or \
