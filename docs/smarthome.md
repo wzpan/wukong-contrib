@@ -6,12 +6,12 @@ homeassistant 是一个开源项目，其 logo 与源代码版权由原作者所
 
 您可以在本文档找到这些指引
 
-* [安装 homeassistant](/smarthome?id=安装 homeassistant)
-* [在您的 homeassistant 系统（hass.io）上通过安装插件以快速安装 wukong-robot](/smarthome?id=在您的 homeassistant 系统（hass.io）上通过安装插件以快速安装 wukong-robot)
-* [在 hass.io 上配置并运行您的 wukong-robot 插件](/smarthome?id=在 hass.io 上配置并运行您的 wukong-robot 插件)
-* [进行简单的 homeassistant 配置](/install?id=进行简单的 homeassistant 配置)
-* [制作一个简单的兼容 homeassistant 的传感器或一个 wifi 开关（comming soon）](/install?id=配置 wukong-robot 的 homeassistant 技能插件)
-* [配置 wukong-robot 的 homeassistant 技能插件](/install?id=配置 wukong-robot 的 homeassistant 技能插件)
+* [安装 homeassistant](/smarthome?id=安装homeassistant)
+* [在您的 homeassistant 系统（hass.io）上通过安装插件以快速安装 wukong-robot](/smarthome?id=在您的homeassistant系统（hass.io）上通过安装插件以快速安装wukong-robot)
+* [在 hass.io 上配置并运行您的 wukong-robot 插件](/smarthome?id=在 hass.io上配置并运行您的wukong-robot插件)
+* [进行简单的 homeassistant 配置](/install?id=进行简单的homeassistant配置)
+* [制作一个简单的兼容 homeassistant 的传感器或一个 wifi 开关（comming soon）](/install?id=配置wukong-robot的homeassistant 技能插件)
+* [配置 wukong-robot 的 homeassistant 技能插件](/install?id=配置wukong-robot的homeassistant 技能插件)
 * [trouble shooting  问题与解决方案](/install?id=无)
 
 ## 安装 homeassistant
