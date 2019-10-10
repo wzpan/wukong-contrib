@@ -2,6 +2,8 @@
 
 homeassistant 是一个开源项目，其 logo 与源代码版权由原作者所有，与本项目作者没有任何关系
 
+智能家庭支持由PatrickChen（github：PatrickChina,QQ：@杭州-PatrickChen）提供，特别感谢wzpan的大力支持
+
 关于 homeassistant 部署的其他问题，组件使用方式或了解更多请进入[官网](https://www.home-assistant.io)寻找答案
 
 您可以在本文档找到这些指引
