@@ -148,17 +148,27 @@ python3 -m pip install --upgrade homeassistant
 
 ## 在您的 homeassistant 系统（hass.io）上通过安装插件以快速安装 wukong-robot
 
-第一步：打开您的 homeassistant 页面
+第一步：打开您的 homeassistant 页面!
+
+[主界面](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp1.png)
 
 第二步：点击 hass.io 图标，切换到 ADD-ON STORE 选项卡
 
 第三步：复制本链接```https://github.com/PatrickChina/wukonghass```并粘贴到**add newrepository by URL**处，点击add
 
+[addon](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp2.png)
+
 第四步：点击右上角刷新图标，在页面中寻找**wukong-robot**插件，并点击进入
+
+[addon](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp10.png)
 
 第五步：点击 INSTALL，等待 hass.io 完成安装，由于要下载大量文件进行自动构建，因此会消耗较多时间，请耐心等待。（视网络环境而定）
 
+[addon](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp9.png)
+
 第六步：安装过程将自动完成，完成后如图所示，请不要急于**START**，请耐心读完本文档，完成配置过程后启动
+
+[addon](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp8.png)
 
 若安装成功，请向下阅读，若失败请考虑从第四步开始重试
 
@@ -178,9 +188,15 @@ python3 -m pip install --upgrade homeassistant
 
 第二步：ADD-on store 内寻找插件**FTP**
 
+[addon](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp7.png)
+
 第三步：点击 INSTALL，等待hass.io完成安装
 
 第四步：切换到 DASH BOARD 选项卡，点击插件 FTP，进入页面后不要 START！请保持**Start on boot**开关处于激活状态。向下滚页面，直至显示**config**配置框
+
+[addon](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp5.png)
+
+[addon](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp4.png)
 
 第五步：使用以下内容**覆盖**默认配置，请**不要**修改任何配置内容**包括**用户名密码！
 ```
@@ -220,7 +236,7 @@ python3 -m pip install --upgrade homeassistant
 
 第六步：点击 Start，启动 FTP 插件。
 
-第七步：使用您电脑上的 windows 资源管理器或访达连接到 homeassistant 的 FTP 服务器地址是：```ftp://yourhassip```将**yourhassip**替换成您homeassistant的局域网ip地址
+第七步：使用您电脑上的 windows 资源管理器或访达连接到 homeassistant 的 FTP 服务器地址是：```ftp://yourhassip```将**yourhassip**替换成您homeassistant的局域网ip地址(用户名**hassio**,密码**wukong2019hassio**)
 
 第八步：进入后您应该看到一个名叫**share**的文件夹，打开这个文件夹，在**share**下新建一个文件夹，命名为**wukongdata**
 
@@ -240,10 +256,13 @@ python3 -m pip install --upgrade homeassistant
 
 第四步：向下拉动页面找到**Audio**配置框，在**input**处设定您的输入设备，在**output**处选择您的输出设备（bcm2835_alsa-bcm.2835 ALSA:0是树莓派的板载3.5mm接口输出），配置后点击**SAVE**保存您的配置
 
+[addon](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp6.png)
+
 第五步：向上滑动页面点击**START**来启动您的wukong-robot服务。
 
 至此，对于 wukong-robot 插件的配置已经完全完成，基本保留所有功能不受影响。我后续将会发布一个 homeassitant 插件，让您在 lovelce 中可以直接和 wukong 对话。
 
+[addon](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp3.png)
 
 #### 进行简单的 homeassistant 配置
 
