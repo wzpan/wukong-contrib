@@ -13,6 +13,7 @@ homeassistant 是一个开源项目，其 logo 与源代码版权由原作者所
 * [在 hass.io 上配置并运行您的 wukong-robot 插件](/smarthome?id=在-hassio-上配置并运行您的-wukong-robot-插件)
 * [进行简单的 homeassistant 配置](/smarthome?id=进行简单的-homeassistant-配置)
 * [配置 wukong-robot 的 homeassistant 技能插件](/smarthome?id=配置-wukong-robot-的-homeassistant-技能插件)
+* [trouble shooting/FAQ/常见问题与解决方案](/smarthome?id=trouble-shooting/FAQ/常见问题与解决方案)
 
 ## 安装 homeassistant
 
@@ -148,9 +149,9 @@ python3 -m pip install --upgrade homeassistant
 
 ## 在您的 homeassistant 系统（hass.io）上通过安装插件以快速安装 wukong-robot
 
-第一步：打开您的 homeassistant 页面!
+第一步：打开您的 homeassistant 页面
 
-[主界面](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp1.png)
+![主界面](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp1.png)
 
 第二步：点击 hass.io 图标，切换到 ADD-ON STORE 选项卡
 
@@ -264,6 +265,9 @@ python3 -m pip install --upgrade homeassistant
 
 ![addon8](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp3.png)
 
+ 接下来关于wukong-robot的配置请访问本文档的**配置**部分了解更多,本插件的配置方式与其他方式安装的wukong-robot完全相同，您可以在hass.io插件页面顶部点击
+**OPEN WEB UI**或者访问```http://youripaddress:5000```来访问wukong-robot的后台管理页面，```youripaddres```替换为您homeassistant所处设备的局域网ip地址。
+
 #### 进行简单的 homeassistant 配置
 
 由于作者依旧在努力完善百度 NLU 数据库，暂时没有时间亲自写入门教程，后续将会补上含有作者经验的入门及进阶教程
@@ -359,3 +363,25 @@ switch.pump:
 ``` 
 
 
+## trouble shooting/FAQ/常见问题与解决方案
+
+- 问1 :我不想配置wukong-robot hass.io插件的自动备份
+- 答1:若您是担心备份配置文件导致隐私泄露，您无需有这个担忧，因为数据存储在本地，不会以任何形式上传到任何外部服务器。若您坚持不配置自动备份，在添加插件存储库URL时请添加这个地址```https://github.com/PatrickChina/wukonghass-avoidbackup```,来替代原本应使用的wukonghass存储库
+
+!>由于两个库的结构，版本，hass.io插件部署文件一样，因此严禁坐着的两个插件库同时存在，请明确您的目的后选择正确的存储库添加
+
+- 问2:文档内提到将```customize.yaml```include到```configuration.yaml```中，这该如何操作？
+- 答2:您只需要在```configuration.yaml```同目录下创建```customize.yaml```若已存在则无需再创建。然后将这段代码复制到```configuration.yaml```中即可
+```
+homeassistant:
+  customize: !include customize.yaml
+```
+
+- 问3: 我遇到了配置正确wukong却回应指令不存在的情况
+- 答3:这个问题作者开发时已经发现，且尝试解决，若问题依旧发生，作者深表遗憾。该问题主要由于您使用插件```configurator```来配置您的```wukong:```部分导致。```configurator```是一款很好的插件来帮助您使用web页面配置您的homeassistant，不幸的是作者已经证实使用该插件配置```wukong:```部分会导致wukong-robot无法识别配置，该问题还可能由于您在非官方站点下载hassbian或者您家ip地址非国内ip地址导致的的编码识别错误。解决这个问题请先检查您的配置是否**真的不存在问题**再尝试接下来的解决方案。请尝试安装Samba Share插件并使用Samba访问hass的配置```config```目录，并将```customize.yaml```复制到本地，使用您的本地文本编辑器尝试重写```wukong：```部分，同时在另存为时选择```UTF-8```编码方式，然后删除您服务器内的```customize.yaml```,并将您本地另存为后的文件上传到服务器配置文件夹内。此时您的问题应当被解决。
+
+- 问4:我想要访问来自wukong-robot的log信息
+- 答4:请进入hass.io插件界面，滚动到页面底部，点击refresh即可获得来自wukong-robot的全部log信息。
+
+- 问5:wukong-robot没有正常启动，我无法访问其后台管理界面
+- 答5:插件安装不应出现任何依赖或文件缺失问题，请确认您按步骤进行了配置，重试后若依旧存在问题请联系作者。
