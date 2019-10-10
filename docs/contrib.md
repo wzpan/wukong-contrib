@@ -38,52 +38,28 @@ headline_news:
     key: 'AppKey'
 ```
 
-## BaiduMap ##
+## Direction
 
-* 根据之前的插件Direction的二次优化，主要优化的地方是运用[百度UNIT](https://ai.baidu.com/unit/v2)和多轮询问来提高用户体验以实现语音交互。插件方面依旧保留了[百度LBS的Web服务API](http://lbsyun.baidu.com/index.php?title=webapi)，使用了[Place suggestion](http://lbsyun.baidu.com/index.php?title=webapi/place-suggestion-api)和[Direction API v2.0](http://lbsyun.baidu.com/index.php?title=webapi/direction-api-v2)两个接口。
-* 目前能提供多条公交路线（通常五条）并优先播放耗时时间较短的路线，还能提供打车的费用和耗时。
-* 首先，需要在[百度地图开放平台](http://lbsyun.baidu.com/apiconsole/key)注册创建应用以获取app_key，切记！
-* 源码：[https://github.com/wzpan/wukong-contrib/blob/HEAD/BaiduMap.py](https://github.com/wzpan/wukong-contrib/blob/HEAD/BaiduMap.py)
+* 通过和悟空进行交互，用户说出一个地名，可以获取一条推荐公交线路。插件利用[百度LBS的Web服务API](http://lbsyun.baidu.com/index.php?title=webapi)，使用了[Place suggestion](http://lbsyun.baidu.com/index.php?title=webapi/place-suggestion-api)和[Direction API v2.0](http://lbsyun.baidu.com/index.php?title=webapi/direction-api-v2)两个接口，用户需要在[百度地图开放平台](http://lbsyun.baidu.com/apiconsole/key)注册创建应用以获取app key。为了简化交互，目前只支持查询本市内的地点，而且只给出一条公交(地铁)线路规划。
+* 源码：https://github.com/wzpan/wukong-contrib/blob/HEAD/Direction.py
+
+### 交互示例
+
+- 用户：线路
+- 悟空：去哪里
+- 用户：世纪大道
+- 悟空：世纪大道-地铁站参考路线:步行169米.锦绣路站(4口)乘地铁7号线(花木路方向)经过2站到龙阳路站.站内换乘 步行170米.龙阳路站乘地铁2号线(徐泾东方向)经过3站到世纪大道站.
 
 ### 配置
 
-1. 首先先去[这里](http://api.map.baidu.com/lbsapi/getpoint/)输入你家的地址以获取经纬度。
-2. 接着再去[百度地图开放平台](http://lbsyun.baidu.com/apiconsole/key)以获取app_key。
-3. 然后在 config.yml 中添加如下配置。
-
-``` yml
-# 百度地图路线规划插件
+``` yaml
+# 出行线路规划插件
+# 百度LBS Web服务API
 # http://lbsyun.baidu.com/index.php?title=webapi
-BaiduMap:
-    app_key: 你申请到的app_key
-    origin: 例子"39.91405,116.404269",切记切记纬度在前，经度在后，不然报错！
+direction:
+    app_key: 你申请到的app key
+    origin: 出发起始地坐标，可在此http://api.map.baidu.com/lbsapi/getpoint/获取，如:"39.91405,116.404269",纬度在前，经度在后
 ```
-### 依赖安装
-
-依赖 jsonpath 库：
-
-``` bash
-pip3 install jsonpath
-```
-
-### 交互示例
-- 用户：帮我导航呗 / 我想从我家去个地方，帮我导航 / 布吉地铁站怎么走呀
-- 悟空：想从哪里出发呢？ / 想去哪里呢？ / 那你是从哪里出发呀？
-- 用户：从后海到南山地铁站 / 去布吉吧 / 从家里出发 （多轮询问后直到得到关键信息）
-- 悟空：共找到了5条路线，这是第一条:茶光站乘7号线经过12站到福民站,接着福民站乘4号线经过1站到会展中心站,这条路线约耗时48分钟,想听别的路线还是打车信息？（类似这样的回复）
-- 用户：想听听第二条路线
-- 悟空：茶光站乘7号线经过10站到石厦站,接着福田区委站乘m390路经过3站到会展中心站,这条路线约耗时54分钟,想听别的路线还是打车信息？
-- 用户：那么打车的呢？
-- 悟空：坐出租车的话需要20分钟,白天大概要30块，黑夜就要45块，超贵的，对不对？还想听别的路线吗？
-- 用户：可以，不用了
-- 悟空：路上要小心哦！
-
-### 关于百度UNIT
-
-* 由于这次运用百度UNIT来到达获取意图和词槽(提取出发点和目的点)，所以在百度UNIT后台给它足够不同的询问方式(例：简直了，那地方太难找，帮我导航)到模型里，这样就可以识别到导航意图并触发此插件。
-* 至于要百度UNIT识别出海量的目的地，个人强烈建议自建百度UNIT的API以供给此插件使用，来到[搜狗输入法网站](https://pinyin.sogou.com/dict/cate/index/306)获取你目前城市的街道/地铁信息，并将大量街道和地铁名给百度UNIT学习。
-  * 搜索输入法网站提供下载.scel文件，来到[这里](http://tools.bugscaner.com/sceltotxt/)将 .scel文件转为.txt文件。
-* 最后，想学习和自建UNIT技能可以看看[此视频](http://bit.baidu.com/Course/detail/id/252.html)（免费的！），讲得很详细手把手教学。
 
 ## RoadCondition
 
@@ -302,18 +278,19 @@ youdao:
 * 用于控制接入 HomeAssistant 的设备
 * 源码：https://github.com/wzpan/wukong-contrib/blob/HEAD/Hass.py
 
-### 示例
+最新版本插件基于baidu NLU进行了改良，可实现一轮对话完成交互，也可使用后台web界面进行交互
 
-- 用户：“开启助手”
-- 悟空：“开始家庭助手控制”
-- 用户：“请在滴一声后说明内容”
-- 用户：“开始浇水”
-- 悟空：“执行成功”
+由于目前没有百度没有提供智能家庭相关NLU字典库的支持，因此作者正努力完善自建词典库来实现更准确的命中和更多的语法
+
+如果遇到配置正常，命中插件，wukong却不回应的情况，说明遇到了词典库的缺失，请尽可能简化您的语法，并将词典库的缺失内容反馈到电子邮箱**cyk0317@sina.com**，或qq群内@杭州-PatrickChen。作者将尽快更新，本插件的完善将离不开大家的支持。
+
+当前词典数据点击[这里](https://github.com/PatrickChina/wukonghass/blob/master/wukong/user_user_smarthome_%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%8D%E5%85%B8%E5%80%BC.txt)查看，您可以使用记事本或浏览器的搜索功能搜索您需要的指令是否在词典中，若不在您则可选择使用存在的近义词，谢谢理解。
+
+### 示例
+- 用户：“智能家庭当前温度”
+- 悟空：“温度状态是22.6摄氏度”
 
 ### 配置
-原作者： Deschanel
-
-修改者： Patrick Chen
 
 官方api页面：https://home-assistant.io/developers/rest_api/
 
@@ -360,70 +337,7 @@ configuration.yaml 相同目录下添加 customize.yaml 并 include 进配置文
 
 查看状态类的设备(传感器等)将命令写成 list；控制类的设备命令写成 dict，控制命令为 key ，动作为 value。
 
-如下是示例的部分配置：
-
-``` yaml
-sensor.tempareture:
-  friendly_name: "环境温度"
-  wukong: ["查看环境温度", "当前环境温度", "环境温度"]
-sensor.humidity:
-  friendly_name: "环境湿度"
-  wukong: ["查看环境湿度度", "当前环境湿度", "环境湿度"]
-switch.light:
-  friendly_name: "补光"
-  wukong: {"开始补光":"turn_on", "补光":"turn_on", "停止补光":"turn_off", "结束补光":"turn_off"}
-switch.pump:
-  friendly_name: "浇水"
-  wukong: {"开始浇水":"turn_on", "浇水":"turn_on", "停止浇水":"turn_off", "结束浇水":"turn_off"}  
-``` 
-
-### 测试版（beta）
-试用最新版本的 hass 插件，新版 hass 插件支持百度 unit ，实现一句命令完成操作，无需像之前一样先进入插件后操作，由于本插件处于 beta 状态，unit 词典库正在拓充中，暂时使用 apikey 的方式请求 unit的使用。为确保不想使用beta版本的用户的正常使用，本版本与正式版暂时独立
-启用本版本需使用如下配置方式：
-
-打开 wukong 的配置文件（网页后台或直接修改都可以），
-第一步：
-
-在 homeassistant 的 configuration.yaml 里添加：
-
-``` yaml
-api：
-  api_password: 
-```
-
-修改后 api 插件就启动了
-
-注意:在`api_password: `后设置 api 接口密码，建议设置，但是这个密码在与 wukong 之间通信时用不到，以后自行开发 homeassistant 时可能用到这里的 api 密码，此密码的修改不影响 wukong 工作。（冒号之后有空格！在空格之后直接输入密码无需引号）
-
-第二步：
-
-登陆 homeassistant 网页，在侧拉菜单中点击 homeassistant 字样旁自己的头像，然后将页面拉至最底下找到“长期访问令牌”点击创建令牌，随意取一个名字如： wukong 点击确认
-
-在随后弹出的窗口中复制并想办法记录自己的密钥
-
-第三步：
-
-打开 wukong 的配置文件（网页后台或直接修改都一样），添加：
-
-``` yaml
-homeassistantunit:
-    url: "http://127.0.0.1"   #切记加上http://，ip或者域名为你的homeassistant的主机
-    port: "8123"             # 端口为你的homeassistant的端口和网页端口一样
-    key: "" # 密钥
-```
-
-key 处填写的内容如下：
-
-Bearer ABCDE
-
-用第二步获取到的密钥替换 ABCDE (保留 Bearer 和 ABCDE 之间的空格)，将其整体填入双引号中
- 
-
-### HomeAssistant 配置
-
-configuration.yaml 相同目录下添加 customize.yaml 并 include 进配置文件。
-
-查看状态类的设备(传感器等)将命令写成 list；控制类的设备命令写成 dict，控制命令为 key ，动作为 value。
+现阶段配置时使用的命令建议点击[这里](https://github.com/PatrickChina/wukonghass/blob/master/wukong/user_user_smarthome_%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%8D%E5%85%B8%E5%80%BC.txt)参照词典写(使用您的文本编辑器的搜索功能模糊搜索您需要的指令)，避免词典缺失影响使用
 
 如下是示例的部分配置：
 
@@ -441,15 +355,6 @@ switch.pump:
   friendly_name: "浇水"
   wukong: {"开始浇水":"turn_on", "浇水":"turn_on", "停止浇水":"turn_off", "结束浇水":"turn_off"}  
 ``` 
-
-本插件由于处于测试状态，因此不确保稳定运行，如果您有对稳定性的要求，请勿使用此版本。
-如果遇到任何问题请提issue或在官方群聊内报告，谢谢
-如果你对参与 homeassistant 和 wukong-robot 协作运行的进一步开发有兴趣，可以在群聊内 @杭州-PatrickChen 或者群主
-
-如果您在中国以外的国家使用是遇到了问题（wukong回复未找到配置），请修改您本地 hassunit.py 中的第31行为：
-```
-text = text.decode('unicode_escape')
-```
 
 ## ControlMqtt ##
 
@@ -542,174 +447,3 @@ Lamp:
 
 * 继电器建议采购高低可选，带光耦的继电器。自己做电子开关。
 
-## Weibo ##
-
-* 微博查询技能
-* 源码：https://github.com/wzpan/wukong-contrib/blob/master/Weibo.py
-
-### 交互示例
-
-- 用户：杨超越最近的微博
-- 悟空：[WeiBo] 杨超越发布于 3月17日 09:28的一条微博。摊手昨天在做梦吧？姚主席真的好高啊，科比还和我握手了还鼓励我真的巨暖心。当我上台抽签的时候我真的宇宙无敌紧张～第一感觉妈呀这么多人啊！淡定淡定，我应该看起来不是很紧张吧～我扭扭蛋的时候应该很自然吧～当我偷偷的一撇一个小小的灯牌……还有人叫我名字的时候突然觉得放松好多跪了钢铁的​​​​...展开全文c
-- 用户：下一条
-- 悟空：[WeiBo] 杨超越发布于 3月16日 21:25的一条微博。#篮球世界杯抽签#祝贺中国队成功抽到上上签，期待咱们中国男篮在篮球世界杯的优秀表现！再说一遍，是“国际篮（lán）联篮（lán）球世界杯”！今天见到@KobeBryant老大超开心，老大给的签名新书，我会好好珍藏的～​​​​
-- 用户：退出微博
-- 悟空：已退出微博插件
-
-## SmartMiFan ##
-
-[智米电风扇](https://www.xiaomiyoupin.com/detail?gid=102194)插件，可以使用叮当机器人声控智米电风扇。功能包括：
-
-* 电源开关
-* 风量调节
-* 预约关机
-* 自然风开关
-* 摇头开关
-
-### Demo
-
-[Demo](http://t.cn/RK05OV8)
-
-### 依赖安装
-
-依赖 python-miio 库：
-
-``` bash
-pip install python-miio
-```
-
-另外，为了方便获取智米风扇的端口号和token，需要安装一个 `miio` 工具：
-
-``` bash
-npm install -g miio
-```
-
-### 配置
-
-先确保你的智米电风扇已开机并和 wukong-robot 所在的机器处于同一个局域网下。然后执行以下命令获取风扇的 `host` 和  `token`:
-
-``` sh
-miio discover
-```
-
-然后在 config.yml 中添加如下配置：
-
-``` yml
-# 智米风扇
-SmartMiFan:
-    host: "192.168.1.106"
-    token: "32e9af2050bc9d6f599c061733effee0"
-    angle: 60  # 摇头的角度范围。可选值为 30/60/90/120
-```
-
-完成后重启叮当即可使用本插件。
-
-### 指令列表
-
-| 指令 | 相同指令  |  用途 |
-| ---- | -------- | ----- |
-| 打开风扇 | 启动风扇 | 打开风扇 |
-| 关闭风扇 | - | 关闭风扇 |
-| 开启自然风 | 启动自然风    | 切换到自然风模式 |
-| 关闭自然风 | 关闭自然风    | 切换到普通模式 |
-| 开始摇头 | 开启摇头    | 开始摇头 |
-| 停止摇头 | 结束摇头，关闭摇头    | 结束摇头 |
-| 加大风速 | 加快风速，加大风量，加大风力    | 加大风扇转速 |
-| 减少风速 | 减慢风速，减少风量，减小风力    | 降低风扇转速 |
-| $num $unit 后关闭风扇 | $num 是数字，$unit 可以是秒/分钟/小时  | 预约关机 |
-
-
-
-## NeteaseMusic ##
-
-* 根据Github上的[musicbox](https://github.com/darknessomi/musicbox)所提供的api文件进行抽离和修改，配合wukong项目达到语音交互型的NeteaseMusic插件。
-* 目前功能：
-  1. **个性化推荐歌单**
-  2. **每日推荐歌曲**
-  3. **个人账号下的“我的歌单”**
-  4. **搜索歌手/歌名/歌手+歌名**
-  5. **自动签到**
-  6. **收藏当前播放的歌单到个人账号**
-  7. **收藏当前播放的歌曲到红心歌单（我喜欢的音乐歌单）**
-  8. **当播放红心歌单，开启心动模式（红心歌单的歌曲+推荐相似的新歌）**
-  9. **询问当前播放歌曲信息**
-  10. **基本的播放器操作**
-  11. **往后还会有更多功能，请敬请期待一下...**
-* 代码比较啰嗦，希望多多学习，欢迎大家多出建议和问题来改良。
-* 源码：[https://github.com/wzpan/wukong-contrib/blob/HEAD/BaiduMap.py](https://github.com/wzpan/wukong-contrib/blob/HEAD/WangYiYun.py)
-
-### 配置
-1. 首先请将账号信息配置在用户目录~/.wukong/config.yml，在文件最尾处添加类似下方的方式配置。
-``` yml
-# 网易云音乐插件
-NeteaseMusic:
-    account: 'XXXXXXXX'  # 网易云音乐账号
-    #密码的 md5，可以用 python3 wukong.py md5 "密码" 获得
-    md5pass: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx' 
-```
-2. 将~/.wukong/contrib主库更新一下以获取WangYiYun.py插件，还有调用pip3下载一些额外的依赖库requests_cache。
-``` sh
-cd $HOME/.wukong/contrib
-git pull
-cd ../
-pip3 install -r contrib/requirements.txt
-``` 
-
-### 关于首次登陆的那些事
-* 首次登陆会通过账号信息account和md5pass尝试获取两周有效期的Cookies并保存于本地~/.neteasemusic/cookies，同时会定期检查有效期。
-* 在~/.neteasemusic/目录有一个名为reqcache文件，用于requests的缓存。
-* 还有~/.neteasemusic/目录有一个名为database.json文件，用于保存用户的个人信息以便于往后的查询请求，例如userid和个人歌单。
-
-### 交互示例
-为了简化交互和满足不同的问句，一次的播报信息中只会包含五个歌单名称，可以对悟空喊：“我想听下去”来了解更多歌单名称。
-
-> 每日推荐歌单 / 我的歌单
-
-- 用户：播放网易云的推荐歌单 / 打开我的网易云歌单
-- 悟空：共找到X张歌单，第1张叫XXX，第2张叫XXX...想听哪一张，或者要不要继续听下去呢？
-- 用户：我想听下去 / 我要继续听更多
-- 悟空：共找到X张歌单，第6张叫XXX，第7张叫XXX...想听哪一张，或者要不要继续听下去呢？
-- 用户：（中途可打断悟空）悟空悟空，我要听第8张。（然后播放歌曲）
-- 用户：刚刚第4张歌单叫什么来的？
-- 悟空：第四张歌单叫XXXX
-- 用户：那我要听第4张
-- 悟空：选了第4张
-
-> 每日推荐歌曲
-
-- 用户：播放网易云的推荐歌曲 / 今天网易云有什么推荐的歌曲
-- 悟空：今天共有X首推荐歌曲噢！（然后播放歌曲）
-
-> 打开红心歌单和开启心动模式 (我喜欢的音乐歌单)
-
-- 用户：播放网易云的红心歌单
-- 悟空：红心歌单共有X首歌曲噢！
-- 用户：开启/打开心动模式
-- 悟空：已成功开启心动模式，目前有X首歌曲！
-
-> 搜索歌手/歌名（模板抓取，""双引号的字必须说, |表示or）
-
-- 用户：赶紧"播放|搜索|找"李荣浩的“歌|歌曲”
-- 悟空：你要听你荣号，对吗？不对的话，请重新说一次！
-- 用户：不对，我要“听”李荣浩的“歌曲”
-- 悟空：你要听李荣浩，对吗？不对的话，请重新说一次！
-- 用户：对的|是的|确认
-- 悟空：找到了李荣浩的XX。（然后播放歌曲）
-
-or 
-
-- 用户：我想“听”陈奕迅“的”红玫瑰
-- 悟空：你要听陈奕迅的红玫瑰，对吗？不对的话，请重新说一次！
-- 用户：算了，不用了。
-- 悟空：退出搜索
-
-> 播放歌曲时的语句
-
-- 用户：这首歌叫什么
-- 悟空：这首歌叫XXX，是XXX唱的
-- 用户：这张歌单叫什么名字
-- 悟空：目前播放的歌单叫XXX
-- 用户：我想要收藏这首歌  / 我要收藏这个歌单
-- 悟空：这首歌已帮你收藏成功 / 目前的歌单已收藏成功！
-- 用户：再放一遍吧
-- 悟空：重新播放当前的歌曲

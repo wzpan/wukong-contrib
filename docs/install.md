@@ -2,26 +2,21 @@
 
 你可以选择 docker 安装或者手动安装两种方式。
 
+若您想要将wukong-robot与homeassistant搭配使用，请参照**智能家庭**章节进行操作。或您想要使用wukong-robot控制您家里的智能家电，甚至改装您的旧家电使其支持智能控制，您可以使用homeassistant来达成该目的，您可以在**智能家庭**章节找到homeassistant的安装方式。
+
 * [docker 安装](/install?id=方式一：docker-安装)
 * [手动安装](/install?id=方式二：手动安装)
 * [其他安装方式](/install?id=其他安装方式)
-* [其他非官方教程](/install?id=其他非官方教程)
 
 ## 方式一：docker 安装
 
-docker 镜像安装更适用于 Linux 系统。对于 Windows 和 Mac ，由于底层音频驱动方式不同，没办法实现离线唤醒和语音播放的功能，但后台端的文本或录音的交互依然可用。
+docker 镜像安装更适用于 PC 的 Linux 系统。对于 Windows 和 Mac ，由于底层音频驱动方式不同，没办法实现离线唤醒和语音播放的功能，但后台端的文本或录音的交互依然可用。
 
-### X86-64 架构设备
-
-首先确保已经 [安装 docker](https://docs.docker.com/install/)。
-
-如果你的设备是普通的 X86-64 架构设备（例如 PC 或 Mac） ，可以使用 wzpan/wukong-robot 镜像：
+!> 目前 docker 镜像不支持 ARM 架构，请不要在树莓派等 ARM 板上尝试。
 
 ``` bash
 docker pull wzpan/wukong-robot:latest
 ```
-
-!> 如果遇到 docker 拉取慢的问题，你或许需要考虑先配置好[docker加速器](https://www.daocloud.io/mirror#accelerator-doc)。
 
 对于 Linux 系统，可以将 `/dev/snd` 桥接给 docker，这样可以实现声卡的支持：
 
@@ -32,28 +27,12 @@ docker run -it -p 5000:5000 --device /dev/snd wzpan/wukong-robot:latest
 而对于 Mac 和 Windows 系统，则只能放弃声卡的支持：
 
 ``` bash
-docker run -it -p 5000:5000 wzpan/wukong-robot:latest
+docker run --rm -it -p 5000:5000 wzpan/wukong-robot:latest
 ```
 
 因此 Mac 系统更推荐手动安装的方式。而 Windows ，则可以参考 [其他安装方式](#其他安装方式) 中的一键自动安装脚本。
 
-`docker run` 完成后，就可以参考 [运行](/run?id=运行) 一节，启动 wukong-robot 了。
-
-### ARM 架构设备
-
-如果你的设备是 ARM 架构设备（例如树莓派），可以使用 wzpan/wukong-robot-arm 镜像：
-
-``` bash
-git clone https://github.com/wzpan/wukong-robot-pi-installer.git
-cd wukong-robot-pi-installer
-sudo ./pi_installer
-```
-
-然后使用如下命令启动 docker 镜像即可：
-
-``` bash
-docker run -it -p 5000:5000 --device /dev/snd -e LANG=C.UTF-8 wzpan/wukong-robot:latest
-```
+!> 如果遇到 docker 拉取慢的问题，你或许需要考虑先配置好[docker加速器](https://www.daocloud.io/mirror#accelerator-doc)。
 
 `docker run` 完成后，就可以参考 [运行](/?id=运行) 一节，启动 wukong-robot 了。
 
@@ -70,11 +49,9 @@ git clone https://github.com/wzpan/wukong-robot.git
 #### Linux 系统：
 
 ``` bash
-sudo apt-get install portaudio19-dev python-pyaudio python3-pyaudio sox pulseaudio libsox-fmt-all ffmpeg
+sudo apt-get install python-pyaudio python3-pyaudio sox pulseaudio libsox-fmt-all ffmpeg
 pip3 install pyaudio
 ```
-
-?> 如果遇到 pip3 安装慢的问题，可以考虑使用 Pypi 镜像。例如 [清华大学 Pypi 镜像](https://mirror.tuna.tsinghua.edu.cn/help/pypi/) 。
 
 #### Mac 系统：
 
@@ -110,8 +87,8 @@ sudo apt-get -y update
 sudo apt-get install -y libpcre3 libpcre3-dev
 ./configure --prefix=/usr --without-clisp --without-maximum-compile-warnings
 make
-sudo make install
-sudo install -v -m755 -d /usr/share/doc/swig-3.0.10
+make install
+install -v -m755 -d /usr/share/doc/swig-3.0.10
 sudo cp -v -R Doc/* /usr/share/doc/swig-3.0.10
 sudo apt-get install -y libatlas-base-dev
 ```
@@ -147,12 +124,12 @@ cp _snowboydetect.so <wukon-robot的根目录/snowboy/>
 * [Deepin](http://hahack-1253537070.file.myqcloud.com/misc/snowboy-deepin/_snowboydetect.so)
 * [Raspberry Pi](http://hahack-1253537070.file.myqcloud.com/misc/snowboy-pi/_snowboydetect.so)
 
-### 5. 安装第三方技能插件库 wukong-contrib
+### 5. 安装第三方技能插件库 dingdang-contrib
 
 ``` bash
 mkdir $HOME/.wukong
 cd $HOME/.wukong
-git clone http://github.com/wzpan/wukong-contrib.git contrib
+git clone http://github.com/wzpan/wukong-contrib contrib
 pip3 install -r contrib/requirements.txt
 ```
 
@@ -162,15 +139,7 @@ pip3 install -r contrib/requirements.txt
 
 而树莓派上或者其他板子上接的麦克风可能和 PC 上的麦克风的声音畸变差异非常大，所以现有的模型更加不能直接在树莓派上工作，否则效果会非常糟糕。
 
-如果你是第一次使用，需要先创建一个配置文件方便配置唤醒词。这个工作可以交给 wukong-robot 帮你完成。在 wukong-robot 的根目录下执行：
-
-``` bash
-python3 wukong.py
-```
-
-第一次启动将提示你是否要到用户目录下创建一个配置文件，输入 `y` 即可。配置文件将会保存在 `~/.wukong/config.yml` 。
-
-接下来我们来训练和更新唤醒词。比较建议到 [snowboy 官网](https://snowboy.kitt.ai/dashboard) 上训练自己的模型，然后把模型放在 `~/.wukong` 中，并修改 `~/.wukong/config.yml` 里的几个 hotword 指向的文件名（如果文件名没改，则不用变）。一共有三个唤醒词需要修改：
+比较建议到 [snowboy 官网](https://snowboy.kitt.ai/dashboard) 上训练自己的模型，然后把模型放在 `~/.wukong` 中，并修改 `~/.wukong/config.yml` 里的几个 hotword 指向的文件名（如果文件名没改，则不用变）。一共有三个唤醒词需要修改：
 
 1. `hotword`：全局唤醒词。默认为 “孙悟空” （wukong.pmdl）
 2. `/do_not_bother/on_hotword`：让 wukong-robot 进入勿扰模式的唤醒词。默认为 “悟空别吵” （悟空别吵.pmdl）
@@ -199,121 +168,9 @@ do_not_bother:
 
 ![](http://docs.kitt.ai/snowboy/_images/upload.png)
 
-也可以使用 wukong.py 提供的 `train` 命令来进行训练。
-
-- 首先使用 `rec` 或者 `arecord` 来录制唤醒词的三段语音。例如：
-
-``` bash
-cd $HOME
-arecord a.wav
-arecord b.wav
-arecord c.wav
-```
-
-- 然后，如果你还没有在 config.yml 配置文件中填写 `snowboy_token` 的配置，可以先访问 https://snowboy.kitt.ai ，在 “Profile settings” 中找到你的 token ：
-
-![](http://docs.kitt.ai/snowboy/_images/profile_token.png)
-
-然后把它填进 config.yml 中。
-
-- 之后，使用如下命令训练成唤醒词：
-
-``` bash
-python3 wukong.py train $HOME/a.wav $HOME/b.wav $HOME/c.wav $HOME/.wukong/mywords.pmdl
-```
-
-其中 `mywords.pmdl` 即是要生成的 pmdl 的名字。你也可以换成你喜欢的名字（但尽量不要用中文）。
-
-- 完成后修改下 config.yml 把唤醒词改成刚刚训练的唤醒词即可。
-
 ## 其他安装方式 ##
 
 除了官方提供的安装方法外，还有一些热心用户提供了其他可选的安装方案。
 
-!> 使用第三方安装方式可能会无法正常获取更新，请慎重考虑。
-
 1. 小白同学 @musistudio 提供了一个[一键自动安装脚本](https://github.com/musistudio/wukong-robot-install-script)，适用于 MacOS/Ubuntu/WSL（Windows Subsystem for Linux） 系统。
 2. 用户QQ群（580447290）上还有一些用户提供了树莓派的安装镜像，可以入群索取。
-
-## 其他非官方教程 ##
-
-这里收录一些非官方课程。如果你也录制了课程，欢迎[给这个文档仓库](https://github.com/wzpan/wukong-contrib)提PR。
-
-1. [树莓派语音机器人接入homeassistant控制nodemcu开发板教程](https://www.bilibili.com/video/av46877916?from=search&seid=7428641102072962094)
-2. [人工智能开发实战：悟空智能音箱](https://www.boxuegu.com/live/detail-1319)
-
-## AnyQ 安装（可选） ##
-
-如果希望使用 [AnyQ](https://github.com/baidu/AnyQ) 作为聊天机器人，需要先安装 AnyQ 。
-
-### X86-64 架构设备 ###
-
-对于 X86-64 架构（例如 PC 或 Mac），推荐使用 docker 安装：
-
-``` bash
-docker pull keejo/anyq:1.0
-```
-
-然后使用如下命令启动 AnyQ 服务和 solr 引擎：
-
-``` bash
-docker run -it -p 8999:8999 -p 8900:8900 keejo/anyq:1.0 ./run.sh
-```
-
-然后可以在当前机器上访问 <http://localhost:8999/anyq?question=账号> 确认是否正常返回。
-
-### ARM 架构设备 ###
-
-ARM 架构设备（例如树莓派）需要则手动编译安装。安装前请确保满足以下依赖：
-
-* cmake 3.0以上(推荐3.2.2版本)
-* g++ >=4.8.2
-* bison >=3.0
-
-安装命令：
-
-``` bash
-mkdir build && cd build && cmake .. && make
-```
-
-完成后执行如下命令启动 AnyQ 服务和 solr 引擎：
-
-``` bash
-# 进入目录
-cd /home/AnyQ/build
-# 启动solr
-sh solr_script/anyq_solr.sh solr_script/sample_docs
-# 启动AnyQ
-./run_server
-```
-
-然后可以在当前机器上访问 <http://localhost:8999/anyq?question=账号> 确认是否正常返回。
-
-## HanTTS 安装（可选） ##
-
-如果要使用 HanTTS 以实现本地 TTS 服务，则需要先从 SourceForge 下载语音库 [syllables.zip](https://sourceforge.net/projects/hantts/files/?source=navbar) 。完成后解压到 ~/.wukong 目录下。
-
-相关配置：
-
-``` yaml
-# 语音合成服务配置
-# 可选值：
-# han-tts       - HanTTS
-# baidu-tts     - 百度语音合成（推荐）
-# xunfei-tts    - 讯飞语音合成
-# ali-tts       - 阿里语音合成（推荐）
-# tencent-tts   - 腾讯云语音合成（推荐）
-tts_engine: han-tts
-
-# HanTTS 服务
-han-tts:
-    # 所使用的语音库目录
-    # 需放在 ~/.wukong/ 目录下
-    # 也支持自行录制，详见：
-    # https://github.com/junzew/HanTTS
-    voice: 'syllables'
-```
-
-如果希望自己录制语音，可以参见 [HanTTS 提供的官方教程](https://github.com/junzew/HanTTS/blob/master/README.zh.md#%E5%BD%95%E5%88%B6%E6%96%B0%E7%9A%84%E8%AF%AD%E9%9F%B3%E5%BA%93)。
-
-

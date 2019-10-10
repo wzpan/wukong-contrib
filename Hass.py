@@ -3,27 +3,24 @@ import requests
 import json
 from robot import logging
 from robot import config
+from robot.sdk import unit
 from robot.sdk.AbstractPlugin import AbstractPlugin
+
 
 logger = logging.getLogger(__name__)
 
 class Plugin(AbstractPlugin):
 
-    SLUG = "homeassistant"
+    SLUG = "homeassistantunit"
 
     def handle(self, text, parsed):
-        def onAsk(input):
-            if not input:
+        slots = unit.getSlots(parsed, 'RUNHASS')
+        for slot in slots:
+            if slot['name'] == 'user_smarthome':
+                input = slot['normalized_word']
+                self.hass(input)
+            else:
                 self.say("指令有误，请重新尝试", cache=True)
-                return
-            input = input.split(",")[0].split("，")[0]
-            self.hass(input)
-        if "帮我" in text:
-            input = text.replace("帮我", "")
-            onAsk(input)
-        else:
-            self.say("开始家庭助手控制，请在滴一声后说明内容", cache=True, onCompleted=lambda: onAsk(self.activeListen()))
-
 
     def hass(self, text):
         if isinstance(text, bytes):
@@ -91,6 +88,4 @@ class Plugin(AbstractPlugin):
 
 
     def isValid(self, text, parsed):
-        return any(word in text for word in ["开启家庭助手",
-                                             "开启助手", "打开家庭助手", "打开助手",
-                                             "家庭助手", "智能家居"])
+        return unit.hasIntent(parsed, 'RUNHASS')
