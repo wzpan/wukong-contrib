@@ -268,7 +268,7 @@ python3 -m pip install --upgrade homeassistant
  接下来关于wukong-robot的配置请访问本文档的**配置**部分了解更多,本插件的配置方式与其他方式安装的wukong-robot完全相同，您可以在hass.io插件页面顶部点击
 **OPEN WEB UI**或者访问```http://youripaddress:5000```来访问wukong-robot的后台管理页面，```youripaddres```替换为您homeassistant所处设备的局域网ip地址。
 
-#### 进行简单的 homeassistant 配置
+## 进行简单的 homeassistant 配置
 
 由于作者依旧在努力完善百度 NLU 数据库，暂时没有时间亲自写入门教程，后续将会补上含有作者经验的入门及进阶教程
 
@@ -280,6 +280,83 @@ python3 -m pip install --upgrade homeassistant
 - 教程2：https://bbs.hassbian.com/thread-31-1-1.html
 
 !>仅是作者个人推荐，选择了主观上质量相对优秀的论坛和教程进行推荐。论坛与作者和wzpan无关，内容不由我们可控，因此我们不对推荐链接中的内容负任何责任，也不保证内容质量
+
+### 入门站：访问您的homeassistant配置文件夹目录
+
+第一步：访问hass.io addon store选项卡，点击**install**安装Samba Share的hass.io插件
+
+![ss1](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/ss3.png)
+![ss2](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/ss2.png)
+
+第二步：安装过程应该在5分钟内完成，完成后从**DASHBOARD**进入插件，应该能看到UNINSTALL REBUILD START的选项。此时请不要急着START，此时由于未进行配置也无法正常启动。
+
+第三步：向下滑动页面直至看到```config```选项卡如图所示：
+
+![ss3](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/ss1.png)
+
+第四步：复制下面的配置**覆盖**粘贴到```config```选项卡内，并将**hassio**替换成您的用户名，将**password**替换成您的密码，此处的密码请您务必更换并牢记。**不要忘记点击SAVE保存配置**
+```
+{
+  "workgroup": "WORKGROUP",
+  "username": "hassio",
+  "password": "password",
+  "interface": "",
+  "allow_hosts": [
+    "10.0.0.0/8",
+    "172.16.0.0/12",
+    "192.168.0.0/16"
+  ]
+}
+```
+第五步：滑动页面到顶部点击**START**来启动Samba share
+
+第六步：连接并访问您的homeassistant配置文件夹。
+
+Windows：
+
+确保您的电脑与homeassistant在同一局域网下在图中标注处输入```\\youripaddress\config```替换youripaddress为您homeassistant的局域网ip地址（一般情况下请访问您路由器的管理页面获得ip地址），由于作者的ip地址是192.168.1.28,因此如图所示。在弹出的窗口中输入您上一步设置的用户名与密码。
+
+![ss4](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/w1.png)
+
+您应该看如下图所示页面，此时您已经访问到homeassistant的配置文件目录。您对homeassistant进行的大部分配置都需要通过修改本目录下的某个文件来实现。
+
+![ss5](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/w2.png)
+
+MAC OS：
+
+确保您的电脑与homeassistant在同一局域网下,打开访达，切换到网络选项卡，将鼠标移动到顶部选项栏的**前往**菜单栏，选择**前往服务器**
+
+![ss6](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m4.png)
+
+在如图标记处，输入```smb://youripaddress/config```替换youripaddress为您homeassistant的局域网ip地址（一般情况下请访问您路由器的管理页面获得ip地址），由于作者的ip地址是192.168.1.28,因此如下图所示。
+
+![ss7](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m5.png)
+
+点击连接
+
+![ss8](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m6.png)
+
+在弹出的窗口中输入您上一步设置的用户名与密码。
+
+![ss9](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m2.png)
+
+您应该看如下图所示页面，此时您已经访问到homeassistant的配置文件目录。您对homeassistant进行的大部分配置都需要通过修改本目录下的某个文件来实现。
+
+![ss10](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m1.png)
+
+LINUX（UBUNTU)：
+
+确保您的电脑与homeassistant在同一局域网下在图中标注处输入```smb://youripaddress/config```替换youripaddress为您homeassistant的局域网ip地址（一般情况下请访问您路由器的管理页面获得ip地址），由于作者的ip地址是192.168.1.28,因此如图所示。在弹出的窗口中输入您上一步设置的用户名与密码。
+
+![ss11](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/u3.png)
+
+在弹出的窗口中输入你在前面设置的samba密码
+
+![ss12](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/u2.png)
+
+您应该看如下图所示页面，此时您已经访问到homeassistant的配置文件目录。您对homeassistant进行的大部分配置都需要通过修改本目录下的某个文件来实现。
+
+![ss13](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/u3.png)
 
 ## 配置 wukong-robot 的 homeassistant 技能插件
 
@@ -306,12 +383,12 @@ python3 -m pip install --upgrade homeassistant
 
 ``` yaml
 api：
-  api_password: 
+  api_password: 'yourpassword'
 ```
 
 修改后 api 插件就启动了
 
-注意:在`api_password: `后设置 api 接口密码，建议设置，但是这个密码在与 wukong 之间通信时用不到，以后自行开发 homeassistant 时可能用到这里的 api 密码，此密码的修改不影响 wukong 工作。（冒号之后有空格！在空格之后直接输入密码无需引号）
+注意:在`api_password: `后设置 api 接口密码替换**yourpassword**，建议设置，但是这个密码在与 wukong 之间通信时用不到，以后自行开发 homeassistant 时可能用到这里的 api 密码，此密码的修改不影响 wukong 工作。（冒号之后有空格！在空格之后直接输入密码无需引号）
 
 第二步：
 
@@ -368,7 +445,7 @@ switch.pump:
 - 问1 :我不想配置wukong-robot hass.io插件的自动备份
 - 答1:若您是担心备份配置文件导致隐私泄露，您无需有这个担忧，因为数据存储在本地，不会以任何形式上传到任何外部服务器。若您坚持不配置自动备份，在添加插件存储库URL时请添加这个地址```https://github.com/PatrickChina/wukonghass-avoidbackup```,来替代原本应使用的wukonghass存储库
 
-!>由于两个库的结构，版本，hass.io插件部署文件一样，因此严禁坐着的两个插件库同时存在，请明确您的目的后选择正确的存储库添加
+!>由于两个库的结构，版本，hass.io插件部署文件一样，因此严禁作者的两个插件库同时存在，请明确您的目的后选择正确的存储库添加
 
 - 问2:文档内提到将```customize.yaml```include到```configuration.yaml```中，这该如何操作？
 - 答2:您只需要在```configuration.yaml```同目录下创建```customize.yaml```若已存在则无需再创建。然后将这段代码复制到```configuration.yaml```中即可
