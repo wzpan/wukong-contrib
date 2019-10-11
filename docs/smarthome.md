@@ -268,7 +268,7 @@ python3 -m pip install --upgrade homeassistant
  接下来关于wukong-robot的配置请访问本文档的**配置**部分了解更多,本插件的配置方式与其他方式安装的wukong-robot完全相同，您可以在hass.io插件页面顶部点击
 **OPEN WEB UI**或者访问```http://youripaddress:5000```来访问wukong-robot的后台管理页面，```youripaddres```替换为您homeassistant所处设备的局域网ip地址。
 
-#### 进行简单的 homeassistant 配置
+## 进行简单的 homeassistant 配置
 
 由于作者依旧在努力完善百度 NLU 数据库，暂时没有时间亲自写入门教程，后续将会补上含有作者经验的入门及进阶教程
 
@@ -280,6 +280,58 @@ python3 -m pip install --upgrade homeassistant
 - 教程2：https://bbs.hassbian.com/thread-31-1-1.html
 
 !>仅是作者个人推荐，选择了主观上质量相对优秀的论坛和教程进行推荐。论坛与作者和wzpan无关，内容不由我们可控，因此我们不对推荐链接中的内容负任何责任，也不保证内容质量
+
+### 入门站：访问您的homeassistant配置文件夹目录
+
+第一步：访问hass.io addon store选项卡，安装Samba Share的hass.io插件
+
+
+
+第二步：等待安装完毕，正常情况下将在5分钟内完成，完成后应该显示如下图所示
+
+
+
+第三步：向下滑动页面直至看到```config```选项卡如图所示：
+
+
+
+第四步：复制下面的配置**覆盖**粘贴到```config```选项卡内，并将**hassio**替换成您的用户名，将**password**替换成您的密码，此处的密码推荐您务必更换并牢记。**不要忘记点击SAVE保存配置**
+```
+{
+  "workgroup": "WORKGROUP",
+  "username": "hassio",
+  "password": "password",
+  "interface": "",
+  "allow_hosts": [
+    "10.0.0.0/8",
+    "172.16.0.0/12",
+    "192.168.0.0/16"
+  ]
+}
+```
+第五步：滑动页面到顶部点击**START**来启动Samba share,如图显示即代表启动。
+
+
+
+第六步：连接并访问您的homeassistant配置文件夹。
+
+Windows：
+
+确保您的电脑与homeassistant在同一局域网下在图中标注处输入```\\youripaddress\config```替换youripaddress为您homeassistant的局域网ip地址（一般情况下请访问您路由器的管理页面获得ip地址），由于作者的ip地址是192.168.1.28,因此如图所示。在弹出的窗口中输入您上一步设置的用户名与密码。
+
+
+您应看如下图所示页面，此时您已经访问到homeassistant的配置文件目录。您对homeassistant进行的大部分配置都需要通过修改本目录下的某个文件来实现。
+
+MAC OS：
+
+确保您的电脑与homeassistant在同一局域网下
+
+
+LINUX（UBUNTU)：
+确保您的电脑与homeassistant在同一局域网下在图中标注处输入```smb://youripaddress/config```替换youripaddress为您homeassistant的局域网ip地址（一般情况下请访问您路由器的管理页面获得ip地址），由于作者的ip地址是192.168.1.28,因此如图所示。在弹出的窗口中输入您上一步设置的用户名与密码。
+
+
+您应看如下图所示页面，此时您已经访问到homeassistant的配置文件目录。您对homeassistant进行的大部分配置都需要通过修改本目录下的某个文件来实现。
 
 ## 配置 wukong-robot 的 homeassistant 技能插件
 
