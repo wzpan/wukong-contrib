@@ -317,7 +317,8 @@ Windows：
 确保您的电脑与homeassistant在同一局域网下在图中标注处输入```\\youripaddress\config```替换youripaddress为您homeassistant的局域网ip地址（一般情况下请访问您路由器的管理页面获得ip地址），由于作者的ip地址是192.168.1.28,因此如图所示。在弹出的窗口中输入您上一步设置的用户名与密码。
 
 ![ss4](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/w1.png)
-您应看如下图所示页面，此时您已经访问到homeassistant的配置文件目录。您对homeassistant进行的大部分配置都需要通过修改本目录下的某个文件来实现。
+
+您应该看如下图所示页面，此时您已经访问到homeassistant的配置文件目录。您对homeassistant进行的大部分配置都需要通过修改本目录下的某个文件来实现。
 
 ![ss5](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/w2.png)
 
@@ -339,7 +340,7 @@ MAC OS：
 
 ![ss9](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m2.png)
 
-您应看如下图所示页面，此时您已经访问到homeassistant的配置文件目录。您对homeassistant进行的大部分配置都需要通过修改本目录下的某个文件来实现。
+您应该看如下图所示页面，此时您已经访问到homeassistant的配置文件目录。您对homeassistant进行的大部分配置都需要通过修改本目录下的某个文件来实现。
 
 ![ss10](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m1.png)
 
@@ -353,7 +354,7 @@ LINUX（UBUNTU)：
 
 ![ss12](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/u2.png)
 
-您应看如下图所示页面，此时您已经访问到homeassistant的配置文件目录。您对homeassistant进行的大部分配置都需要通过修改本目录下的某个文件来实现。
+您应该看如下图所示页面，此时您已经访问到homeassistant的配置文件目录。您对homeassistant进行的大部分配置都需要通过修改本目录下的某个文件来实现。
 
 ![ss13](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/u3.png)
 
