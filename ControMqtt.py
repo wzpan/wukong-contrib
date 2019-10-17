@@ -4,6 +4,8 @@
 #Example:you can get temperature of the enviroment collected by Arduino using Raspberry Pi when Raspberry Pi and Arduino communicate with each other.
 #The actions' file must be /home/pi/.dingdang/action.json
 
+#Fix: Hcreak 2019.10
+
 import paho.mqtt.client as mqtt
 import paho.mqtt.publish as publish
 import time
@@ -18,57 +20,67 @@ class Plugin(AbstractPlugin):
 
     SLUG = "mqttPub"
 
-    def get_topic(self, text):
+    def search_word(self, text):
         home_dir = os.path.expandvars('$HOME')
         location = home_dir + '/.dingdang/action.json'
-        f = open(location).read()
-        fjson = json.loads(f)
-        topic = None
-        for key in fjson.keys():
-            if text in fjson[key]:
-                topic = key
-        return topic
+        if os.path.exists(location):
+            f = open(location).read()
+
+            try:
+                fjson = json.loads(f)
+
+                for key in fjson.keys():
+                    value = fjson[key]
+
+                    if isinstance(value,list):   # 向上兼容
+                        for word in value:
+                            if word in text:
+                                return key,word
+
+                    if isinstance(value,dict):
+                        for word in value.keys():
+                            if word in text:
+                                return key,value[word]
+
+            except Exception as e:
+                logger.error(e)
+                self.say("抱歉出了问题", cache=True)
+                return
+
+        else:    
+            return
+
 
     def handle(self, text, parsed):
 
         profile = config.get()
 
         #get config
-        if ( self.SLUG not in profile ) or ( 'host' not in profile[self.SLUG] ) or ( 'port' not in profile[self.SLUG] ) or ( 'topic_s' not in profile[self.SLUG] ):
+        if ( self.SLUG not in profile ) or ( 'host' not in profile[self.SLUG] ) or ( 'topic_s' not in profile[self.SLUG] ):
             self.say("主人，配置有误", cache=True)
             return
 
         host = profile[self.SLUG]['host']
-        port = profile[self.SLUG]['port']
+        port = 1883
+        if ( 'port' in profile[self.SLUG] ):
+            port = int(profile[self.SLUG]['port'])
         topic_s = profile[self.SLUG]['topic_s']
-        text = text.split("，")[0]   #百度语音识别返回的数据中有个中文，
-        topic_p = self.get_topic(text)
-        if topic_p == None:
-            return
+        # text = text.split("，")[0]   #百度语音识别返回的数据中有个中文，
+        topic_p,payload = self.search_word(text)
+
         try:
             self.say("已经接收到指令", cache=True)
-            mqtt_contro(host,port,topic_s,topic_p,text,self.con)
+            mqtt_contro(host,port,topic_s,topic_p,payload,self.con)
         except Exception as e:
             logger.error(e)
             self.say("抱歉出了问题", cache=True)
             return
 
     def isValid(self, text, parsed):
-        home_dir = os.path.expandvars('$HOME')
-        location = home_dir + '/.dingdang/action.json'
-        words = []
-        if os.path.exists(location):
-            f = open(location).read()
-            try:
-                fjson = json.loads(f)
-                for value in fjson.values():
-                    if isinstance(value,list):
-                        words += value
-                    else:
-                        words += []
-            except ValueError:
-                words += []
-        return any(word in text for word in words)
+        if self.search_word(text) == None:
+            return False
+        else:
+            return True
 
 class mqtt_contro(object):
 
@@ -87,7 +99,7 @@ class mqtt_contro(object):
         #mqttc.on_subscribe = on_subscribe
         #mqttc.on_log = on_log
         if self.host and self.topic_p:
-            publish.single(self.topic_p, payload=self.message, hostname=self.host,port=1883)
+            publish.single(self.topic_p, payload=self.message, hostname=self.host,port=self.port)
             if self.port and self.topic_s and self.host:
                 self.mqttc.connect(self.host, self.port, 5)
                 self.mqttc.subscribe(topic_s, 0)
