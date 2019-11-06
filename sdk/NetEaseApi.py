@@ -17,7 +17,6 @@ import base64
 import binascii
 import platform
 
-from pathlib import Path
 from collections import OrderedDict
 from Crypto.Cipher import AES
 from http.cookiejar import LWPCookieJar
@@ -369,10 +368,10 @@ class NetEase(object):
         self.cookies = {'appver': '1.5.2'}
         self.playlist_class_dict = {}
         self.session = requests.Session()
-        self.check_file(os.path.join(Path.home(), ".neteasemusic/cookies"), isCookies=True)
-        self.check_file(os.path.join(Path.home(), ".neteasemusic/reqcache"), isCookies=False)
-        requests_cache.install_cache(os.path.join(Path.home(), ".neteasemusic/reqcache"), expire_after=3600)
-        self.session.cookies = LWPCookieJar(os.path.join(Path.home(), ".neteasemusic/cookies"))
+        self.check_file(os.path.expanduser("~/.neteasemusic/cookies"), isCookies=True)
+        self.check_file(os.path.expanduser("~/.neteasemusic/reqcache"), isCookies=False)
+        requests_cache.install_cache(os.path.expanduser("~/.neteasemusic/reqcache"), expire_after=3600)
+        self.session.cookies = LWPCookieJar(os.path.expanduser("~/.neteasemusic/cookies"))
         self.session.cookies.load()
         for cookie in self.session.cookies:
             if cookie.is_expired():
