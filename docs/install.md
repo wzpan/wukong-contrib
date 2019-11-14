@@ -4,6 +4,8 @@
 
 ?> 若您想要将 wukong-robot 与 homeassistant 搭配使用，请参照 [智能家庭](/smarthome) 章节进行操作。或您想要使用 wukong-robot 控制您家里的智能家电，甚至改装您的旧家电使其支持智能控制，您可以使用 homeassistant 来达成该目的，您可以在 [智能家庭](/smarthome) 章节找到 homeassistant 的安装方式。
 
+!> 注意：慎用 `sudo` ！初学者很容易犯的问题就是什么命令都加 `sudo` ，这会导致用户配置文件没生效、权限错乱等问题。只有在提示权限不够的情况下（例如要 `apt-get install` 时），才考虑使用 `sudo` 。
+
 * [docker 安装](/install?id=方式一：docker-安装)
 * [手动安装](/install?id=方式二：手动安装)
 * [其他安装方式](/install?id=其他安装方式)
