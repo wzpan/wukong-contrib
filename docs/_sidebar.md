@@ -18,6 +18,7 @@
 * [使用技巧](tips)
 * [AnyQ](anyq)
 * [智能家庭](smarthome)
+* [脑机](bci)
 * [麦克风选购](mic-choices)
 * [常见问题解答](https://github.com/wzpan/wukong-robot/wiki/troubleshooting)
 * [捐赠](donate)
