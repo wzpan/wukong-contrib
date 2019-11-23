@@ -29,7 +29,7 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
 * Demo视频：脑机唤醒
 
 <center>
-    <iframe src="//player.bilibili.com/player.html?aid=50685517&cid=88726713&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
+    <iframe src="//player.bilibili.com/player.html?aid=76739580&cid=131259456&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
 </center>
 
 * 后台管理端Demo 
