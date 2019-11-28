@@ -1,6 +1,6 @@
 # 脑机控制 #
 
-从 2.0.0 版本开始，wukong-robot 加入了对 [Muse](http://choosemuse.com/) 脑机的支持，使得可以摆脱语音唤醒的限制，而使用其他的脑部意识来触发脑机。
+从 2.0.0 版本开始，wukong-robot 加入了对 [Muse](http://choosemuse.com/) 脑机的支持，使得可以摆脱语音唤醒的限制，而使用脑部意识来触发脑机。
 
 ## Demo 
 
