@@ -50,6 +50,7 @@
 | *亚峰            |   20 |  2019-8-7  |       |
 | h*-              |   35 |  2019-8-15 | 感谢 wukongRobot  |
 | 倪Gevigo  |  200 | 2019-11-23 |  直播辛苦了  |
+| 卓越网络 | 200 | 2019-12-1 |  |
 
 > 部分捐赠者来自 [dingdang-robot](https://github.com/dingdang-robot/dingdang-robot) 项目。由于 [dingdang-robot](https://github.com/dingdang-robot/dingdang-robot) 已停止维护，捐赠者名单一并迁移到这个站点。
 
