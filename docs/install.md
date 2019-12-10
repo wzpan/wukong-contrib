@@ -15,12 +15,6 @@
 
 docker 镜像安装更适用于 Linux 系统。对于 Windows 和 Mac ，由于底层音频驱动方式不同，没办法实现离线唤醒和语音播放的功能，但后台端的文本或录音的交互依然可用。
 
-在你继续阅读后面的安装方法前，先在系统里新建一个目录，用来保存 wukong-robot 的配置。避免 docker 镜像里的数据在每次重启后丢失。
-
-``` bash
-mkdir ~/.wukong
-```
-
 ### X86-64 架构设备
 
 首先确保已经 [安装 docker](https://docs.docker.com/install/)。
@@ -36,18 +30,20 @@ docker pull wzpan/wukong-robot:latest
 对于 Linux 系统，可以将 `/dev/snd` 桥接给 docker，这样可以实现声卡的支持：
 
 ``` bash
-docker run -it -p 5000:5000 -v ~/.wukong:/root/.wukong --device /dev/snd wzpan/wukong-robot:latest
+docker run -it -p 5000:5000 --device /dev/snd wzpan/wukong-robot:latest
 ```
 
 而对于 Mac 和 Windows 系统，则只能放弃声卡的支持：
 
 ``` bash
-docker run -it -p 5000:5000 -v ~/.wukong:/root/.wukong wzpan/wukong-robot:latest
+docker run -it -p 5000:5000 wzpan/wukong-robot:latest
 ```
 
 因此 Mac 系统更推荐手动安装的方式。而 Windows ，则可以参考 [其他安装方式](#其他安装方式) 中的一键自动安装脚本。
 
 `docker run` 完成后，就可以参考 [运行](/run?id=运行) 一节，启动 wukong-robot 了。
+
+!> 注意：每次重启 Docker 后镜像内的数据会被重置。如果不希望每次 Docker 每次重启导致数据丢失，可以使用 Docker commit 命令保存镜像的改动。详见 [Docker保存修改后的镜像](https://www.jianshu.com/p/2885eaa5d36d) 。
 
 ### ARM 架构设备
 
@@ -62,10 +58,12 @@ sudo ./pi_installer
 然后使用如下命令启动 docker 镜像即可：
 
 ``` bash
-docker run -it -p 5000:5000 -v ~/.wukong:/root/.wukong --device /dev/snd -e LANG=C.UTF-8 wzpan/wukong-robot-arm:latest
+docker run -it -p 5000:5000--device /dev/snd -e LANG=C.UTF-8 wzpan/wukong-robot-arm:latest
 ```
 
 `docker run` 完成后，就可以参考 [运行](/?id=运行) 一节，启动 wukong-robot 了。
+
+!> 注意：每次重启 Docker 后镜像内的数据会被重置。如果不希望每次 Docker 每次重启导致数据丢失，可以使用 Docker commit 命令保存镜像的改动。详见 [Docker保存修改后的镜像](https://www.jianshu.com/p/2885eaa5d36d) 。
 
 ## 方式二：手动安装
 
