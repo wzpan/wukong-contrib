@@ -55,6 +55,8 @@ cd wukong-robot-pi-installer
 sudo ./pi_installer
 ```
 
+!> 如果遇到 docker 拉取慢的问题，你或许需要考虑先配置好[docker加速器](https://www.daocloud.io/mirror#accelerator-doc)。
+
 然后使用如下命令启动 docker 镜像即可：
 
 ``` bash
