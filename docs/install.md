@@ -43,6 +43,8 @@ docker run -it -p 5000:5000 wzpan/wukong-robot:latest
 
 `docker run` 完成后，就可以参考 [运行](/run?id=运行) 一节，启动 wukong-robot 了。
 
+!> 注意：每次重启 Docker 后镜像内的数据会被重置。如果不希望每次 Docker 每次重启导致数据丢失，可以使用 Docker commit 命令保存镜像的改动。详见 [Docker保存修改后的镜像](https://www.jianshu.com/p/2885eaa5d36d) 。
+
 ### ARM 架构设备
 
 如果你的设备是 ARM 架构设备（例如树莓派），可以使用 wzpan/wukong-robot-arm 镜像：
@@ -53,6 +55,8 @@ cd wukong-robot-pi-installer
 sudo ./pi_installer
 ```
 
+!> 如果遇到 docker 拉取慢的问题，你或许需要考虑先配置好[docker加速器](https://www.daocloud.io/mirror#accelerator-doc)。
+
 然后使用如下命令启动 docker 镜像即可：
 
 ``` bash
@@ -60,6 +64,8 @@ docker run -it -p 5000:5000 --device /dev/snd -e LANG=C.UTF-8 wzpan/wukong-robot
 ```
 
 `docker run` 完成后，就可以参考 [运行](/?id=运行) 一节，启动 wukong-robot 了。
+
+!> 注意：每次重启 Docker 后镜像内的数据会被重置。如果不希望每次 Docker 每次重启导致数据丢失，可以使用 Docker commit 命令保存镜像的改动。详见 [Docker保存修改后的镜像](https://www.jianshu.com/p/2885eaa5d36d) 。
 
 ## 方式二：手动安装
 
