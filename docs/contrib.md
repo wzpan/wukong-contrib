@@ -301,7 +301,7 @@ youdao:
 
 ##### 获取 token
 
-登陆 homeassistant 网页，在侧拉菜单中点击 homeassistant 字样旁自己的头像，进入用户资料页：
+登陆 HomeAssistant 网页，在侧拉菜单中点击 HomeAssistant 字样旁自己的头像，进入用户资料页：
 
 ![用户资料页入口](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/wukong-docs/hass-1.png)
 
@@ -394,8 +394,8 @@ script.zhimi_turn_off:
 
 ``` yaml
 hass:
-    url: "http://127.0.0.1"   #切记加上http://，ip或者域名为你的homeassistant的主机
-    port: "8123"             # 端口为你的homeassistant的端口和网页端口一样
+    url: "http://127.0.0.1"   #切记加上http://，ip或者域名为你的HomeAssistant的主机
+    port: "8123"             # 端口为你的HomeAssistant的端口和网页端口一样
     key: "Bearer XXXXXXXXXX" # 密钥，注意 Bearer 不可少
     patterns:
         - ".*开.*灯"
