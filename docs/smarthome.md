@@ -19,7 +19,7 @@ homeassistant 是一个开源项目，其 logo 与源代码版权由原作者所
 
 本章节中产生的问题您可以前往 homeassistant [官网](https://www.home-assistant.io/hassio/installation/)或[论坛](https://community.home-assistant.io/)尝试寻找答案。
 
-所有的 homeassistant 前端 ui 都可以在```http://ipaddress:8123/```访问，**ipadress**是您安装homeassistant的机器的局域网ip地址，一般您可以在路由器的管理页面中找到。
+所有的 homeassistant 前端 ui 都可以在 <http://ipaddress:8123/> 访问，**ipadress**是您安装homeassistant的机器的局域网ip地址，一般您可以在路由器的管理页面中找到。
 
 ### 方法1：部署含有 hass.io 的系统（强烈推荐）
 
@@ -51,11 +51,11 @@ hass.io 是一个为 homeassistant 开发的**插件**，您可以将其理解�
 
 !> 强烈建议使用高品质 sd 卡来保障流畅的使用体验，低速或低容量的 TF 卡可导致极为糟糕的使用体验
 
-本方法安装后您可以在```http://hassio.local:8123```和```http://ipaddress:8123/```连接到您的homeassistant前端ui
+本方法安装后您可以在<http://hassio.local:8123>和<http://ipaddress:8123/>连接到您的homeassistant前端ui
 
 #### 从您已有的 homeassistant 迁移全部配置到最新版本的 hass.io 版本
 
-得益于 homeassistant 的集中化配置存储设计，您只需要拷贝整个```/config```目录下内容并将其覆盖到您最新安装的 hass.io 的```/config```目录下
+得益于 homeassistant 的集中化配置存储设计，您只需要拷贝整个`/config`目录下内容并将其覆盖到您最新安装的 hass.io 的`/config`目录下
 
 并停止您旧的 homeassistant 服务，即可完全无损迁移安装。
 
@@ -81,12 +81,12 @@ curl -fsSL get.docker.com | sh
 curl -sL "https://raw.githubusercontent.com/home-assistant/hassio-installer/master/hassio_install.sh" | bash -s
 ```
 
-在部分系统上您需要输入额外的```arguement```（额外选项）来选择机器型号例如：您使用树莓派3，命令则是
+在部分系统上您需要输入额外的`arguement`（额外选项）来选择机器型号例如：您使用树莓派3，命令则是
 
 ```
 curl -sL "https://raw.githubusercontent.com/home-assistant/hassio-installer/master/hassio_install.sh" | bash -s -- -m raspberrypi3
 ```
-规律是：```-m 机器型号```
+规律是：`-m 机器型号`
 
 机器型号有下列选择：（若您的设备不在列表中，请使用第一条命令进行通用安装）
 ```
@@ -132,7 +132,7 @@ python3 -m pip install homeassistant
 hass --open-ui
 ```
  
-第一次运行需要以 root 权限运行 Homeassistant，即```sudo hass --open-ui```
+第一次运行需要以 root 权限运行 Homeassistant，即`sudo hass --open-ui`
 
 升级：
 
@@ -144,7 +144,7 @@ source bin/activate
 python3 -m pip install --upgrade homeassistant
 ```
 
-本方法安装后您可以在```http://ipaddress:8123/```连接到您的homeassistant前端ui界面
+本方法安装后您可以在<http://ipaddress:8123/>连接到您的homeassistant前端ui界面
 
 
 ## 在您的 homeassistant 系统（hass.io）上通过安装插件以快速安装 wukong-robot
@@ -155,7 +155,7 @@ python3 -m pip install --upgrade homeassistant
 
 第二步：点击 hass.io 图标，切换到 ADD-ON STORE 选项卡
 
-第三步：复制本链接```https://github.com/PatrickChina/wukonghass```并粘贴到**add newrepository by URL**处，点击add
+第三步：复制本链接<https://github.com/PatrickChina/wukonghass>并粘贴到**add newrepository by URL**处，点击add
 
 ![addon](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp2.png)
 
@@ -237,7 +237,7 @@ python3 -m pip install --upgrade homeassistant
 
 第六步：点击 Start，启动 FTP 插件。
 
-第七步：使用您电脑上的 windows 资源管理器或访达连接到 homeassistant 的 FTP 服务器地址是：```ftp://yourhassip```将**yourhassip**替换成您homeassistant的局域网ip地址(用户名**hassio**,密码**wukong2019hassio**)
+第七步：使用您电脑上的 windows 资源管理器或访达连接到 homeassistant 的 FTP 服务器地址是：`ftp://yourhassip`将**yourhassip**替换成您homeassistant的局域网ip地址(用户名**hassio**,密码**wukong2019hassio**)
 
 第八步：进入后您应该看到一个名叫**share**的文件夹，打开这个文件夹，在**share**下新建一个文件夹，命名为**wukongdata**
 
@@ -266,11 +266,9 @@ python3 -m pip install --upgrade homeassistant
 ![addon8](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp3.png)
 
  接下来关于wukong-robot的配置请访问本文档的**配置**部分了解更多,本插件的配置方式与其他方式安装的wukong-robot完全相同，您可以在hass.io插件页面顶部点击
-**OPEN WEB UI**或者访问```http://youripaddress:5000```来访问wukong-robot的后台管理页面，```youripaddres```替换为您homeassistant所处设备的局域网ip地址。
+**OPEN WEB UI**或者访问<http://youripaddress:5000>来访问wukong-robot的后台管理页面，`youripaddres`替换为您homeassistant所处设备的局域网ip地址。
 
 ## 进行简单的 homeassistant 配置
-
-由于作者依旧在努力完善百度 NLU 数据库，暂时没有时间亲自写入门教程，后续将会补上含有作者经验的入门及进阶教程
 
 先为大家推荐两个论坛地址和两篇教程
 
@@ -290,11 +288,11 @@ python3 -m pip install --upgrade homeassistant
 
 第二步：安装过程应该在5分钟内完成，完成后从**DASHBOARD**进入插件，应该能看到UNINSTALL REBUILD START的选项。此时请不要急着START，此时由于未进行配置也无法正常启动。
 
-第三步：向下滑动页面直至看到```config```选项卡如图所示：
+第三步：向下滑动页面直至看到`config`选项卡如图所示：
 
 ![ss3](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/ss1.png)
 
-第四步：复制下面的配置**覆盖**粘贴到```config```选项卡内，并将**hassio**替换成您的用户名，将**password**替换成您的密码，此处的密码请您务必更换并牢记。**不要忘记点击SAVE保存配置**
+第四步：复制下面的配置**覆盖**粘贴到`config`选项卡内，并将**hassio**替换成您的用户名，将**password**替换成您的密码，此处的密码请您务必更换并牢记。**不要忘记点击SAVE保存配置**
 ```
 {
   "workgroup": "WORKGROUP",
@@ -314,7 +312,7 @@ python3 -m pip install --upgrade homeassistant
 
 Windows：
 
-确保您的电脑与homeassistant在同一局域网下在图中标注处输入```\\youripaddress\config```替换youripaddress为您homeassistant的局域网ip地址（一般情况下请访问您路由器的管理页面获得ip地址），由于作者的ip地址是192.168.1.28,因此如图所示。在弹出的窗口中输入您上一步设置的用户名与密码。
+确保您的电脑与homeassistant在同一局域网下在图中标注处输入`\\youripaddress\config`替换youripaddress为您homeassistant的局域网ip地址（一般情况下请访问您路由器的管理页面获得ip地址），由于作者的ip地址是192.168.1.28,因此如图所示。在弹出的窗口中输入您上一步设置的用户名与密码。
 
 ![ss4](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/w1.png)
 
@@ -328,7 +326,7 @@ MAC OS：
 
 ![ss6](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m4.png)
 
-在如图标记处，输入```smb://youripaddress/config```替换youripaddress为您homeassistant的局域网ip地址（一般情况下请访问您路由器的管理页面获得ip地址），由于作者的ip地址是192.168.1.28,因此如下图所示。
+在如图标记处，输入`smb://youripaddress/config`替换youripaddress为您homeassistant的局域网ip地址（一般情况下请访问您路由器的管理页面获得ip地址），由于作者的ip地址是192.168.1.28,因此如下图所示。
 
 ![ss7](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m5.png)
 
@@ -346,7 +344,7 @@ MAC OS：
 
 LINUX（UBUNTU)：
 
-确保您的电脑与homeassistant在同一局域网下在图中标注处输入```smb://youripaddress/config```替换youripaddress为您homeassistant的局域网ip地址（一般情况下请访问您路由器的管理页面获得ip地址），由于作者的ip地址是192.168.1.28,因此如图所示。在弹出的窗口中输入您上一步设置的用户名与密码。
+确保您的电脑与homeassistant在同一局域网下在图中标注处输入`smb://youripaddress/config`替换youripaddress为您homeassistant的局域网ip地址（一般情况下请访问您路由器的管理页面获得ip地址），由于作者的ip地址是192.168.1.28,因此如图所示。在弹出的窗口中输入您上一步设置的用户名与密码。
 
 ![ss11](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/u3.png)
 
@@ -360,102 +358,24 @@ LINUX（UBUNTU)：
 
 ## 配置 wukong-robot 的 homeassistant 技能插件
 
-最新版本插件基于 baidu NLU 进行了改良，可实现一轮对话完成交互，也可使用后台 web 界面进行交互
-
-由于目前没有百度没有提供智能家庭相关 NLU 字典库的支持，因此作者正努力完善自建词典库来实现更准确的命中和更多的语法
-
-如果遇到配置正常，命中插件，wukong 却不回应的情况，说明遇到了词典库的缺失，请尽可能简化您的语法，并将词典库的缺失内容反馈到电子邮箱**cyk0317@sina.com**，或qq群内 @杭州-PatrickChen。作者将尽快更新，本插件的完善将离不开大家的支持。
-
-当前词典数据点击[这里](https://github.com/PatrickChina/wukonghass/blob/master/wukong/user_user_smarthome_%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%8D%E5%85%B8%E5%80%BC.txt)查看，您可以使用记事本或浏览器的搜索功能搜索您需要的指令是否在词典中，若不在您则可选择使用存在的近义词，谢谢理解。
-
-### 示例
-
-- 用户：“智能家庭当前温度”
-- 悟空：“温度状态是22.6摄氏度”
-
-### 配置
-
-官方api页面：https://home-assistant.io/developers/rest_api/
-
-第一步：
-
-在 homeassistant 的 configuration.yaml 里添加：
-
-``` yaml
-api：
-  api_password: 'yourpassword'
-```
-
-修改后 api 插件就启动了
-
-注意:在`api_password: `后设置 api 接口密码替换**yourpassword**，建议设置，但是这个密码在与 wukong 之间通信时用不到，以后自行开发 homeassistant 时可能用到这里的 api 密码，此密码的修改不影响 wukong 工作。（冒号之后有空格！在空格之后直接输入密码无需引号）
-
-第二步：
-
-登陆 homeassistant 网页，在侧拉菜单中点击 homeassistant 字样旁自己的头像，然后将页面拉至最底下找到“长期访问令牌”点击创建令牌，随意取一个名字如： wukong 点击确认
-
-在随后弹出的窗口中复制并想办法记录自己的密钥
-
-第三步：
-
-打开 wukong 的配置文件（网页后台或直接修改都一样），添加：
-
-``` yaml
-homeassistant:
-    url: "http://127.0.0.1"   #切记加上http://，ip或者域名为你的homeassistant的主机
-    port: "8123"             # 端口为你的homeassistant的端口和网页端口一样
-    key: "" # 密钥
-```
-
-key 处填写的内容如下：
-
-Bearer ABCDE
-
-用第二步获取到的密钥替换 ABCDE (保留 Bearer 和 ABCDE 之间的空格)，将其整体填入双引号中
- 
-
-### HomeAssistant 配置
-
-configuration.yaml 相同目录下添加 customize.yaml 并 include 进配置文件。
-
-查看状态类的设备(传感器等)将命令写成 list；控制类的设备命令写成 dict，控制命令为 key ，动作为 value。
-
-现阶段配置时使用的命令建议点击[这里](https://github.com/PatrickChina/wukonghass/blob/master/wukong/user_user_smarthome_%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%8D%E5%85%B8%E5%80%BC.txt)参照词典写(使用您的文本编辑器的搜索功能模糊搜索您需要的指令)，避免词典缺失影响使用
-
-如下是示例的部分配置：
-
-``` yaml
-sensor.tempareture:
-  friendly_name: "环境温度"
-  wukong: ["查看环境温度", "当前环境温度", "环境温度"]
-sensor.humidity:
-  friendly_name: "环境湿度"
-  wukong: ["查看环境湿度度", "当前环境湿度", "环境湿度"]
-switch.light:
-  friendly_name: "补光"
-  wukong: {"开始补光":"turn_on", "补光":"turn_on", "停止补光":"turn_off", "结束补光":"turn_off"}
-switch.pump:
-  friendly_name: "浇水"
-  wukong: {"开始浇水":"turn_on", "浇水":"turn_on", "停止浇水":"turn_off", "结束浇水":"turn_off"}  
-``` 
-
+详见 [Hass 插件配置](/contrib?id=hass) 。
 
 ## trouble shooting/FAQ/常见问题与解决方案
 
 - 问1 :我不想配置wukong-robot hass.io插件的自动备份
-- 答1:若您是担心备份配置文件导致隐私泄露，您无需有这个担忧，因为数据存储在本地，不会以任何形式上传到任何外部服务器。若您坚持不配置自动备份，在添加插件存储库URL时请添加这个地址```https://github.com/PatrickChina/wukonghass-avoidbackup```,来替代原本应使用的wukonghass存储库
+- 答1:若您是担心备份配置文件导致隐私泄露，您无需有这个担忧，因为数据存储在本地，不会以任何形式上传到任何外部服务器。若您坚持不配置自动备份，在添加插件存储库URL时请添加这个地址<https://github.com/PatrickChina/wukonghass-avoidbackup>,来替代原本应使用的wukonghass存储库
 
 !>由于两个库的结构，版本，hass.io插件部署文件一样，因此严禁作者的两个插件库同时存在，请明确您的目的后选择正确的存储库添加
 
-- 问2:文档内提到将```customize.yaml```include到```configuration.yaml```中，这该如何操作？
-- 答2:您只需要在```configuration.yaml```同目录下创建```customize.yaml```若已存在则无需再创建。然后将这段代码复制到```configuration.yaml```中即可
+- 问2:文档内提到将`customize.yaml`include到`configuration.yaml`中，这该如何操作？
+- 答2:您只需要在`configuration.yaml`同目录下创建`customize.yaml`若已存在则无需再创建。然后将这段代码复制到`configuration.yaml`中即可
 ```
 homeassistant:
   customize: !include customize.yaml
 ```
 
 - 问3: 我遇到了配置正确wukong却回应指令不存在的情况
-- 答3:这个问题作者开发时已经发现，且尝试解决，若问题依旧发生，作者深表遗憾。该问题主要由于您使用插件```configurator```来配置您的```wukong:```部分导致。```configurator```是一款很好的插件来帮助您使用web页面配置您的homeassistant，不幸的是作者已经证实使用该插件配置```wukong:```部分会导致wukong-robot无法识别配置，该问题还可能由于您在非官方站点下载hassbian或者您家ip地址非国内ip地址导致的的编码识别错误。解决这个问题请先检查您的配置是否**真的不存在问题**再尝试接下来的解决方案。请尝试安装Samba Share插件并使用Samba访问hass的配置```config```目录，并将```customize.yaml```复制到本地，使用您的本地文本编辑器尝试重写```wukong：```部分，同时在另存为时选择```UTF-8```编码方式，然后删除您服务器内的```customize.yaml```,并将您本地另存为后的文件上传到服务器配置文件夹内。此时您的问题应当被解决。
+- 答3:这个问题作者开发时已经发现，且尝试解决，若问题依旧发生，作者深表遗憾。该问题主要由于您使用插件`configurator`来配置您的`wukong:`部分导致。`configurator`是一款很好的插件来帮助您使用web页面配置您的homeassistant，不幸的是作者已经证实使用该插件配置`wukong:`部分会导致wukong-robot无法识别配置，该问题还可能由于您在非官方站点下载hassbian或者您家ip地址非国内ip地址导致的的编码识别错误。解决这个问题请先检查您的配置是否**真的不存在问题**再尝试接下来的解决方案。请尝试安装Samba Share插件并使用Samba访问hass的配置`config`目录，并将`customize.yaml`复制到本地，使用您的本地文本编辑器尝试重写`wukong：`部分，同时在另存为时选择`UTF-8`编码方式，然后删除您服务器内的`customize.yaml`,并将您本地另存为后的文件上传到服务器配置文件夹内。此时您的问题应当被解决。
 
 - 问4:我想要访问来自wukong-robot的log信息
 - 答4:请进入hass.io插件界面，滚动到页面底部，点击refresh即可获得来自wukong-robot的全部log信息。

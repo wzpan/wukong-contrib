@@ -275,86 +275,147 @@ youdao:
 
 ## Hass ##
 
-* 用于控制接入 HomeAssistant 的设备
+* 用于控制接入 HomeAssistant 的设备，支持读取和设置 HomeAssistant 的实体状态（states），以及诸如调用 HomeAssistant 的脚本（script）等多种服务（service）。
 * 源码：https://github.com/wzpan/wukong-contrib/blob/HEAD/Hass.py
 
-最新版本插件基于baidu NLU进行了改良，可实现一轮对话完成交互，也可使用后台web界面进行交互
-
-由于目前没有百度没有提供智能家庭相关NLU字典库的支持，因此作者正努力完善自建词典库来实现更准确的命中和更多的语法
-
-如果遇到配置正常，命中插件，wukong却不回应的情况，说明遇到了词典库的缺失，请尽可能简化您的语法，并将词典库的缺失内容反馈到电子邮箱**cyk0317@sina.com**，或qq群内@杭州-PatrickChen。作者将尽快更新，本插件的完善将离不开大家的支持。
-
-当前词典数据点击[这里](https://github.com/PatrickChina/wukonghass/blob/master/wukong/user_user_smarthome_%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%8D%E5%85%B8%E5%80%BC.txt)查看，您可以使用记事本或浏览器的搜索功能搜索您需要的指令是否在词典中，若不在您则可选择使用存在的近义词，谢谢理解。
-
 ### 示例
-- 用户：“智能家庭当前温度”
-- 悟空：“温度状态是22.6摄氏度”
+
+- 用户：打开灯
+- 悟空：设备执行成功
+- 用户：空调温度
+- 悟空：空调温度状态是17℃
+- 用户：当前水质
+- 悟空：水质状态是1TDS
 
 ### 配置
 
-官方api页面：https://home-assistant.io/developers/rest_api/
+下面介绍如何配置 Hass 插件。为了关联两个平台，HomeAssistant 和 wukong-robot 都需要做一些配置工作。
 
-第一步：
+#### 1. HomeAssistant 设置
 
-在 homeassistant 的 configuration.yaml 里添加：
+在 HomeAssistant 中，需要做以下几件事：
 
-``` yaml
-api：
-  api_password: 'yourpassword'
-```
+1. 获取 token ；
+2. 开启高级模式（Advanced Mode）；
+3. 自定义实体的触发命令。
 
-修改后 api 插件就启动了
+##### 获取 token
 
-注意:在`api_password: `后设置 api 接口密码替换**yourpassword**，建议设置，但是这个密码在与 wukong 之间通信时用不到，以后自行开发 homeassistant 时可能用到这里的 api 密码，此密码的修改不影响 wukong 工作。（冒号之后有空格！在空格之后直接输入密码无需引号）
+登陆 homeassistant 网页，在侧拉菜单中点击 homeassistant 字样旁自己的头像，进入用户资料页：
 
-第二步：
+![用户资料页入口](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/wukong-docs/hass-1.png)
 
-登陆 homeassistant 网页，在侧拉菜单中点击 homeassistant 字样旁自己的头像，然后将页面拉至最底下找到“长期访问令牌”点击创建令牌，随意取一个名字如： wukong 点击确认
+然后将页面拉至最底下找到“长期访问令牌”点击创建令牌，随意取一个名字如： wukong ，点击确认。
 
-在随后弹出的窗口中复制并想办法记录自己的密钥
+![创建长期访问令牌](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/wukong-docs/hass-2.png)
 
-第三步：
+在随后弹出的窗口中复制并想办法记录自己的密钥。
 
-打开 wukong 的配置文件（网页后台或直接修改都一样），添加：
+##### 开启高级模式
+
+这一步是为了开启实体的[自定义功能](https://www.home-assistant.io/docs/configuration/customizing-devices/)，方便为你接入的每一个实体定制 wukong-robot 的 Hass 插件的触发命令。
+
+在用户资料页里，滚到上面一点的位置，能找到一个高级模式（Advanced Mode），点击开启。
+
+![开启高级模式](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/wukong-docs/hass-3.png)
+
+完成后，还需要在 configuration.yaml 相同目录下创建一个 customize.yaml 文件（初始为空即可）。然后在 configurations.yaml 中 include 这个文件：
 
 ``` yaml
 homeassistant:
-    url: "http://127.0.0.1"   #切记加上http://，ip或者域名为你的homeassistant的主机
-    port: "8123"             # 端口为你的homeassistant的端口和网页端口一样
-    key: "" # 密钥
+  customize: !include customize.yaml
 ```
 
-key 处填写的内容如下：
+完成了这些操作后，我们可以强制让 HomeAssistant 重新读取下配置文件。进入 HomeAssistant 的开发者工具页，点击服务选项卡，在里头找到 `homeassistant.reload_core_config` ，选中后点击 “调用服务” ，等待片刻即可生效。
 
-Bearer ABCDE
+##### 定制实体触发命令
 
-用第二步获取到的密钥替换 ABCDE (保留 Bearer 和 ABCDE 之间的空格)，将其整体填入双引号中
- 
+完成上面 HomeAssistant 的两步操作后，我们还需要解决一个问题：如何让 wukong-robot 理解用户的指令并转成对 HomeAssistant 的控制指令？在这一步中，我们在 customize.yaml 配置文件中，给希望能让 wukong-robot 控制的实体加点 “说明” ，将这些 HomeAssistant 的设备暴露给 wukong-robot 。
 
-### HomeAssistant 配置
+下面我举几个实际例子。我家有：
 
-configuration.yaml 相同目录下添加 customize.yaml 并 include 进配置文件。
+- 三个电灯泡（提供了 `light` 类型实体）。我希望通过类似 “打开灯”、“把灯关了” 的语音指令，让 wukong-robot 能给 HomeAssistant 下发开关这三个实体的控制指令：
 
-查看状态类的设备(传感器等)将命令写成 list；控制类的设备命令写成 dict，控制命令为 key ，动作为 value。
+  ![`light` 实体](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/wukong-docs/hass-4.png)
+  
+- 一个净水器（提供了 `sensor` 类型实体）。我希望通过类似 “当前水质” 的语音指令，让 wukong-robot 帮我查询净水器的水质状态：
 
-现阶段配置时使用的命令建议点击[这里](https://github.com/PatrickChina/wukonghass/blob/master/wukong/user_user_smarthome_%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%8D%E5%85%B8%E5%80%BC.txt)参照词典写(使用您的文本编辑器的搜索功能模糊搜索您需要的指令)，避免词典缺失影响使用
+  ![`sensor` 类型实体](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/wukong-docs/hass-5.png)
+  
+- 一个电风扇（我为其编写了 `script.zhimi_turn_on` 脚本和 `script.zhimi_turn_off` 脚本两个 `script` 类型服务）。我希望通过类似 “打开风扇”、“关了风扇” 的语音指令，让 wukong-robot 能给 HomeAssistant 下发执行这两个脚本的控制指令：
 
-如下是示例的部分配置：
+  ![`script` 类型服务](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/wukong-docs/hass-6.png)
+
+对于三个 `light` 类型实体，我们希望通过设置这几个实体的状态，例如调用 `turn_on`，`turn_off` 的开关命令来控制开关状态，因此可以在 customize.yaml 中配置如下：
 
 ``` yaml
-sensor.tempareture:
-  friendly_name: "环境温度"
-  wukong: ["查看环境温度", "当前环境温度", "环境温度"]
-sensor.humidity:
-  friendly_name: "环境湿度"
-  wukong: ["查看环境湿度度", "当前环境湿度", "环境湿度"]
-switch.light:
-  friendly_name: "补光"
-  wukong: {"开始补光":"turn_on", "补光":"turn_on", "停止补光":"turn_off", "结束补光":"turn_off"}
-switch.pump:
-  friendly_name: "浇水"
-  wukong: {"开始浇水":"turn_on", "浇水":"turn_on", "停止浇水":"turn_off", "结束浇水":"turn_off"}  
-``` 
+light.zhi_rui_deng_pao_1:
+  wukong:
+    ".*关.*灯": turn_off
+    ".*开.*灯": turn_on
+light.zhi_rui_deng_pao_2:
+  wukong:
+    ".*关.*灯": turn_off
+    ".*开.*灯": turn_on
+light.zhi_rui_deng_pao_3:
+  wukong:
+    ".*关.*灯": turn_off
+    ".*开.*灯": turn_on
+```
+
+其中，每个实体都有一个 `wukong` 的配置，且此时值为字典形式，表示需使用该值的信息设置状态。其中，键为语音指令的正则表达式，值为相应控制指令。例如，当用户的指令与 `.*开.*灯` （比如 `打开电灯`，`开灯`）的正则表达式匹配时，即执行对应的控制指令 `turn_on` 。
+
+对于 `sensor` 实体，我们希望读取诸如水质、温度之类的状态值，不需要设置状态，因此可以在 customize.yaml 中追加配置如下：
+
+``` yaml
+sensor.filtered_water:
+  wukong:
+    - ".*水质.*"
+```
+
+此时 `wukong` 的配置值变成了一个数组 `[".*水质.*"]` ，表示只需读取状态值无需设置值。当用户的指令与 `.*水质.*` （比如 `当前水质`，`水质怎么样`）的正则表达式匹配时，即读取并播报净水器的水质状态值。
+
+对于 `script` 类型服务，我们需要直接执行它，因此可以在 customize.yaml 中追加配置如下：
+
+``` yaml
+script.zhimi_turn_on:
+  wukong:
+    - ".*开.*风扇"
+script.zhimi_turn_off:
+  wukong:
+    - ".*关.*风扇"
+```
+
+和 `sensor` 实体类似，脚本等服务无需传值，所以 `wukong` 的配置值是一个数组。当用户的指令与 `.*开.*风扇` （比如 `打开电风扇`，`开启风扇`）的正则表达式匹配时，及打开电风扇。
+
+#### 2. 配置 wukong-robot 的 Hass 插件
+
+打开 wukong 的 config.yml 配置文件（或在 wukong-robot 的后台管理端配置页面），先添加：
+
+``` yaml
+hass:
+    url: "http://127.0.0.1"   #切记加上http://，ip或者域名为你的homeassistant的主机
+    port: "8123"             # 端口为你的homeassistant的端口和网页端口一样
+    key: "Bearer XXXXXXXXXX" # 密钥，注意 Bearer 不可少
+    patterns:
+        - ".*开.*灯"
+        - ".*关.*灯"
+        - ".*灯.*开"
+        - ".*灯.*开"
+        - ".*水质.*"
+        - ".*开.*风扇"
+        - ".*关.*风扇"
+        - ".*风扇.*开"
+        - ".*风扇.*关"
+```
+
+用上面获取到的 token 替换 `XXXXXXXXXX` (保留 Bearer 和 `XXXXXXXXXX` 之间的空格)，将其整体填入双引号中。
+
+而 `patterns` 则是在上一步中 `customize.yaml` 里所有 `wukong` 包含的正则表达式。
+
+当用户跟 wukong-robot 说完控制指令时，这个控制指令会先尝试与 Hass 插件的 `patterns` 里的每一个正则式进行匹配，如果匹配成功，则触发 Hass 插件，再由 Hass 插件尝试与 HomeAssistant 暴露的所有控制指令进行进一步匹配。如果匹配成功，则由 HomeAssistant 执行对应指令。
+
+![Hass 插件执行效果](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/wukong-docs/hass-7.png)
 
 ## ControlMqtt ##
 
