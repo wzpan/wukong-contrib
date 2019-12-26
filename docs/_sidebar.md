@@ -5,6 +5,7 @@
 * [配置](configure)
 * [升级](update) 
 * [技能](official?id=悟空的官方插件)
+  - [技能通用技巧](skill-tips)
   - [官方技能](official)
   - [用户贡献技能](contrib)
 * [技能开发](writing-skill)

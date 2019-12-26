@@ -351,16 +351,22 @@ homeassistant:
 ``` yaml
 light.zhi_rui_deng_pao_1:
   wukong:
-    ".*关.*灯": turn_off
     ".*开.*灯": turn_on
+    ".*灯.*开": turn_on
+    ".*关.*灯": turn_off
+    ".*灯.*关": turn_off
 light.zhi_rui_deng_pao_2:
   wukong:
-    ".*关.*灯": turn_off
     ".*开.*灯": turn_on
+    ".*灯.*开": turn_on
+    ".*关.*灯": turn_off
+    ".*灯.*关": turn_off
 light.zhi_rui_deng_pao_3:
   wukong:
-    ".*关.*灯": turn_off
     ".*开.*灯": turn_on
+    ".*灯.*开": turn_on
+    ".*关.*灯": turn_off
+    ".*灯.*关": turn_off
 ```
 
 其中，每个实体都有一个 `wukong` 的配置，且此时值为字典形式，表示需使用该值的信息设置状态。其中，键为语音指令的正则表达式，值为相应控制指令。例如，当用户的指令与 `.*开.*灯` （比如 `打开电灯`，`开灯`）的正则表达式匹配时，即执行对应的控制指令 `turn_on` 。
@@ -401,7 +407,7 @@ hass:
         - ".*开.*灯"
         - ".*关.*灯"
         - ".*灯.*开"
-        - ".*灯.*开"
+        - ".*灯.*关"
         - ".*水质.*"
         - ".*开.*风扇"
         - ".*关.*风扇"
