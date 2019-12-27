@@ -9,6 +9,8 @@
 | ------ | --------- |
 | <img src="https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/alipay.png" height="248px" width="164px" title="支付宝" style="display:inherit;"/> | <img src="https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/wechatpay.jpeg" height="248px" width="164px" title="微信支付" style="display:inherit;"/>  |
 
+?> 你知道吗？wukong-robot 是一个公益项目。截至 2019 年末，wukong-robot 筹得的入群费已经累积为[壹基金等](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/donate.png)公益项目捐出了一万元现金。
+
 ## 个人捐赠者名单 ##
 
 | 昵称                    | 数额（元） |       时间 | 留言                           |
