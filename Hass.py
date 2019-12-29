@@ -14,7 +14,7 @@ class Plugin(AbstractPlugin):
     SLUG = "hass"
 
     def match(self, text, patterns):
-        for pattern in patterns:            
+        for pattern in patterns:
             if re.match(pattern, text):
                 return pattern
         return ''
