@@ -18,7 +18,9 @@ wukong-robot 能使用普通的麦克风正常工作。
 
 ## Google AIY Voice Kit
 
-![Google AIY Voice Kit](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/wukong-docs/AIY.jpg)
+<center>
+    <iframe src="//player.bilibili.com/player.html?aid=81173082&cid=138922674&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
+</center>
 
 先照着 Google AIY Voice Kit 的安装教程组建安装整个设备盒子。确保设备正常联网工作，特别是 `arecord` 、`aplay` 能正常录音和回放。
 

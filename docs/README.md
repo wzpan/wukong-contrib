@@ -16,9 +16,15 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
 * 智能家居。支持和 mqtt、[HomeAssistant](/smarthome) 等智能家居协议联动，支持语音控制智能家电。
 * 后台配套支持。提供配套后台，可实现远程操控、修改配置和日志查看等功能。
 * 开放API。可利用后端开放的API，实现更丰富的功能。
-* 安装简单，支持更多平台。相比 dingdang-robot ，舍弃了 PocketSphinx 的离线唤醒方案，安装变得更加简单，代码量更少，更易于维护并且能在 Maoc 以及更多 Linux 系统中运行。
+* 安装简单，支持更多平台。相比 dingdang-robot ，舍弃了 PocketSphinx 的离线唤醒方案，安装变得更加简单，代码量更少，更易于维护并且能在 Mac 以及更多 Linux 系统中运行。
 
 ## Demo
+
+* Demo视频：Google AIY Voice Kit + wukong-robot
+
+<center>
+    <iframe src="//player.bilibili.com/player.html?aid=81173082&cid=138922674&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
+</center>
 
 * Demo视频：ycy-robot 月芽特别定制版
     
