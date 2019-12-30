@@ -47,7 +47,7 @@ docker run -it -p 5000:5000 wzpan/wukong-robot:latest
 
 ### ARM 架构设备
 
-如果你的设备是 ARM 架构设备（例如树莓派），可以使用 wzpan/wukong-robot-arm 镜像：
+如果你的设备是 ARM 架构设备（例如树莓派 3B），可以使用 wzpan/wukong-robot-arm 镜像（注意 Pi Zero 是 armv6l 架构，因此不支持）：
 
 ``` bash
 git clone https://github.com/wzpan/wukong-robot-pi-installer.git
@@ -62,6 +62,14 @@ sudo ./pi_installer
 ``` bash
 docker run -it -p 5000:5000 --device /dev/snd -e LANG=C.UTF-8 wzpan/wukong-robot-arm:latest
 ```
+
+如果运行时提示
+
+```
+docker: unknown server OS: .
+```
+
+则可以在上面的命令前带上 `sudo` 再试。
 
 `docker run` 完成后，就可以参考 [运行](/?id=运行) 一节，启动 wukong-robot 了。
 
