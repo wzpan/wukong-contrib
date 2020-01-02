@@ -159,7 +159,7 @@ python3 -m pip install --upgrade homeassistant
 
 ![addon](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp2.png)
 
-第四步：点击右上角刷新图标，在页面中寻找**wukong-robot**插件，并点击进入
+第四步：点击右上角刷新图标，在页面中寻找**wukong-robot**插件，并点击进入（若您使用 intel 处理器的群晖或其他 x86-64 架构设备安装的 hass.io 平台请在此步选择**wukong-robot_x86-64**插件）
 
 ![addon1](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp10.png)
 
@@ -243,6 +243,8 @@ python3 -m pip install --upgrade homeassistant
 
 第九步：右键点击[这里](https://github.com/PatrickChina/wukonghass/raw/master/wukong/config.yml)，选择**链接另存为（windows chrome）**或**从链接另存文件为（ubuntu firefox）**或您系统的同义选项来下载wukong-robot的默认配置文件，下载后将其复制到您新建的**wukongdata**文件夹目录下，请不要重命名！
 
+右键点击[这里](https://github.com/PatrickChina/wukonghass/raw/master/wukong/wukong.pmdl)，选择**链接另存为（windows chrome）**或**从链接另存文件为（ubuntu firefox）**或您系统的同义选项来下载wukong-robot的默认唤醒词，下载后将其复制到您新建的**wukongdata**文件夹目录下，请不要重命名！
+
 剩下关于自动备份的操作已经被作者集成在插件中，wukong 将在启动时自动为您搞定
 
 ### 至此您已经顺利完成了自动备份的配置，下面开始进行语音交互的配置
@@ -324,23 +326,23 @@ MAC OS：
 
 确保您的电脑与homeassistant在同一局域网下,打开访达，切换到网络选项卡，将鼠标移动到顶部选项栏的**前往**菜单栏，选择**前往服务器**
 
-![ss6](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m4.png)
+![ss6](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m4.JPG)
 
 在如图标记处，输入`smb://youripaddress/config`替换youripaddress为您homeassistant的局域网ip地址（一般情况下请访问您路由器的管理页面获得ip地址），由于作者的ip地址是192.168.1.28,因此如下图所示。
 
-![ss7](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m5.png)
+![ss7](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m5.JPG)
 
 点击连接
 
-![ss8](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m6.png)
+![ss8](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m6.JPG)
 
 在弹出的窗口中输入您上一步设置的用户名与密码。
 
-![ss9](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m2.png)
+![ss9](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m2.JPG)
 
 您应该看如下图所示页面，此时您已经访问到homeassistant的配置文件目录。您对homeassistant进行的大部分配置都需要通过修改本目录下的某个文件来实现。
 
-![ss10](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m1.png)
+![ss10](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m1.JPG)
 
 LINUX（UBUNTU)：
 
@@ -382,3 +384,6 @@ homeassistant:
 
 - 问5:wukong-robot没有正常启动，我无法访问其后台管理界面
 - 答5:插件安装不应出现任何依赖或文件缺失问题，请确认您按步骤进行了配置，重试后若依旧存在问题请联系作者。
+
+- 问6:如何在插件环境内更新wukong-robot的唤醒词
+- 答6:使用您的电脑访问**wukongdata**文件夹（参照配置自动备份中的第七、八、九 步骤），将您的新唤醒词重命名为**wukong.pmdl** (必须)，并覆盖**wukongdata**中的**wukong.pmdl**文件。（为避免ftp导致的覆盖错误，建议先删除**wukongdata**中的**wukong.pmdl**再上传您新的重命名完毕的唤醒词），重启**插件**，即可正常使用新唤醒词唤醒。
