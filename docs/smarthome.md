@@ -324,23 +324,23 @@ MAC OS：
 
 确保您的电脑与homeassistant在同一局域网下,打开访达，切换到网络选项卡，将鼠标移动到顶部选项栏的**前往**菜单栏，选择**前往服务器**
 
-![ss6](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m4.png)
+![ss6](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m4.JPG)
 
 在如图标记处，输入`smb://youripaddress/config`替换youripaddress为您homeassistant的局域网ip地址（一般情况下请访问您路由器的管理页面获得ip地址），由于作者的ip地址是192.168.1.28,因此如下图所示。
 
-![ss7](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m5.png)
+![ss7](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m5.JPG)
 
 点击连接
 
-![ss8](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m6.png)
+![ss8](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m6.JPG)
 
 在弹出的窗口中输入您上一步设置的用户名与密码。
 
-![ss9](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m2.png)
+![ss9](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m2.JPG)
 
 您应该看如下图所示页面，此时您已经访问到homeassistant的配置文件目录。您对homeassistant进行的大部分配置都需要通过修改本目录下的某个文件来实现。
 
-![ss10](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m1.png)
+![ss10](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/m1.JPG)
 
 LINUX（UBUNTU)：
 
