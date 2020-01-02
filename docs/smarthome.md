@@ -159,7 +159,7 @@ python3 -m pip install --upgrade homeassistant
 
 ![addon](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp2.png)
 
-第四步：点击右上角刷新图标，在页面中寻找**wukong-robot**插件，并点击进入
+第四步：点击右上角刷新图标，在页面中寻找**wukong-robot**插件，并点击进入（若您使用 intel 处理器的群晖或其他 x86-64 架构设备安装的 hass.io 平台请在此步选择**wukong-robot_x86-64**插件）
 
 ![addon1](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp10.png)
 
