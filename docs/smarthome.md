@@ -243,6 +243,8 @@ python3 -m pip install --upgrade homeassistant
 
 第九步：右键点击[这里](https://github.com/PatrickChina/wukonghass/raw/master/wukong/config.yml)，选择**链接另存为（windows chrome）**或**从链接另存文件为（ubuntu firefox）**或您系统的同义选项来下载wukong-robot的默认配置文件，下载后将其复制到您新建的**wukongdata**文件夹目录下，请不要重命名！
 
+右键点击[这里](https://github.com/PatrickChina/wukonghass/raw/master/wukong/wukong.pmdl)，选择**链接另存为（windows chrome）**或**从链接另存文件为（ubuntu firefox）**或您系统的同义选项来下载wukong-robot的默认唤醒词，下载后将其复制到您新建的**wukongdata**文件夹目录下，请不要重命名！
+
 剩下关于自动备份的操作已经被作者集成在插件中，wukong 将在启动时自动为您搞定
 
 ### 至此您已经顺利完成了自动备份的配置，下面开始进行语音交互的配置
@@ -382,3 +384,6 @@ homeassistant:
 
 - 问5:wukong-robot没有正常启动，我无法访问其后台管理界面
 - 答5:插件安装不应出现任何依赖或文件缺失问题，请确认您按步骤进行了配置，重试后若依旧存在问题请联系作者。
+
+- 问6:如何在插件环境内更新wukong-robot的唤醒词
+- 答6:使用您的电脑访问**wukongdata**文件夹（参照配置自动备份中的第七、八、九 步骤），将您的新唤醒词重命名为**wukong.pmdl** (必须)，并覆盖**wukongdata**中的**wukong.pmdl**文件。（为避免ftp导致的覆盖错误，建议先删除**wukongdata**中的**wukong.pmdl**再上传您新的重命名完毕的唤醒词），重启**插件**，即可正常使用新唤醒词唤醒。
