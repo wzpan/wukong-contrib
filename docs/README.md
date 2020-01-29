@@ -39,7 +39,7 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
 </center>
 
 * 后台管理端Demo 
-    - 体验地址：https://bot.hahack.com:5000  （体验用户名：wukong；体验密码：wukong@2019）
+    - 体验地址：https://bot.hahack.com  （体验用户名：wukong；体验密码：wukong@2019）
 
 ## 环境要求 ##
 
