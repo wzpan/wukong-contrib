@@ -181,6 +181,8 @@ SECRET_KEY='你的技能secret_key'
 class Plugin(AbstractPlugin):
 
     def handle(self, text, parsed):
+        import time  # 调试用，用于避免频繁调用UNIT导致QPS超限，发布时删除
+        time.sleep(1)  # 调试用，用于避免频繁调用UNIT导致QPS超限，发布时删除
         parsed = unit.getUnit(text, SERVICE_ID, API_KEY, SECRET_KEY) # 调试用，发布时删除
         slots = unit.getSlots(parsed, 'HELLO_WORLD')  # 取出所有词槽
         # 遍历词槽，找出 user_person 对应的值
