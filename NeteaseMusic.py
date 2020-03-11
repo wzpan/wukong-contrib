@@ -262,9 +262,22 @@ class NeteaseMusicPlayer(MusicPlayer):
             data = self.api.search(songName + ', ' + singerName) if songName and singerName else self.api.search(songName)
             if not data['songCount']:
                 return None
-            if singerName and singerName != data['songs'][0]['artists'][0]['name']:
-                return None
-            datalist = self.api.dig_info([data['songs'][0]], 'songs')
+            # 优化判断逻辑（由于不能很好的拆分歌手名和歌曲名）
+            # 例：播放许飞的父亲写的散文诗
+            #       singerName: 许飞的父亲写
+            #       songName: 散文诗
+            if singerName:
+                datalist = None
+                # 若存在歌手名，则精确获取当前歌手的歌曲
+                for song in data['songs']:
+                    if singerName == song['artists'][0]['name']:
+                        datalist = self.api.dig_info([song], 'songs')
+                        break
+                # 若不能精确匹配歌手名，则获取第一首歌
+                if not datalist:
+                    datalist = self.api.dig_info([data['songs'][0]], 'songs')
+            else:
+                datalist = self.api.dig_info([data['songs'][0]], 'songs')
         elif singerName:
             data = self.api.search(singerName, stype=100)
             if not data['artistCount']:
@@ -281,7 +294,7 @@ class NeteaseMusicPlayer(MusicPlayer):
             self.playlist = self.get_search_result(singerName)
         ### 当获取到歌名时
         elif songName:
-            self.playlist = self.get_search_result(songName)
+            self.playlist = self.get_search_result(None, songName)
         ### 当获取到多张歌单，选了某张歌单时
         elif listNumber:
             self.playlist = self.get_playlist_detail(self.multi_listChoices[listNumber]['playlist_id'])
