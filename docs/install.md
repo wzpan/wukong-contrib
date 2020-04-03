@@ -244,6 +244,15 @@ python3 wukong.py train $HOME/a.wav $HOME/b.wav $HOME/c.wav $HOME/.wukong/myword
 
 - 完成后修改下 config.yml 把唤醒词改成刚刚训练的唤醒词即可。
 
+#### CentOS 没声音问题解决
+
+有用户在 CentOS 系统中遇到播放没声音的问题。解决方法是：
+
+``` sh
+mknod /dev/dsp c 14 3
+chmod 666 /dev/dsp
+```
+
 ## 其他安装方式 ##
 
 除了官方提供的安装方法外，还有一些热心用户提供了其他可选的安装方案。
