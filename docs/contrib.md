@@ -477,6 +477,77 @@ mqttPub:
     topic_s: '订阅的主题'
 
 ```
+### NodeMCU 参考代码 ###
+
+下面是NodeMCU硬件端参考代码，使用Arduino IDE进行开发。
+
+```C
+/* wukong-robot control the NodeMCU by MQTT
+   Compile with Arduino IDE
+   Author: IAMLIUBO
+   Github: github.com/imliubo
+*/
+#include "EspMQTTClient.h"
+
+#define RELAY_PIN D1   //GPIO5
+#define LED_PIN   D6   //GPIO12
+
+void onConnectionEstablished();
+
+EspMQTTClient client(
+  "XXXXXXXXX",                 // Wifi ssid
+  "XXXXXXXXX",                 // Wifi password
+  onConnectionEstablished,     // MQTT connection established callback
+  "XXX.XXX.XXX.XXX"            // MQTT broker ip
+  1883,                        // MQTT broker port
+  "mqttusr",                   // MQTT username
+  "mqttpass",                  // MQTT password
+  "test",                      // Client name
+  true,                        // Enable web updater
+  true                         // Enable debug messages
+);
+
+long lastTime = 0;
+uint8_t pin_status = 0;
+
+void LED_Control_Callback(const String & payload) {
+  const char* p = payload.c_str();
+  //  Serial.println(p);
+  if (strstr(p, "开灯")) {
+    digitalWrite(RELAY_PIN, LOW);
+    client.publish("/wukong/mqtt", "主人，灯已打开！");// "wukong/mqtt" 是在config.yml中定义的 topic_s 字段，用来回复wukong_robot的自定义消息。
+  }
+  if (strstr(p, "关灯")) {
+    digitalWrite(RELAY_PIN, HIGH);
+    client.publish("/wukong/mqtt", "主人，灯已关闭！");
+  }
+}
+
+void onConnectionEstablished()
+{
+  client.subscribe("开发板一", LED_Control_Callback);// "开发板一" 是在action.json文件中定义的，用来接收wukong-robot下发的命令。
+}
+
+void setup()
+{
+  Serial.begin(115200);
+  pinMode(RELAY_PIN, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
+  digitalWrite(RELAY_PIN, HIGH);
+}
+
+void loop()
+{
+  client.loop();
+
+  long now = millis();
+  if (now - lastTime > 1000) {
+    lastTime = now;
+    digitalWrite(LED_PIN, !pin_status);
+    pin_status = !pin_status;
+  }
+}
+```
 
 ## RaspberryPiStatus ##
 

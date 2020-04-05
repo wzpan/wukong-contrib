@@ -2,9 +2,10 @@
 #author: chenzhuo
 #Raspberry Pi or other platform can connect to the mqtt client,publisher and subscriber can access to bidirectional communication by switching their identities.
 #Example:you can get temperature of the enviroment collected by Arduino using Raspberry Pi when Raspberry Pi and Arduino communicate with each other.
-#The actions' file must be /home/pi/.dingdang/action.json
+#The actions' file must be /home/pi/.wukong/action.json
 
 #Fix: Hcreak 2019.10
+#Fix: imliubo 2020.04 NodeMCU code reference: https://wukong.hahack.com/#/contrib?id=controlmqtt
 
 import paho.mqtt.client as mqtt
 import paho.mqtt.publish as publish
@@ -22,7 +23,7 @@ class Plugin(AbstractPlugin):
 
     def search_word(self, text):
         home_dir = os.path.expandvars('$HOME')
-        location = home_dir + '/.dingdang/action.json'
+        location = home_dir + '/.wukong/action.json'
         if os.path.exists(location):
             f = open(location).read()
 
@@ -117,7 +118,7 @@ class mqtt_contro(object):
         if msg.payload:
             self.mqttc.loop_stop()
             self.mqttc.disconnect()
-            self.mic.say( str(msg.payload))
+            self.mic.say(str(msg.payload.decode("utf-8")))
         else:
             time.sleep(5)
             self.mqttc.loop_stop()
