@@ -63,6 +63,7 @@
 | J*e  | 88  | 2020-1-11 | 看好悟空，继续加油！ |
 | 张潘峰  | 88  | 2020-1-11 | 支持开源的码农 |
 | 爱萌鱼 | 30 | 2020-4-7 |   |
+| *刀   | 20  | 2020-5-1 |    |
 
 > 部分捐赠者来自 [dingdang-robot](https://github.com/dingdang-robot/dingdang-robot) 项目。由于 [dingdang-robot](https://github.com/dingdang-robot/dingdang-robot) 已停止维护，捐赠者名单一并迁移到这个站点。
 
