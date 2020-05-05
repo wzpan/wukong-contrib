@@ -440,7 +440,7 @@ class Plugin(AbstractPlugin):
                 else:
                     self.say('你要听{}这首歌，对吗？不对的话，请重新说一次！'.format(singerOrSong), onCompleted=lambda: self.handle_search(self.activeListen()), wait=True)
             else:
-                self.say('你想怎样，到底想听谁的歌或什么歌曲', cache=True, onCompleted=lambda: self.handle_search(self.activeListen()), wait=True)
+                self.say('没听懂你的意思哦', cache=True, wait=True)
 
     def handle(self, text, parsed):
         #需要给网易云插件配置相关的信息
