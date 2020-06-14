@@ -7,7 +7,7 @@
 1. 你的插件应该能够完成预期的功能，没有明显的bug；
 2. 你的插件没有跟其他插件有命名冲突，甚至最好不要有 `isValid()` 判断规则的交叉。比如如果你正在写一个“豆瓣电台”插件，而已经有一个“百度电台”插件，那么技能的关键词就应该用“豆瓣电台”，而不是“电台”，以免影响后者的使用；
 3. 严格使用 Python 3 语法编写，也不再使用 `sys.setdefaultencoding('utf8')` ；
-4. 在技能插件发布阶段，如果插件代码中包含 `utils.getUnit()` 的调试代码，则必须删除。并在 Merge Request 中备注这个的技能的 UNIT 分享码。如果这个技能有相应的自定义 UNIT 技能，记得也要到百度 UNIT 先分享这个技能得到一个分享码。
+4. 在 Merge Request 中备注这个的技能的 UNIT 分享码。如果这个技能有相应的自定义 UNIT 技能，记得也要到百度 UNIT 先分享这个技能得到一个分享码。
 
   ![自定义技能需要提供一个分享码](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/share-skill.png)
 

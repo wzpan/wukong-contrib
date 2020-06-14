@@ -40,6 +40,8 @@ headline_news:
 
 ## Direction
 
+?> 注意：本技能依赖一个自定义 UNIT 技能（BaiduMap）。如果使用了自己的 UNIT 账号，请通过加入 QQ 群获取最新的技能分享码。
+
 * 通过和悟空进行交互，用户说出一个地名，可以获取一条推荐公交线路。插件利用[百度LBS的Web服务API](http://lbsyun.baidu.com/index.php?title=webapi)，使用了[Place suggestion](http://lbsyun.baidu.com/index.php?title=webapi/place-suggestion-api)和[Direction API v2.0](http://lbsyun.baidu.com/index.php?title=webapi/direction-api-v2)两个接口，用户需要在[百度地图开放平台](http://lbsyun.baidu.com/apiconsole/key)注册创建应用以获取app key。为了简化交互，目前只支持查询本市内的地点，而且只给出一条公交(地铁)线路规划。
 * 源码：https://github.com/wzpan/wukong-contrib/blob/HEAD/Direction.py
 
@@ -651,6 +653,7 @@ SmartMiFan:
 
 ## NeteaseMusic ##
 
+
 * 根据Github上的[musicbox](https://github.com/darknessomi/musicbox)所提供的api文件进行抽离和修改，配合wukong项目达到语音交互型的NeteaseMusic插件。
 * 目前功能：
   1. **个性化推荐歌单**
@@ -665,9 +668,10 @@ SmartMiFan:
   10. **基本的播放器操作**
   11. **往后还会有更多功能，请敬请期待一下...**
 * 代码比较啰嗦，希望多多学习，欢迎大家多出建议和问题来改良。
-* 源码：[https://github.com/wzpan/wukong-contrib/blob/HEAD/BaiduMap.py](https://github.com/wzpan/wukong-contrib/blob/HEAD/WangYiYun.py)
+* 源码：[https://github.com/wzpan/wukong-contrib/blob/HEAD/NeteaseMusic.py](https://github.com/wzpan/wukong-contrib/blob/HEAD/NeteaseMusic.py)
 
 ### 配置
+
 1. 首先请将账号信息配置在用户目录~/.wukong/config.yml，在文件最尾处添加类似下方的方式配置。
 ``` yml
 # 网易云音乐插件
@@ -676,7 +680,9 @@ NeteaseMusic:
     #密码的 md5，可以用 python3 wukong.py md5 "密码" 获得
     md5pass: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx' 
 ```
+
 2. 将~/.wukong/contrib主库更新一下以获取WangYiYun.py插件，还有调用pip3下载一些额外的依赖库requests_cache。
+
 ``` sh
 cd $HOME/.wukong/contrib
 git pull

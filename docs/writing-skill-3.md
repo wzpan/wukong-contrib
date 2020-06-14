@@ -86,11 +86,6 @@ class Plugin(AbstractPlugin):
 from robot.sdk import unit
 from robot.sdk.AbstractPlugin import AbstractPlugin
 
-# 调试用，发布时删除
-SERVICE_ID='你的技能service_id'
-API_KEY='你的技能api_key'
-SECRET_KEY='你的技能secret_key'
-
 class Plugin(AbstractPlugin):
 
     SLUG = "weather"
@@ -99,7 +94,6 @@ class Plugin(AbstractPlugin):
 	    self.say('hello world!', cache=True)
 
     def isValid(self, text, parsed):
-        parsed = unit.getUnit(text, SERVICE_ID, API_KEY, SECRET_KEY) # 调试用，发布时删除
         # 判断是否包含 USER_WEATHER 意图
         return unit.hasIntent(parsed, 'USER_WEATHER')
 ```
@@ -135,7 +129,6 @@ from robot import config
 ...
 
     def handle(self, text, parsed):
-        parsed = unit.getUnit(text, SERVICE_ID, API_KEY, SECRET_KEY) # 调试用，发布时删除
         # get config
         key = config.get('/{}/key'.format(self.SLUG), '')
 ```
@@ -176,7 +169,6 @@ logger = logging.getLogger(__name__)
 ...
  
     def handle(self, text, mic, parsed):
-        parsed = unit.getUnit(text, SERVICE_ID, API_KEY, SECRET_KEY) # 调试用，发布时删除
         key = config.get('/{}/key'.format(self.SLUG), '')
         location = self.get_location(parsed)
         WEATHER_API = 'https://api.seniverse.com/v3/weather/daily.json'
@@ -216,11 +208,6 @@ from robot.sdk.AbstractPlugin import AbstractPlugin
 
 logger = logging.getLogger(__name__)
 
-# 调试用，发布时删除
-SERVICE_ID='你的技能service_id'
-API_KEY='你的技能api_key'
-SECRET_KEY='你的技能secret_key'
-
 class Plugin(AbstractPlugin):
 
     SLUG = "weather"
@@ -245,7 +232,6 @@ class Plugin(AbstractPlugin):
             return config.get('location', '深圳')
 
     def handle(self, text, mic, parsed):
-        parsed = unit.getUnit(text, SERVICE_ID, API_KEY, SECRET_KEY) # 调试用，发布时删除
         key = config.get('/{}/key'.format(self.SLUG), '')
         location = self.get_location(parsed)
         WEATHER_API = 'https://api.seniverse.com/v3/weather/daily.json'
@@ -266,7 +252,6 @@ class Plugin(AbstractPlugin):
             self.say('抱歉，我获取不到天气数据，请稍后再试')
 
     def isValid(self, text, parsed):
-        parsed = unit.getUnit(text, SERVICE_ID, API_KEY, SECRET_KEY) # 调试用，发布时删除
         # 判断是否包含 USER_WEATHER 意图
         return unit.hasIntent(parsed, 'USER_WEATHER')
 ```

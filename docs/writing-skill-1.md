@@ -164,26 +164,41 @@ INFO:robot.ASR:baidu-asr 语音识别到了：['天启怎么样，']
 
 在 UNIT 上训练好技能后，我们就可以在 wukong-robot 中利用这个技能来对普通文本进行解析，判断是否是 `HELLO_WORLD` 意图，并提取出 `user_person` 这个词槽里的值。
 
-但在开发阶段，你训练的 UNIT 技能还不属于 wukong-robot 的 UNIT 账户。为了方便调试，你可以在插件中手动调用 UNIT 的 API，得到解析的结果；等插件开发完成，准备提交发布时，再删除 UNIT 的调用，并在 Pull Request 中告知 wukong-robot 的维护者在 wukong-robot 的 UNIT 账户中导入你分享的技能。
+首先确保配置文件里的 `unit` 配置已经修改为你的百度 UNIT 账号：
 
-我们改写一下上面的插件代码：
+``` yaml
+# NLU 引擎
+# 可选值：
+# unit      - 百度 UNIT
+nlu_engine: unit
+
+# 百度 UNIT
+unit:
+    # 在 https://ai.baidu.com/unit 里注册创建一个机器人
+    # 得到一个机器人 ID ，
+    # 然后访问下面页面获取 API Key 和 Secret Key：
+    # https://console.bce.baidu.com/ai/#/ai/unit/app/list
+    service_id: 'S13442'  # 这里改成你的机器人ID
+    api_key: 'w5v7gUV3iPGsGntcM84PtOOM'  # 这里改成你的 api_key
+    secret_key: 'KffXwW6E1alcGplcabcNs63Li6GvvnfL'  # 这里改成你的 secret_key
+```
+
+其中 `service_id` 是你的机器人 ID （例如我的值就是 `S13442`）：
+
+<center>
+<img src="https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/service-id.png" alt="service_id"/>
+</center>
+
+然后我们改写一下上面的插件代码：
 
 ``` python
 # -*- coding: utf-8-*-
 from robot.sdk import unit
 from robot.sdk.AbstractPlugin import AbstractPlugin
 
-# 调试用，发布时删除
-SERVICE_ID='你的技能service_id'
-API_KEY='你的技能api_key'
-SECRET_KEY='你的技能secret_key'
-
 class Plugin(AbstractPlugin):
 
     def handle(self, text, parsed):
-        import time  # 调试用，用于避免频繁调用UNIT导致QPS超限，发布时删除
-        time.sleep(1)  # 调试用，用于避免频繁调用UNIT导致QPS超限，发布时删除
-        parsed = unit.getUnit(text, SERVICE_ID, API_KEY, SECRET_KEY) # 调试用，发布时删除
         slots = unit.getSlots(parsed, 'HELLO_WORLD')  # 取出所有词槽
         # 遍历词槽，找出 user_person 对应的值
         for slot in slots:
@@ -194,23 +209,13 @@ class Plugin(AbstractPlugin):
         self.say('hello world!', cache=True)
 
     def isValid(self, text, parsed):
-        parsed = unit.getUnit(text, SERVICE_ID, API_KEY, SECRET_KEY) # 调试用，发布时删除
         # 判断是否包含 HELLO_WORLD 意图
         return unit.hasIntent(parsed, 'HELLO_WORLD')
 ```
 
 * 在第2行中，我们引入了 [`robot.sdk.unit`](writing-skill-basic?id=unit-%e6%a8%a1%e5%9d%97) 百度UNIT模块；
-* 在第4～7行中，我们将自己创建的技能的 `service_id`、`api_key`、`secret_key` 写成几个全局变量（正式发布的时候无需用到，可以删除）。其中 `service_id` 是你的机器人 ID （例如我的值就是 `S13442`）：
-
-<center>
-<img src="https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/service-id.png" alt="service_id"/>
-</center>
-
 * 在 `isValid()` 的实现中，我们使用 `unit.hasIntent()` 方法从百度 UNIT 解析的结果中判断是否包含 `HELLO_WORLD` 意图，如果是，则命中这个技能。
 * 在 `handle()` 的实现中，我们先通过 `unit.getSlots()` 方法取出所有词槽，再利用词槽的 `name` 属性和 `normalized_word` 属性遍历词槽找出名为 `user_person` 的词槽对应的人名。如果能找到，就语音反馈 “你好，`<人名>`”；如果找不到，则说“hello world”。
-* 特别注意的是，在开发阶段我们对传进来的 parsed 进行了修改，改成了我们进一步调我们的 UNIT 服务解析出来的结果（第13行、第24行）。在正式提交发布时，需要将这个改写删除。并在 Pull Request 中提供你的技能分享码，由 wukong-robot 的维护者将你的技能加进 wukong-robot 的 UNIT 账号中。
-
-!> 虽然插件中调 UNIT 可以让插件正常工作，但你不该在最终的代码中这么做。试想想后面如果有几十上百个技能插件，每个都各自执行发一次 UNIT 请求，这该有多高的延时？所以，最好的做法是在提交插件时顺便提供你的 UNIT 技能的分享码，让 wukong-robot 的 UNIT 账户也共享你的插件。在轮询插件前，由 wukong-robot 主动解析一次指令再把解析结果通过 `parsed` 传给各个插件，就可以避免对 UNIT 的滥用。
 
 ## 发布技能 ##
 

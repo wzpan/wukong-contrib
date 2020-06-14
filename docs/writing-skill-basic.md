@@ -196,4 +196,4 @@ if unit.hasIntent(parsed, 'USER_WEATHER'):
            print(slot['normalized_word'])  # 深圳
 ```
 
-
+!> 百度 UNIT 的 QPS 为 1 ，意味着 1 秒钟只允许解析一次请求。因此，为了保证用户体验，强烈注册并使用自己的 UNIT 账号。详见：<https://github.com/wzpan/wukong-robot/blob/master/static/default.yml#L141>
