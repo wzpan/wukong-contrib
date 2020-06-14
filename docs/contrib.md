@@ -40,7 +40,7 @@ headline_news:
 
 ## Direction
 
-?> 注意：本技能依赖一个自定义 UNIT 技能（BaiduMap）。如果使用了自己的 UNIT 账号，请通过加入 QQ 群获取最新的技能分享码。
+?> 注意：本技能依赖一个自定义 UNIT 技能（BaiduMap）。如果使用了自己的 UNIT 账号，请通过加入 QQ 群(群号：580447290)，在群公告中获取最新的技能分享码。
 
 * 通过和悟空进行交互，用户说出一个地名，可以获取一条推荐公交线路。插件利用[百度LBS的Web服务API](http://lbsyun.baidu.com/index.php?title=webapi)，使用了[Place suggestion](http://lbsyun.baidu.com/index.php?title=webapi/place-suggestion-api)和[Direction API v2.0](http://lbsyun.baidu.com/index.php?title=webapi/direction-api-v2)两个接口，用户需要在[百度地图开放平台](http://lbsyun.baidu.com/apiconsole/key)注册创建应用以获取app key。为了简化交互，目前只支持查询本市内的地点，而且只给出一条公交(地铁)线路规划。
 * 源码：https://github.com/wzpan/wukong-contrib/blob/HEAD/Direction.py
