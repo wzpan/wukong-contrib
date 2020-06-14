@@ -288,6 +288,8 @@ youdao:
 - 悟空：空调温度状态是17℃
 - 用户：当前水质
 - 悟空：水质状态是1TDS
+- 用户：刷新设备缓存
+- 悟空：HomeAssistant 刷新设备缓存成功，共获取到 12 个设备信息。
 
 ### 配置
 
@@ -424,6 +426,13 @@ hass:
 当用户跟 wukong-robot 说完控制指令时，这个控制指令会先尝试与 Hass 插件的 `patterns` 里的每一个正则式进行匹配，如果匹配成功，则触发 Hass 插件，再由 Hass 插件尝试与 HomeAssistant 暴露的所有控制指令进行进一步匹配。如果匹配成功，则由 HomeAssistant 执行对应指令。
 
 ![Hass 插件执行效果](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/wukong-docs/hass-7.png)
+
+### 刷新设备缓存 ###
+
+为了避免每次 Hass 插件都请求 HomeAssistant 的设备信息，在第一次执行过 Hass 插件的操作指令后，Hass 插件会讲从 HomeAssistant 请求得到的设备信息缓存（见 [#81](https://github.com/wzpan/wukong-contrib/issues/81)）。如果你调整了设备，可以通过 “刷新设备缓存” 来强制更新设备缓存。
+
+- 用户：刷新设备缓存
+- 悟空：HomeAssistant 刷新设备缓存成功，共获取到 13 个设备信息。
 
 ## ControlMqtt ##
 

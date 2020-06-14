@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 class Plugin(AbstractPlugin):
 
     SLUG = "hass"
+    DEVICES = None
 
     def match(self, text, patterns):
         for pattern in patterns:
@@ -19,15 +20,13 @@ class Plugin(AbstractPlugin):
                 return pattern
         return ''
 
-    def handle(self, text, parsed):
-        if isinstance(text, bytes):
-            text = text.decode('utf8')
-        profile = config.get()
-        if self.SLUG not in profile or 'url' not in profile[self.SLUG] or \
-           'port' not in profile[self.SLUG] or \
-           'key' not in profile[self.SLUG]:
-            self.say("HomeAssistant 插件配置有误", cache=True)
-            return
+    def get_devices(self, profile):
+        if self.DEVICES is None:
+            self.refresh_devices(profile)
+        return self.DEVICES
+
+    def refresh_devices(self, profile, report=False):
+        logger.info('刷新设备')
         url = profile[self.SLUG]['url']
         port = profile[self.SLUG]['port']
         key = profile[self.SLUG]['key']
@@ -42,7 +41,32 @@ class Plugin(AbstractPlugin):
                 url_entity = url + ":" + port + "/api/states/" + entity_id
                 entity = requests.get(url_entity, headers=headers).json()
                 devices.append(entity)
+        self.DEVICES = devices
+        if report:
+            self.say('HomeAssistant 刷新设备缓存成功，共获取到 {} 个设备信息'.format(len(self.DEVICES)), cache=True)
+                
+
+    def handle(self, text, parsed):
+        if isinstance(text, bytes):
+            text = text.decode('utf8')
+        profile = config.get()
+        if self.SLUG not in profile or 'url' not in profile[self.SLUG] or \
+           'port' not in profile[self.SLUG] or \
+           'key' not in profile[self.SLUG]:
+            self.say("HomeAssistant 插件配置有误", cache=True)
+            return
+        if '刷新设备' in text:
+            self.refresh_devices(profile, True)
+            return
+        url = profile[self.SLUG]['url']
+        port = profile[self.SLUG]['port']
+        key = profile[self.SLUG]['key']
+        headers = {'Authorization': key, 'content-type': 'application/json'}
+        devices = self.get_devices(profile)
         has_execute = False
+        if len(devices) == 0:
+            self.say("HomeAssistant 获取不到设备信息", cache=True)
+            return
         for device in devices:
             state = device["state"]
             attributes = device["attributes"]
@@ -125,4 +149,4 @@ class Plugin(AbstractPlugin):
 
     def isValid(self, text, parsed):
         # 根据配置中的正则式来匹配
-        return False
+        return '刷新设备缓存' in text
