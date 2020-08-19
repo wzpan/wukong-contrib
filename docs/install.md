@@ -47,7 +47,7 @@ docker run -it -p 5000:5000 wzpan/wukong-robot:latest
 
 ### ARM 架构设备
 
-如果你的设备是 ARM 架构设备（例如树莓派 3B），可以使用 wzpan/wukong-robot-arm 镜像（注意 Pi Zero 是 armv6l 架构，因此不支持）：
+如果你的设备是 ARM 架构设备（例如树莓派 3B），可以使用 wzpan/wukong-robot-arm 镜像（注意 Pi Zero 是 armv6l 架构，因此不支持 docker 安装，请使用手动安装）：
 
 ``` bash
 git clone https://github.com/wzpan/wukong-robot-pi-installer.git
