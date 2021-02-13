@@ -188,7 +188,7 @@ python3 wukong.py
 
 第一次启动将提示你是否要到用户目录下创建一个配置文件，输入 `y` 即可。配置文件将会保存在 `~/.wukong/config.yml` 。
 
-接下来我们来训练和更新唤醒词。比较建议到 [snowboy 官网](https://snowboy.kitt.ai/dashboard) 上训练自己的模型，然后把模型放在 `~/.wukong` 中，并修改 `~/.wukong/config.yml` 里的几个 hotword 指向的文件名（如果文件名没改，则不用变）。一共有三个唤醒词需要修改：
+接下来我们来训练和更新唤醒词。比较建议[自行训练自己的模型](/tips?id=_2-%e4%bf%ae%e6%94%b9%e5%94%a4%e9%86%92%e8%af%8d)，然后把模型放在 `~/.wukong` 中，并修改 `~/.wukong/config.yml` 里的几个 hotword 指向的文件名（如果文件名没改，则不用变）。一共有三个唤醒词需要修改：
 
 1. `hotword`：全局唤醒词。默认为 “孙悟空” （wukong.pmdl）
 2. `/do_not_bother/on_hotword`：让 wukong-robot 进入勿扰模式的唤醒词。默认为 “悟空别吵” （悟空别吵.pmdl）
@@ -198,8 +198,7 @@ python3 wukong.py
 
 ``` yaml
 # snowboy 离线唤醒
-# https://snowboy.kitt.ai/dashboard
-# 建议到 https://snowboy.kitt.ai/hotword/32768
+# 建议使用 snowboy-seasalt (https://github.com/rhasspy/snowboy-seasalt)
 # 使用相同环境录入你的语音，以提升唤醒成功率和准确率
 hotword: 'wukong_pi.pmdl'  # 唤醒词模型，如要自定义请放到 $HOME/.wukong 目录中
 sensitivity: 0.4  # 灵敏度
@@ -213,34 +212,9 @@ do_not_bother:
     off_hotword: '悟空醒醒_pi.pmdl'  # 通过这个唤醒词可切换勿扰模式。默认是“悟空醒醒”
 ```
 
-但是同样建议到 [snowboy 官网](https://snowboy.kitt.ai/dashboard) 自己训练。snowboy 官方建议在树莓派上先用 `rec t.wav` 这样的命令录制唤醒词，然后在训练的时候通过上传按钮上传到服务器中进行训练：
+但是建议[自己训练](/tips?id=_2-%e4%bf%ae%e6%94%b9%e5%94%a4%e9%86%92%e8%af%8d)。snowboy 官方建议在树莓派上先用 `rec t.wav` 这样的命令录制唤醒词，然后在训练的时候通过上传按钮上传到服务器中进行训练：
 
-![](http://docs.kitt.ai/snowboy/_images/upload.png)
-
-也可以使用 wukong.py 提供的 `train` 命令来进行训练。
-
-- 首先使用 `rec` 或者 `arecord` 来录制唤醒词的三段语音。例如：
-
-``` bash
-cd $HOME
-arecord a.wav
-arecord b.wav
-arecord c.wav
-```
-
-- 然后，如果你还没有在 config.yml 配置文件中填写 `snowboy_token` 的配置，可以先访问 https://snowboy.kitt.ai ，在 “Profile settings” 中找到你的 token ：
-
-![](http://docs.kitt.ai/snowboy/_images/profile_token.png)
-
-然后把它填进 config.yml 中。
-
-- 之后，使用如下命令训练成唤醒词：
-
-``` bash
-python3 wukong.py train $HOME/a.wav $HOME/b.wav $HOME/c.wav $HOME/.wukong/mywords.pmdl
-```
-
-其中 `mywords.pmdl` 即是要生成的 pmdl 的名字。你也可以换成你喜欢的名字（但尽量不要用中文）。
+![](https://github.com/rhasspy/snowboy-seasalt/raw/master/screenshot.png)
 
 - 完成后修改下 config.yml 把唤醒词改成刚刚训练的唤醒词即可。
 
