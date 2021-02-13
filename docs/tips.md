@@ -10,9 +10,14 @@
 
 ## 2. 修改唤醒词
 
-1. 到 https://snowboy.kitt.ai/ ，训练你自己的模型；
-2. 下载 pmdl 模型并放到 ~/.wukong 中；
-3. 修改 config.yml 的 `model` 配置，改为你训练好的模型的文件名。
+!> snowboy 已经不再提供在线训练唤醒词的服务，不过作者提供了本地部署训练唤醒词的服务的方案 [snowboy-seasalt](https://github.com/rhasspy/snowboy-seasalt) 。
+
+1. 本地部署一个 [snowboy-seasalt](https://github.com/rhasspy/snowboy-seasalt) 服务；
+2. 训练你自己的模型；
+3. 下载 pmdl 模型并放到 ~/.wukong 中；
+4. 修改 config.yml 的 `model` 配置，改为你训练好的模型的文件名。
+
+注意务必在 wukong-robot 所运行的同一设备上录制语音和训练唤醒词。由于不同的设备声卡的参数不同，在 A 机器上录制出来的语音训练成唤醒词后，放到 B 机器上使用效果可能会有很大差异。
 
 ## 3. 降低误唤醒
 
