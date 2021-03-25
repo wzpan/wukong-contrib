@@ -38,6 +38,12 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
     <iframe src="//player.bilibili.com/player.html?aid=76739580&cid=131259456&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
 </center>
 
+* Demo视频：wukong-robot + Jetson + 3D 打印外壳打造的智能音箱（by 网友 @电力极客）
+
+<center>
+<iframe src="//player.bilibili.com/player.html?aid=802204666&bvid=BV1Dy4y1474f&cid=313755639&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
+</center>
+
 * 后台管理端Demo 
     - 体验地址：https://bot.hahack.com  （体验用户名：wukong；体验密码：wukong@2019）
 
