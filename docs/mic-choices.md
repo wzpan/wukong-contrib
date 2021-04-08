@@ -76,7 +76,7 @@ LED:
 PS3 Eye 是 USB 口，可以直接插上任何带 USB 接口的主机。
 
 * 摄像头：即插即用，配合 fswebcam 即可。
-* 麦克风的配置可以参见[这篇文章](http://renatocunha.com/blog/2012/04/playstation-eye-audio-linux/)。
+* 麦克风的配置可以参见[这篇文章](https://renatocunha.com/2012/04/playstation-eye-audio-linux/)。
 
 ## Respeaker 2 Mics Pi HAT
 
