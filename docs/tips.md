@@ -4,7 +4,7 @@
 
 强烈建议自己训练唤醒词！wukong-robot 自带的唤醒词是作者自己训练的个人模型（pmdl），非通用模型（umdl）。其他人使用时可能会遇到诸如难以唤醒或者极容易误唤醒的问题。此外，snowboy 的唤醒准确率和录制时的设备环境也有很大的关系。不同设备录制出来的唤醒词模型使用效果会大打折扣。
 
-到 [snowboy 官网](https://snowboy.kitt.ai/dashboard)，在运行 wukong-robot 的机器上训练一下唤醒词。详见 [安装教程-更新唤醒词](/install?id=_6-%e6%9b%b4%e6%96%b0%e5%94%a4%e9%86%92%e8%af%8d%ef%bc%88%e5%8f%af%e9%80%89%ef%bc%8c%e6%a0%91%e8%8e%93%e6%b4%be%e5%bf%85%e9%a1%bb%ef%bc%89) 。
+在运行 wukong-robot 的机器上访问 [唤醒词训练站点](https://snowboy.hahack.com)，训练一下唤醒词。详见 [安装教程-更新唤醒词](/install?id=_6-%e6%9b%b4%e6%96%b0%e5%94%a4%e9%86%92%e8%af%8d%ef%bc%88%e5%8f%af%e9%80%89%ef%bc%8c%e6%a0%91%e8%8e%93%e6%b4%be%e5%bf%85%e9%a1%bb%ef%bc%89) 。
 
 另外，如果出现经常误唤醒 wukong-robot ，可以尝试在配置文件中将 `sensitivity` 调低。
 
