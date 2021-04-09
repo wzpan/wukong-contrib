@@ -10,7 +10,7 @@
 
 ## 2. 修改唤醒词
 
-1. 访问唤醒词训练服务 https://bot.hahack.com:8000 ；
+1. 访问唤醒词训练服务 https://snowboy.hahack.com ；
 2. 训练你自己的模型；
 3. 下载 pmdl 模型并放到 ~/.wukong 中；
 4. 修改 config.yml 的 `model` 配置，改为你训练好的模型的文件名。
