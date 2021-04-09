@@ -198,7 +198,7 @@ python3 wukong.py
 
 ``` yaml
 # snowboy 离线唤醒
-# 建议使用 snowboy-seasalt (https://github.com/rhasspy/snowboy-seasalt)
+# 建议使用 snowboy-seasalt (https://snowboy.hahack.com)
 # 使用相同环境录入你的语音，以提升唤醒成功率和准确率
 hotword: 'wukong_pi.pmdl'  # 唤醒词模型，如要自定义请放到 $HOME/.wukong 目录中
 sensitivity: 0.4  # 灵敏度
