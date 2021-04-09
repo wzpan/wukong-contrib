@@ -10,9 +10,7 @@
 
 ## 2. 修改唤醒词
 
-!> snowboy 已经不再提供在线训练唤醒词的服务，不过作者提供了本地部署训练唤醒词的服务的方案 [snowboy-seasalt](https://github.com/rhasspy/snowboy-seasalt) 。
-
-1. 本地部署一个 [snowboy-seasalt](https://github.com/rhasspy/snowboy-seasalt) 服务；
+1. 访问唤醒词训练服务 http://bot.hahack.com:8000 ；
 2. 训练你自己的模型；
 3. 下载 pmdl 模型并放到 ~/.wukong 中；
 4. 修改 config.yml 的 `model` 配置，改为你训练好的模型的文件名。
