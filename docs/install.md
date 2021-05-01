@@ -143,7 +143,7 @@ sudo apt-get install python3-dev  # 注意 Ubuntu 18.04 可能叫 python3-all-de
 对于 Mac 系统：
 
 ``` bash
-brew install swig
+brew install swig wget
 ```
 
 #### 构建 snowboy
