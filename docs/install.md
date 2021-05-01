@@ -121,7 +121,7 @@ pip3 install -r requirements.txt
 对于 Linux 系统：
 
 ``` bash
-wget http://hahack-1253537070.file.myqcloud.com/misc/swig-3.0.10.tar.gz
+wget https://wzpan-1253537070.cos.ap-guangzhou.myqcloud.com/misc/swig-3.0.10.tar.gz
 tar xvf swig-3.0.10.tar.gz
 cd swig-3.0.10
 sudo apt-get -y update
@@ -149,7 +149,7 @@ brew install swig wget
 #### 构建 snowboy
 
 ``` bash
-wget http://hahack-1253537070.file.myqcloud.com/misc/snowboy.tar.bz2  # 使用我fork出来的版本以确保接口兼容
+wget https://wzpan-1253537070.cos.ap-guangzhou.myqcloud.com/misc/snowboy.tar.bz2 # 使用我fork出来的版本以确保接口兼容
 tar -xvjf snowboy.tar.bz2
 cd snowboy/swig/Python3
 make
