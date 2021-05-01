@@ -97,7 +97,8 @@ pip3 install pyaudio
 #### Mac 系统：
 
 ``` bash
-brew install portaudio sox ffmpeg
+brew install portaudio --HEAD  # 安装 Git 最新版本，确保 Big Sur 系统可用
+brew install sox ffmpeg
 pip3 install pyaudio
 ```
 
