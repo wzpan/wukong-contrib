@@ -191,7 +191,7 @@ python3 wukong.py
 
 接下来我们来训练和更新唤醒词。比较建议[自行训练自己的模型](/tips?id=_2-%e4%bf%ae%e6%94%b9%e5%94%a4%e9%86%92%e8%af%8d)，然后把模型放在 `~/.wukong` 中，并修改 `~/.wukong/config.yml` 里的几个 hotword 指向的文件名（如果文件名没改，则不用变）。一共有三个唤醒词需要修改：
 
-1. `hotword`：全局唤醒词。默认为 “孙悟空” （wukong.pmdl）
+1. `hotword`：全局唤醒词。默认为 “snowboy” （snowboy.umdl）
 2. `/do_not_bother/on_hotword`：让 wukong-robot 进入勿扰模式的唤醒词。默认为 “悟空别吵” （悟空别吵.pmdl）
 3. `/do_not_bother/off_hotword`：让 wukong-robot 结束勿扰模式的唤醒词。默认为 “悟空醒醒” （悟空醒醒.pmdl）
 
