@@ -83,7 +83,9 @@ roadcondition:
     adcode: "城市码"  # http://lbs.amap.com/api/javascript-api/example/amap-ui-districtexplorer/group/
 ```
 
-## BaiduFM
+## BaiduFM（已废弃）
+
+!> 注意：由于百度FM官方已经不再维护，该插件已废弃。
 
 * 百度 FM 插件。用户通过配置文件选择一个频道，随机播放音乐。
 * 源码：https://github.com/wzpan/wukong-contrib/blob/HEAD/BaiduFM.py
