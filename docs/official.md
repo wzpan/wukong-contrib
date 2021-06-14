@@ -4,7 +4,7 @@
 
 本地音乐播放器。
 
-?> 注意：如果使用自定义的 UNIT 账号，需要确保在百度 UNIT 账号里已经添加了百度预置的音乐技能。
+
 ### 触发条件
 
 指令中包含 “本地音乐” 关键词。
@@ -32,6 +32,12 @@
 LocalPlayer:
     path: "/Users/panweizhou/Music"  # 本地音乐存放路径
 ```
+
+?> 特别注意：如果使用自定义的 UNIT 账号，需要确保在百度 UNIT 账号里已经添加了百度预置的音乐技能。<br>
+  方法：登录百度 UNIT ，在机器人设置里点击添加技能按钮：<br>
+  ![添加图片](https://hahack-1253537070.file.myqcloud.com/uPic/addkill.png)<br>
+  然后找到音乐预置技能，然后点击底部的“已选择1个技能，添加至机器人”，完成技能添加：<br>
+  ![添加图片](http://hahack-1253537070.file.myqcloud.com/uPic/addskill-2.png)
 
 ## Email
 
