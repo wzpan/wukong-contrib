@@ -165,7 +165,8 @@ ctl.!default {
 
 完成后可以再次[测试下命令行录音和播放](/run?id=_1-检查声卡配置)，看看是否能正常工作。
 
-如果还有问题，建议求助 google/百度 。不同的硬件和系统环境可能有不同的配置方法，作者很难给出完全通用的方案，也难以对一些特定情况下遇到的问题进行定位。
+如果还有问题，建议求助 google/百度 。不同的硬件和系统环境可能有不同的配置方法，作者很难给出完全通用的方案，也难以对一些特定情况下遇到的问题进行定位。也建议阅读 [Asoundrc](https://www.alsa-project.org/wiki/Asoundrc) 的配置文档，了解如何配置 [sample format](https://linux.die.net/man/1/arecord) 等技巧。
+
 ## 运行 wukong-robot
 
 ``` bash
