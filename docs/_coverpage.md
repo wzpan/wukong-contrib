@@ -7,5 +7,5 @@
 [:octocat: GitHub](https://github.com/wzpan/wukong-robot/)
 [:heart: 捐赠](donate)
 [:notebook: 代码](https://github1s.com/wzpan/wukong-robot)
-[:speech_balloon: 频道](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/WechatIMG195.jpeg)
+[:speech_balloon: 频道](https://wzpan-1253537070.cos.ap-guangzhou.myqcloud.com/misc/guild.jpeg)
 [:green_book: 进入文档](README)
