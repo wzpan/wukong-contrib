@@ -140,6 +140,23 @@ ctl.!default {
 
 上面的 `hw:1,0` 表示使用 card 1，设备 0。即 `C-Media USB Headphone Set` 。如果配成 `hw:Set,0` ，效果相同（个人更推荐使用声卡名字）。
 
+默认情况下 arecord 使用 `U8` 作为采样格式（[sample format](https://linux.die.net/man/1/arecord)），使用 8000Hz 作为采样率。有些用户的录音硬件可能会不支持。此时可以通过增加 `sample` 和 `rate` 参数来调整到支持的值，例如（仅供参考，具体请以实际测试为准）：
+
+```
+pcm.!default {
+        type plug slave {
+                pcm "hw:1,0"
+                format S16_LE
+                rate 16000
+        }
+}
+
+ctl.!default {
+        type hw
+        card 1
+}
+```
+
 * 第二种：您使用的是一个单独的 USB 麦克风，并直接通过树莓派的 AUX 3.5 口外接一个音响。那么可以参考如下配置：
 
 ```
@@ -165,7 +182,8 @@ ctl.!default {
 
 完成后可以再次[测试下命令行录音和播放](/run?id=_1-检查声卡配置)，看看是否能正常工作。
 
-如果还有问题，建议求助 google/百度 。不同的硬件和系统环境可能有不同的配置方法，作者很难给出完全通用的方案，也难以对一些特定情况下遇到的问题进行定位。
+如果还有问题，建议求助 google/百度 。不同的硬件和系统环境可能有不同的配置方法，作者很难给出完全通用的方案，也难以对一些特定情况下遇到的问题进行定位。也建议阅读 [Asoundrc](https://www.alsa-project.org/wiki/Asoundrc) 的配置文档，了解如何配置采样格式、采样率等技巧。
+
 ## 运行 wukong-robot
 
 ``` bash
