@@ -32,10 +32,10 @@ pip install python-osc
 muse:
     enable: true
     ip: '192.168.3.85'  # 请修改为本机的 ip 地址
-    port: 5001          # 请修改为 OSC 的端口号
+    port: 5002          # 请修改为 OSC 的端口号
 ```
 
-  如果你的 wukong-robot 用的也是 5000 端口，那么建议把 `Port` 改为另一个端口号。
+  如果你的 wukong-robot 用的也是 5001 端口，那么建议把 `Port` 改为另一个端口号。
 
 3. 打开 Muse Monitor。在 setting 页里，将 wukong-robot 所在电脑的 ip 地址填入 `OSC Stream Target IP` 一栏，将你的自定义的 OSC 端口号填入 `OSC Stream Port` 一栏。
 

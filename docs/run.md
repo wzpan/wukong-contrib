@@ -232,7 +232,7 @@ do_not_bother:
 
 wukong-robot 默认在运行期间还会启动一个后台管理端，提供了远程对话、查看修改配置、查看 log 等能力。
 
-- 默认地址：http://localhost:5000
+- 默认地址：http://localhost:5001
 - 默认账户名：wukong
 - 默认密码：wukong@2019
 

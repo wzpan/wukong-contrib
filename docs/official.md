@@ -159,7 +159,7 @@ brew install imagesnap
 
 ### 示例
 
-- 用户：“播放本地音乐”
+- 用户：“写一首关于大海的诗"
 - 悟空：“神州大海起风浪,诗友词坛聚一堂,我自天涯歌盛世,君从塞外写华章”
 - 用户：“写诗”
 - 悟空：“曾写诗行几度秋,酸甜苦辣共登楼,谁言此地无春色,我自吟哦乐不休”
@@ -168,7 +168,7 @@ brew install imagesnap
 
 简单的回声/传话功能。
 
-当借助 [wukong-itchat](https://github.com/wzpan/wukong-itchat) 接入微信时，可以利用这个功能实现远程给家里发语音消息。
+当借助 [wukong-qq-guild](https://github.com/wzpan/wukong-qq-guild) 接入频道机器人时，可以利用这个功能实现远程给家里发语音消息。
 
 ### 触发条件
 

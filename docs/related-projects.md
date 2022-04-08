@@ -6,7 +6,8 @@
 
 ## 客户端
 
-* [wukong-itchat](http://github.com/wzpan/wukong-itchat): 基于 itchat 的 wukong-robot 微信客户端。
+* [wukong-qq-guild](http://github.com/wzpan/wukong-qq-guild): 基于 QQ 频道机器人的 wukong-robot 客户端。
+* [wukong-itchat](http://github.com/wzpan/wukong-itchat): 基于 itchat 的 wukong-robot 微信客户端（已停止维护）。
 
 ## 安装工具
 

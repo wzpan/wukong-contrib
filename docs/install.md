@@ -30,13 +30,13 @@ docker pull wzpan/wukong-robot:latest
 对于 Linux 系统，可以将 `/dev/snd` 桥接给 docker，这样可以实现声卡的支持：
 
 ``` bash
-docker run -it -p 5000:5000 --device /dev/snd wzpan/wukong-robot:latest
+docker run -it -p 5001:5001 --device /dev/snd wzpan/wukong-robot:latest
 ```
 
 而对于 Mac 和 Windows 系统，则只能放弃声卡的支持：
 
 ``` bash
-docker run -it -p 5000:5000 wzpan/wukong-robot:latest
+docker run -it -p 5001:5001 wzpan/wukong-robot:latest
 ```
 
 因此 Mac 系统更推荐手动安装的方式。而 Windows ，则可以参考 [其他安装方式](#其他安装方式) 中的一键自动安装脚本。
@@ -60,7 +60,7 @@ sudo ./pi_installer
 然后使用如下命令启动 docker 镜像即可：
 
 ``` bash
-docker run -it -p 5000:5000 --device /dev/snd -e LANG=C.UTF-8 wzpan/wukong-robot-arm:latest
+docker run -it -p 5001:5001 --device /dev/snd -e LANG=C.UTF-8 wzpan/wukong-robot-arm:latest
 ```
 
 如果运行时提示

@@ -268,7 +268,7 @@ python3 -m pip install --upgrade homeassistant
 ![addon8](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/hass/smp3.png)
 
  接下来关于wukong-robot的配置请访问本文档的**配置**部分了解更多,本插件的配置方式与其他方式安装的wukong-robot完全相同，您可以在hass.io插件页面顶部点击
-**OPEN WEB UI**或者访问<http://youripaddress:5000>来访问wukong-robot的后台管理页面，`youripaddres`替换为您homeassistant所处设备的局域网ip地址。
+**OPEN WEB UI**或者访问<http://youripaddress:5001>来访问wukong-robot的后台管理页面，`youripaddres`替换为您homeassistant所处设备的局域网ip地址。
 
 ## 进行简单的 homeassistant 配置
 
