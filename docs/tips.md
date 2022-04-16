@@ -2,7 +2,9 @@
 
 ## 1. 提升唤醒成功率和准确度
 
-强烈建议自己训练唤醒词！wukong-robot 自带的唤醒词是作者自己训练的个人模型（pmdl），非通用模型（umdl）。其他人使用时可能会遇到诸如难以唤醒或者极容易误唤醒的问题。此外，snowboy 的唤醒准确率和录制时的设备环境也有很大的关系。不同设备录制出来的唤醒词模型使用效果会大打折扣。
+wukong-robot 自带的唤醒词是 snowboy.umdl 通用模型（umdl）。如果在你的设备上无法唤醒成功，则可以考虑在当前设备上训练个人模型（pmdl）。
+
+!> 通用模型是 snowboy 根据上千人的样本预训练好的模型，普适性较好。而个人模型只适用于个人使用，换一个人效果就会比较差。请根据需求来选择。预训练的通用模型可以在[这里](https://github.com/Kitt-AI/snowboy/tree/master/resources/models)下载。
 
 在运行 wukong-robot 的机器上访问 [唤醒词训练站点](https://snowboy.hahack.com)，训练一下唤醒词。详见 [安装教程-更新唤醒词](/install?id=_6-%e6%9b%b4%e6%96%b0%e5%94%a4%e9%86%92%e8%af%8d%ef%bc%88%e5%8f%af%e9%80%89%ef%bc%8c%e6%a0%91%e8%8e%93%e6%b4%be%e5%bf%85%e9%a1%bb%ef%bc%89) 。
 
