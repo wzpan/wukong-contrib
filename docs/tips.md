@@ -49,7 +49,22 @@ recording_timeout: 5 # 录制的语音最大长度（秒）
 
 声学回声消除（Acoustic Echo Cancellation，AEC）简单来讲就是想办法从麦克风录入的声音中消除掉音响的输出的声音。AEC 最初是为了解决 VoIP（网络电话）中这样一个问题：即A与B进行通话，A端有麦克风和扬声器分别用来采集A的声音和播放B的声音，B端有麦克风和扬声器分别用来采集B的声音和播放A的声音，很明显，由于声音传播的特性，A端的麦克风在采集A的声音的同时，也采集到了A端扬声器播放的来自B的声音，也就是A端采集到的声音是一个混合的声音，这个声音通过网络发给B时，B就不仅能听到A的声音，也能听见B前几秒自己的声音，这就是在B端听到了B自己的回声，同理在A端也可以听到A自己的回声，这显然不是我们想要的。
 
-在 Linux 系统上，我们可以使用 [ec](https://github.com/voice-engine/ec) 来实现回声消除。
+在 Linux 系统上，我们可以使用如下两种方式来实现回声消除：
+
+1. 直接使用 PulseAudio 的 webrtc 回声消除模块。
+2. 使用 [ec](https://github.com/voice-engine/ec) 。
+
+#### 方法1. 使用 webrtc 回声消除模块（推荐）
+
+编辑/etc/pulse/default.pa文件 最后加入
+
+.ifexists module-echo-cancel.so
+load-module module-echo-cancel aec_method=webrtc source_name=echocancel sink_name=echocancel1
+set-default-source echocancel
+set-default-sink echocancel1
+.endif
+
+#### 方法2. 使用 ec
 
 首先安装 ec ：
 
@@ -63,7 +78,7 @@ cp ec /usr/local/bin/
 
 然后根据你的板子是否带有硬件音频回路（hardware audio loopback），有不同的配置方案：
 
-#### 不支持硬音频回路 ####
+##### 不支持硬音频回路
 
 普通的麦克风以及 respeaker 2 Mic HAT 不支持硬音频回路。所以我们需要使用软件的方式来进行回声消除。
 
@@ -105,7 +120,7 @@ No playback, bypass AEC
 
 说明回声消除已经启用。
 
-#### 支持硬音频回路 ####
+##### 支持硬音频回路
 
 可以使用 `ec_hw` 来实现回声消除，详见 [`ec_hw` for devices with hardware audio loopback](https://github.com/voice-engine/ec#ec_hw-for-devices-with-hardware-audio-loopback) 。
 
