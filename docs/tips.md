@@ -56,13 +56,15 @@ recording_timeout: 5 # 录制的语音最大长度（秒）
 
 #### 方法1. 使用 webrtc 回声消除模块（推荐）
 
-编辑/etc/pulse/default.pa文件 最后加入
+编辑 `/etc/pulse/default.pa` 文件 最后加入
 
+```
 .ifexists module-echo-cancel.so
 load-module module-echo-cancel aec_method=webrtc source_name=echocancel sink_name=echocancel1
 set-default-source echocancel
 set-default-sink echocancel1
 .endif
+```
 
 #### 方法2. 使用 ec
 
