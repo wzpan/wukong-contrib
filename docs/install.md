@@ -211,7 +211,7 @@ docker pull keejo/anyq:1.0
 docker run -it -p 8999:8999 -p 8900:8900 keejo/anyq:1.0 ./run.sh
 ```
 
-然后可以在当前机器上访问 <http://localhost:8999/anyq?question=账号> 确认是否正常返回。
+然后可以在当前机器上访问 <http://localhost:8999/anyq?question=XXX> 确认是否正常返回。
 
 ### ARM 架构设备 ###
 
