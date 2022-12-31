@@ -28,6 +28,8 @@ play test.wav
 
 而对于 Linux 系统，则往往需要对声卡进行一下设置。配置麦克风和音响是新用户在 Linux 下使用 wukong-robot 过程中最容易卡住的环节。
 
+?> 如果您使用的是行空板，请参见 [行空板](/mic-choices?id=行空板) 配置教程，无需阅读本节设置。
+
 ?> 如果您使用的是 PS3 eye，请参见 [这篇文章](https://renatocunha.com/2012/04/playstation-eye-audio-linux/) 配置教程，无需阅读本节设置。
 
 ?> 如果您使用的是 ReSpeaker 2 Mic HAT，请参见 [ReSpeaker 2-Mics Pi HAT](/mic-choices?id=respeaker-2-mics-pi-hat) 配置教程，无需阅读本节设置。

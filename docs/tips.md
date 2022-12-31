@@ -1,6 +1,6 @@
 # wukong-robot 使用技巧
 
-## 1. 提升唤醒成功率和准确度
+## 1. 提升 snowboy 唤醒成功率和准确度
 
 wukong-robot 自带的唤醒词是 snowboy.umdl 通用模型（umdl）。如果在你的设备上无法唤醒成功，则可以考虑在当前设备上训练个人模型（pmdl）。
 
@@ -12,6 +12,8 @@ wukong-robot 自带的唤醒词是 snowboy.umdl 通用模型（umdl）。如果�
 
 ## 2. 修改唤醒词
 
+### 2.1 修改 snowboy 的唤醒词
+
 1. 访问唤醒词训练服务 https://snowboy.hahack.com ；
 2. 训练你自己的模型；
 3. 下载 pmdl 模型并放到 ~/.wukong 中；
@@ -19,31 +21,53 @@ wukong-robot 自带的唤醒词是 snowboy.umdl 通用模型（umdl）。如果�
 
 注意务必在 wukong-robot 所运行的同一设备上录制语音和训练唤醒词。由于不同的设备声卡的参数不同，在 A 机器上录制出来的语音训练成唤醒词后，放到 B 机器上使用效果可能会有很大差异。
 
+### 2.2 修改 porcupine 的唤醒词
+
+1. 到 [Picovoice Console](https://console.picovoice.ai/) 上为你的平台训练你的唤醒词。
+2. 完成后保存到 `~/.wukong` 目录中。
+3. 修改 config.yml 中 `porcupine` 的 `keyword_paths` 配置，增加你训练好的模型的文件名。
+
+``` yaml
+# porcupine 离线唤醒
+# 登录 https://console.picovoice.ai/
+# 可以获取 access_key 和训练自己的唤醒词
+porcupine: 
+    keyword:
+        - 'porcupine'
+    keyword_paths:
+        # spiderman.ppn 是我训练的唤醒词，
+        # 我保存为 ~/.wukong/spiderman.ppn，
+        # 然后在下面添加一项
+        - 'spiderman.ppn'
+    access_key: 'xxxxxxxxxxxxxxxxxxxxxxxxxx'
+```
+
+!> 注意：一旦使用了自定义的唤醒词，默认使用的 `porcupine` 唤醒词将不可使用。
+
 ## 3. 降低误唤醒
 
 有些朋友抱怨在听歌的时候，wukong-robot 会自己误唤醒自己。有几种策略可以优化这个问题：
 
-1. 适当调低 snowboy 敏感度；
+1. 适当调低唤醒敏感度；
 2. 开启回声消除。
 
 下面我将逐一介绍：
 
-### 3.1：适当调低 snowboy 的敏感度
+### 3.1：适当调低唤醒的敏感度
 
-在配置文件（`$HOME/.wukong/config.yml`）中，snowboy 有几项配置：
+在配置文件（`$HOME/.wukong/config.yml`）中，修改如下配置：
 
 ``` yaml
-# snowboy 离线唤醒
-# https://snowboy.kitt.ai/dashboard
-# 建议到 https://snowboy.kitt.ai/hotword/32768
-# 使用相同环境录入你的语音，以提升唤醒成功率和准确率
-hotword: 'wukong.pmdl'  # 唤醒词模型，如要自定义请放到 $HOME/.wukong 目录中
-sensitivity: 0.4  # 灵敏度
-silent_threshold: 15 # 判断为静音的阈值。环境比较吵杂的地方可以适当调大
-recording_timeout: 5 # 录制的语音最大长度（秒）
+# 热词唤醒机制
+# 可选值：
+# porcupine（推荐）
+# snowboy
+detector: snowboy
+# 灵敏度
+sensitivity: 0.5
 ```
 
-其中，`sensitivity` 是 snowboy 的灵敏度。它与离线唤醒的成功率和误唤醒率有着直接的关系。如果调得太高，wukong-robot 可以很容易唤醒，但是被误唤醒的几率也会增大；如果调得太低，误唤醒率会大幅降低，但是也可能导致 wukong-robot 很难被唤醒。建议你根据实际情况调节这个参数到一个合适的值。
+其中，`sensitivity` 是离线唤醒的灵敏度。它与离线唤醒的成功率和误唤醒率有着直接的关系。如果调得太高，wukong-robot 可以很容易唤醒，但是被误唤醒的几率也会增大；如果调得太低，误唤醒率会大幅降低，但是也可能导致 wukong-robot 很难被唤醒。建议你根据实际情况调节这个参数到一个合适的值。
 
 ### 3.2：开启回声消除
 

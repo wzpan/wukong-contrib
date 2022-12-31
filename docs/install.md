@@ -113,7 +113,7 @@ pip3 install -r requirements.txt
 
 ### 4. 编译 _snowboydetect.so
 
-[手动编译 snowboy](https://github.com/wzpan/snowboy) ，得到 _snowboydetect.so ，以支持更多的平台。
+?> 不管你打算使用 snowboy 还是 Porcupine 作为离线唤醒引擎，**编译 `_snowboydetect.so` 依然是必要的**，因为当离线唤醒后，wukong-robot 会使用 snowboy 的 VAD 能力来在主动聆听时候判断是否应该结束聆听。
 
 #### 安装 swig
 
@@ -193,9 +193,25 @@ chmod 666 /dev/dsp
 1. [树莓派语音机器人接入homeassistant控制nodemcu开发板教程](https://www.bilibili.com/video/av46877916?from=search&seid=7428641102072962094)
 2. [人工智能开发实战：悟空智能音箱](https://www.boxuegu.com/live/detail-1319)
 
+## 开启回声消除（仅 Linux 需要，可选）
+
+完成以上的工作后，你基本就已经完成了 wukong-robot 的安装工作了。
+
+但为了进一步减少 wukong-robot 的误唤醒率，还建议开启回声消除。
+
+对于 Mac OSX ，系统已经开启了回声消除，所以不需要处理。
+
+而对于 Linux 系统，推荐阅读 [使用 webrtc 回声消除模块](/tips?id=方法1-使用-webrtc-回声消除模块（推荐）) 来开启回声消除。
+
+
+
 ## AnyQ 安装（可选） ##
 
 如果希望使用 [AnyQ](https://github.com/baidu/AnyQ) 作为聊天机器人，需要先安装 AnyQ 。
+
+!> **新手注意**：AnyQ 的安装配置比较耗时，因此更适合硬核玩家尝试。而 wukong-robot 已经集成了图灵机器人和百度UNIT等现成的聊天服务，建议新手选择这些现成服务，避免陷入 AnyQ 的折腾而磨没了使用 wukog-robot 的兴致。
+
+!> **树莓派用户注意**：AnyQ 的模型非常巨大，安装要求也比较苛刻，因此不建议在树莓派上尝试安装 AnyQ 。请考虑在其他性能更好的设备上安装好 AnyQ 然后在树莓派配置 AnyQ 的服务器地址即可。
 
 ### X86-64 架构设备 ###
 

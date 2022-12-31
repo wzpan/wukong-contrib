@@ -1,6 +1,14 @@
 # 配置 #
 
-参考[配置文件的注释](https://github.com/wzpan/wukong-robot/blob/master/static/default.yml)进行配置即可。
+首次执行 wukong-robot 后，系统就会帮你在 `~/.wukong` 目录下生成 config.yml 配置文件。
+
+``` bash
+python3 wukong.py
+```
+
+这个配置文件有不少项目都是必配的项目，只有配置正确， wukong-robot 才可以正常使用。
+
+参考[配置文件里的注释](https://github.com/wzpan/wukong-robot/blob/master/static/default.yml)进行配置即可。
 
 几个 tips：
 
