@@ -65,6 +65,16 @@ unihiker:
     beep: false # 是否需要开启主板的蜂鸣提示音
 ```
 
+另外要注意的是 Porcupine 不支持行空板的 CPU 。因此在行空板上请使用 snowboy 离线唤醒引擎，而不要使用 Porcupine 。
+
+``` yaml
+# 热词唤醒机制
+# 可选值：
+# porcupine
+# snowboy
+detector: snowboy
+```
+
 ## Google AIY Voice Kit
 
 <center>
