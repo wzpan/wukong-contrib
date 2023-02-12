@@ -68,6 +68,10 @@ LocalPlayer:
 
 注意把链接中 `您的邮箱地址` 改为您真实的网易邮箱地址（带邮箱后缀）。
 
+另外，网易邮箱还需设置开启 IMAP/SMTP服务和 POP3/SMTP 服务，并添加授权密码作为邮箱密码添加到 config.yml 中。详见下图：
+
+![](https://hahack-1253537070.cos.ap-chengdu.myqcloud.com/images/wukong-docs/netease-email-config.png)
+
 ## Camera
 
 用于调起摄像头拍照（如果安装了摄像头的话）。拍完后将在后台管理端的会话气泡中直接展示。
