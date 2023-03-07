@@ -5,7 +5,7 @@
 所有接口都需要带上 `validate` 参数，该参数值和配置文件中的 `server/validate` 参数值相同。示例：
 
 ``` bash
-$ curl localhost:5001/gethistory?validate=f4bde2a342c7c75aa276f78b26cfbd8a
+$ curl localhost:5001/history?validate=f4bde2a342c7c75aa276f78b26cfbd8a
 ```
 
 接口返回：
@@ -24,7 +24,7 @@ $ curl localhost:5001/gethistory?validate=f4bde2a342c7c75aa276f78b26cfbd8a
 
 | 参数名 |  是否必须 | 说明  |
 | ---   | ------- | ----- |
-| validate | 是 | 参见 [鉴权](#_1) |
+| validate | 是 | 参见 [鉴权](#鉴权) |
 | type  | 是 |  管理类型类型。详见 [管理类型取值](#管理类型取值) |
 
 ### 管理类型取值
@@ -37,7 +37,7 @@ $ curl localhost:5001/gethistory?validate=f4bde2a342c7c75aa276f78b26cfbd8a
 
 - 示例：
 
-``` sh
+``` bash
 $ curl -X POST localhost:5001/operate -d "type=restart&validate=f4bde2a342c7c75aa276f78b26cfbd8a"
 ```
 
@@ -48,24 +48,23 @@ $ curl -X POST localhost:5001/operate -d "type=restart&validate=f4bde2a342c7c75a
 | code  | 返回码。0：成功；1：失败 |
 | message | 结果说明 |
 
-
 ## 日志
 
 用于查看 wukong-robot 保存的日志。出于性能上的考虑，默认只返回最后 200 行的内容，相当于做了一次 `tail -n 200` 。
 
-- url：/getlog
+- url：/log
 - method: GET
 - 参数：
 
 | 参数名 |  是否必须 | 说明  |
 | ---   | ------- | ----- |
-| validate | 是 | 参见 [鉴权](#鉴权) |
+| validate | 是 | 参见 [鉴权](#_1) |
 | lines | 可选 | 最大读取的日志行数。默认值为 200  |
 
 - 示例：
 
 ``` bash
-$ curl localhost:5001/getlog?validate=f4bde2a342c7c75aa276f78b26cfbd8a&lines=10
+$ curl localhost:5001/log?validate=f4bde2a342c7c75aa276f78b26cfbd8a&lines=10
 ```
 
 - 返回：
@@ -89,7 +88,7 @@ $ curl localhost:5001/getlog?validate=f4bde2a342c7c75aa276f78b26cfbd8a&lines=10
 
 | 参数名 |  是否必须 | 说明  |
 | ---   | ------- | ----- |
-| validate | 是 | 参见 [鉴权](#鉴权) |
+| validate | 是 | 参见 [鉴权](#_1) |
 | type  | 是 |  query 类型。 "text": 文本型 query ； "voice"：语音型 query |
 | query | 仅当 type 为 "text" 时需要 |  发起对话的内容的 urlencode 后的值。例如 ”现在几点？“ 的 urlencode 结果 | 
 | uuid  | 仅当 type 为 "text" 时需要 |  为这个文本 query 赋予的一个 uuid。例如可以使用随机字符+时间戳。|
@@ -113,18 +112,18 @@ $ curl -X POST localhost:5001/chat -d "type=text&query=%E7%8E%B0%E5%9C%A8%E5%87%
 
 用于查看 wukong-robot 启动到现在的所有会话记录。
 
-- url：/gethistory
+- url：/history
 - method: GET
 - 参数：
 
 | 参数名 |  是否必须 | 说明  |
 | ---   | ------- | ----- |
-| validate | 是 | 参见 [鉴权](#鉴权) |
+| validate | 是 | 参见 [鉴权](#_1) |
 
 - 示例：
 
 ``` bash
-$ curl localhost:5001/gethistory?validate=f4bde2a342c7c75aa276f78b26cfbd8a
+$ curl localhost:5001/history?validate=f4bde2a342c7c75aa276f78b26cfbd8a
 ```
 
 - 返回：
@@ -141,19 +140,19 @@ $ curl localhost:5001/gethistory?validate=f4bde2a342c7c75aa276f78b26cfbd8a
 
 用于查看 wukong-robot 现有的配置。
 
-- url：/getconfig
+- url：/config
 - method: GET
 - 参数：
 
 | 参数名 |  是否必须 | 说明  |
 | ---   | ------- | ----- |
-| validate | 是 | 参见 [鉴权](#鉴权) |
+| validate | 是 | 参见 [鉴权](#_1) |
 | key | 可选 | 某个配置的键值。例如：`robot_name_cn` 。如果要多级key的对应value，则使用 `/一级key/二级key/...` 的形式，例如 `/server/host` 可以取 `server` 的 `host` 配置。 |
 
 - 示例：
 
 ``` bash
-$ curl localhost:5001/getconfig?validate=f4bde2a342c7c75aa276f78b26cfbd8a\&key=server
+$ curl localhost:5001/config?validate=f4bde2a342c7c75aa276f78b26cfbd8a\&key=server
 ```
 
 - 返回：
@@ -190,4 +189,5 @@ $ curl -X localhost:5001/config -d "config=robot_name_cn%3A+'%E5%AD%99%E6%82%9F%
 | ---   | ----- |
 | code  | 返回码。0：成功；1：失败 |
 | message | 结果说明 |
+
 
