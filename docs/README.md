@@ -50,6 +50,11 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
     <iframe src="//player.bilibili.com/player.html?aid=653231978&bvid=BV1yY4y1y7oW&cid=1044940521&page=1" scrolling="no" border="0" frameborder="no" framespacing="0"  width="80%" height="360px" allowfullscreen="true"> </iframe>
 </center>
 
+* Demo视频：小爱同学联动 wukong-robot
+
+<center>
+    <iframe src="//player.bilibili.com/player.html?aid=823393163&bvid=BV1eg4y1b75Y&cid=1051938483&page=1" scrolling="no" border="0" frameborder="no" framespacing="0"  width="80%" height="360px" allowfullscreen="true"> </iframe>
+</center>
 
 * Demo视频：wukong-robot + Jetson + 3D 打印外壳打造的智能音箱（by 网友 @电力极客）
 

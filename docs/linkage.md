@@ -36,8 +36,10 @@
 
 ## 小爱音箱
 
+<center>
+    <iframe src="//player.bilibili.com/player.html?aid=823393163&bvid=BV1eg4y1b75Y&cid=1051938483&page=1" scrolling="no" border="0" frameborder="no" framespacing="0"  width="80%" height="360px" allowfullscreen="true"> </iframe>
+</center>
+
 使用 [xiaoai-wukong](https://github.com/wzpan/xiaoai-wukong) 可以实现小爱音箱和 wukong-robot 的联动，将小爱音箱作为 wukong-robot 的备用唤醒装置。
 
 详细使用方法：参考 [xiaoai-wukong](https://github.com/wzpan/xiaoai-wukong) 的 README 即可。
-
-联动小爱音箱的原理其实很简单：逆向了小爱音箱的服务端协议，轮询抓取最近的聊天记录然后分析是否需要 wukong-robot 响应的指令，有的话就再转发给wukong-robot。缺点是响应比较慢（需要等云端有更新聊天记录，下一个轮询时机才能做出响应）。
