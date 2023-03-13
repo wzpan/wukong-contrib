@@ -13,7 +13,7 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
 * 对话机器人支持。支持基于 [AnyQ](/anyq) 的本地对话机器人，并支持接入图灵机器人、OpenAI ChatGPT 等在线对话机器人。
 * 全局监听，离线唤醒。支持 [Porcupine](https://github.com/Picovoice/porcupine) 和 [snowboy](https://github.com/Kitt-AI/snowboy) 两套离线语音指令唤醒引擎，并支持 Muse [脑机唤醒](/bci) 以及行空板摇一摇唤醒等其他唤醒方式。
 * 灵活可配置。支持定制机器人名字，支持选择语音识别和合成的插件。
-* 智能家居。支持和 mqtt、[HomeAssistant](/smarthome) 等智能家居协议联动，支持语音控制智能家电。
+* 智能家居。支持和[小爱音箱](/linkage)、[Siri](/linkage)、[HomeAssistant](/smarthome)、mqtt等智能家居协议联动，支持语音控制智能家电。
 * 后台配套支持。提供配套后台，可实现远程操控、修改配置和日志查看等功能。
 * 开放API。可利用后端开放的API，实现更丰富的功能。
 * 安装简单，支持更多平台。相比 dingdang-robot ，舍弃了 PocketSphinx 的离线唤醒方案，安装变得更加简单，代码量更少，更易于维护并且能在 Mac 以及更多 Linux 系统中运行。
@@ -21,9 +21,9 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
 ## Demo
 
 * Demo视频：ycy-robot 月芽特别定制版
-    
+
 <center>
-    <iframe src="//player.bilibili.com/player.html?aid=50685517&cid=88726713&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
+<iframe src="//player.bilibili.com/player.html?aid=50685517&cid=88726713&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
 </center>
 
 * Demo视频：在行空板上运行 wukong-robot
@@ -44,6 +44,13 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
     <iframe src="//player.bilibili.com/player.html?aid=76739580&cid=131259456&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
 </center>
 
+* Demo视频：Siri 联动 wukong-robot + ChatGPT
+
+<center>
+    <iframe src="//player.bilibili.com/player.html?aid=653231978&bvid=BV1yY4y1y7oW&cid=1044940521&page=1" scrolling="no" border="0" frameborder="no" framespacing="0"  width="80%" height="360px" allowfullscreen="true"> </iframe>
+</center>
+
+
 * Demo视频：wukong-robot + Jetson + 3D 打印外壳打造的智能音箱（by 网友 @电力极客）
 
 <center>
@@ -57,13 +64,13 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
 
 ### Python 版本 ###
 
-wukong-robot 只支持 Python 3.x，不支持 Python 2.x 。
+wukong-robot 只支持 Python 3.7+，不支持 Python 2.x 。
 
 ### 设备要求 ###
 
 wukong-robot 支持运行在以下的设备和系统中：
 
-* 64bit Mac OS X
+* Intel Chip Mac (不支持 M1 芯片)
 * 64bit Ubuntu（12.04 and 14.04）
 * 全系列的树莓派（Raspbian 系统）
 * Pine 64 with Debian Jessie 8.5（3.10.102）

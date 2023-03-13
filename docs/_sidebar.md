@@ -18,6 +18,7 @@
 * [API接口](api)
 * [使用技巧](tips)
 * [AnyQ](anyq)
+* [联动其他智能音箱](linkage)
 * [智能家庭](smarthome)
 * [脑机](bci)
 * [硬件选购建议](mic-choices)
