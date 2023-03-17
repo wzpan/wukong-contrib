@@ -6,7 +6,7 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
 
 ## 特性
 
-![wukong-robot的特性](https://hahack-1253537070.file.myqcloud.com/images/wukong-docs/wukong-robot-mindmap.png?version=20191123)
+![wukong-robot的特性](https://wzpan-1253537070.cos.ap-guangzhou.myqcloud.com/wukong/wukong-robot-3.3.0.png)
 
 * 模块化。功能插件、语音识别、语音合成、对话机器人都做到了高度模块化，第三方插件单独维护，方便继承和开发自己的插件。
 * 中文支持。集成百度、科大讯飞、阿里、腾讯、Apple 等多家中文语音识别和语音合成技术，且可以继续扩展。
