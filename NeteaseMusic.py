@@ -180,7 +180,7 @@ class NeteaseMusicPlayer(MusicPlayer):
             userid = resp["account"]["id"]
             nickname = resp["profile"]["nickname"]
             self.storage.user_info(userid, nickname)
-            self.plugin.say('首次登陆成功，恭喜恭喜!', cache=True, wait=True)
+            self.plugin.say('首次登陆成功，恭喜恭喜!', cache=True)
             return True
         else:
             self.plugin.say('登陆失败，请检查账号和密码是否正确。', cache=True, wait=True)

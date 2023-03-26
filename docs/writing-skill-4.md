@@ -195,7 +195,7 @@ INFO:LocalPlayer:['perfume.mp3', '可惜没如果.mp3']
             self.player.stop()
             self.clearImmersive()  # 去掉沉浸式
         else:
-            self.say('没听懂你的意思呢，要停止播放，请说停止播放', wait=True)
+            self.say('没听懂你的意思呢，要停止播放，请说停止播放')
             self.player.play()
 ```
 
@@ -207,8 +207,6 @@ INFO:LocalPlayer:['perfume.mp3', '可惜没如果.mp3']
 </center>
 
 特别要注意，对于音乐这种长时间处于沉浸模式的场景，你应该设计一个能调用退出沉浸模式 `clearImmersive()` 的指令，比如第 20~23 行中的实现：当用户说出的指令命中 `CLOSE_MUSIC` 或者 `PAUSE` 的意图时，停止播放并结束当前的沉浸模式。
-
-另外，在上面那段代码的倒数第二行，我们可以看到一个有趣的 `wait` 参数。关于这个 `wait` 参数，可以参见 [`say()` 方法的 wait 参数](https://github.com/wzpan/wukong-robot/wiki/update-notes#2-say-%E6%96%B9%E6%B3%95%E7%9A%84-wait-%E5%8F%82%E6%95%B0)。
 
 ### `isValidImmersive()` 方法实现 ###
 
@@ -324,7 +322,7 @@ class Plugin(AbstractPlugin):
             self.player.stop()
             self.clearImmersive()  # 去掉沉浸式
         else:
-            self.say('没听懂你的意思呢，要停止播放，请说停止播放', wait=True)
+            self.say('没听懂你的意思呢，要停止播放，请说停止播放')
             self.player.resume()
 
     def pause(self):
