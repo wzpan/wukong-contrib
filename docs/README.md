@@ -6,7 +6,7 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
 
 ## 特性
 
-![wukong-robot的特性](https://wzpan-1253537070.cos.ap-guangzhou.myqcloud.com/wukong/wukong-robot-3.3.0.png)
+![wukong-robot的特性](https://wzpan-1253537070.cos.ap-guangzhou.myqcloud.com/wukong/wukong-robot-3.3.0.png ':size=600')
 
 * 模块化。功能插件、语音识别、语音合成、对话机器人都做到了高度模块化，第三方插件单独维护，方便继承和开发自己的插件。
 * 中文支持。集成百度、科大讯飞、阿里、腾讯、Apple 等多家中文语音识别和语音合成技术，且可以继续扩展。
@@ -20,7 +20,17 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
 
 ## Demo
 
+* Demo视频：wukong-robot + ChatGPT 实现支持流式对话的智能音箱
+
+一分半钟简单演示 wukong-robot 的插件调用和 ChatGPT 流式对话能力。
+
+<center>
+<iframe src="//player.bilibili.com/player.html?aid=819573733&bvid=BV1Bh411g7t2&cid=945823463&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360"> </iframe>
+</center>
+
 * Demo视频：ycy-robot 月芽特别定制版
+
+这是一个粉丝向定制版，演示对话+音乐+开放API+智能家居（五分钟）。
 
 <center>
 <iframe src="//player.bilibili.com/player.html?aid=50685517&cid=88726713&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
