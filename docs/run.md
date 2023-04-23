@@ -189,7 +189,7 @@ ctl.!default {
 ## 运行 wukong-robot
 
 ``` bash
-cd <wukong-robot 所在的目录>
+cd wukong-robot 所在的目录
 python3 wukong.py
 ```
 
