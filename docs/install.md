@@ -154,6 +154,7 @@ sudo apt-get install -y libatlas-base-dev
 sudo apt-get install python3-dev  # 注意 Ubuntu 18.04 可能叫 python3-all-dev
 ```
 
+
 对于 Mac 系统：
 
 ``` bash
@@ -163,7 +164,7 @@ brew install swig wget
 #### 构建 snowboy
 
 ``` bash
-wget https://wzpan-1253537070.cos.ap-guangzhou.myqcloud.com/misc/snowboy.tar.bz2 # 使用我fork出来的版本以确保接口兼容
+wget https://wzpan-1253537070.cos.ap-guangzhou.myqcloud.com/wukong/snowboy.tar.bz2 # 使用我fork出来的版本以确保接口及Ubuntu 22兼容
 tar -xvjf snowboy.tar.bz2
 cd snowboy/swig/Python3
 make
