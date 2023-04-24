@@ -145,7 +145,7 @@ Respeaker 2 Mics 是专门针对树莓派的，只能插在树莓派的 GPIO 口
 
 ### 镜像安装（推荐）
 
-官方提供了基于 Rasperry Pi OS 5.10.17-v7l+ 32-bit 的装好了 respeaker 驱动的树莓派系统，推荐使用这种方式来安装 respeaker 驱动。
+官方提供了[基于 Rasperry Pi OS 5.10.17-v7l+ 32-bit 的装好了 respeaker 驱动的树莓派系统](https://github.com/respeaker/seeed-voicecard#technical-support)，推荐使用这种方式来安装 respeaker 驱动。
 
 ### 手动安装驱动（不推荐）
 
