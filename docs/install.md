@@ -135,6 +135,7 @@ pip3 install -r requirements.txt
 对于 Linux 系统：
 
 ``` bash
+cd $HOME
 wget https://wzpan-1253537070.cos.ap-guangzhou.myqcloud.com/misc/swig-3.0.10.tar.gz
 tar xvf swig-3.0.10.tar.gz
 cd swig-3.0.10
