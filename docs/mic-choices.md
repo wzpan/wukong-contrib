@@ -168,7 +168,7 @@ sudo ./install.sh
 reboot
 ```
 
-如果安装过程中遇到了 `Not matching the updated version` 错误：你的树莓派系统的 Kernel 太新，跟 Respeaker 的驱动不兼容。推荐使用 [镜像安装](/mic-choices?id=镜像安装) 的方式安装装好了 respeaker 驱动的系统。
+如果安装过程中遇到了 `Not matching the updated version` 错误：你的树莓派系统的 Kernel 太新，跟 Respeaker 的驱动不兼容。推荐使用 [镜像安装](/mic-choices?id=镜像安装（推荐）) 的方式安装装好了 respeaker 驱动的系统。
 
 完成后可以使用 `aplay -l` 命令检查一下是否包含 `seeedvoicecard` 的播放设备。
 
