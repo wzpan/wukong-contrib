@@ -165,11 +165,12 @@ brew install swig wget
 #### 构建 snowboy
 
 ``` bash
+cd $HOME
 wget https://wzpan-1253537070.cos.ap-guangzhou.myqcloud.com/wukong/snowboy.tar.bz2 # 使用我fork出来的版本以确保接口及Ubuntu 22兼容
 tar -xvjf snowboy.tar.bz2
 cd snowboy/swig/Python3
 make
-cp _snowboydetect.so <wukon-robot的根目录/snowboy/>
+cp _snowboydetect.so wukon-robot的根目录/snowboy/
 ```
 
 !> 如果 make 阶段遇到问题，尝试在 [snowboy 项目 issue 中找到解决方案](https://github.com/Kitt-AI/snowboy/issues) 。
