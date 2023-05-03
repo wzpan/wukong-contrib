@@ -72,7 +72,7 @@ docker run -it -p 5001:5001 \
     -v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native \
     -v ~/.config/pulse/cookie:/root/.config/pulse/cookie \
     --group-add $(getent group audio | cut -d: -f3) \
-    -e LANG=C.UTF-8 wzpan/wukong-robot-arm:latest
+    -e LANG=C.UTF-8 wzpan/wukong-robot:latest
 ```
 
 如果运行时提示
