@@ -66,10 +66,16 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
     <iframe src="//player.bilibili.com/player.html?aid=823393163&bvid=BV1eg4y1b75Y&cid=1051938483&page=1" scrolling="no" border="0" frameborder="no" framespacing="0"  width="80%" height="360px" allowfullscreen="true"> </iframe>
 </center>
 
-* Demo视频：wukong-robot + Jetson + 3D 打印外壳打造的智能音箱（by 网友 @电力极客）
+* Demo视频：wukong-robot + Jetson + 3D 打印外壳打造的智能音箱（by @电力极客）
 
 <center>
 <iframe src="//player.bilibili.com/player.html?aid=802204666&bvid=BV1Dy4y1474f&cid=313755639&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
+</center>
+
+* 教程：基于树莓派&wukong-robot&VITS的AI泠鸢开源智能音箱的初步实现（by [@二维环状无限深势阱](https://space.bilibili.com/1823254607)）
+
+<center>
+<iframe src="//player.bilibili.com/player.html?aid=270559941&bvid=BV1Sc411K7dv&cid=1114381801&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
 </center>
 
 * 后台管理端Demo 
