@@ -64,7 +64,7 @@
 | *刀   | 20  | 2020-5-1 |    |
 | l*o   | 100  | 2022-10-3 |  项目很棒，支持下！  |
 | 张*a   | 100  | 2022-12-5 |  谢谢你的耐心解答  |
-| *学     | 100 | 2023-5-13 | 感谢大佬 |
+| *学     | 100 | 2023-5-31 | 感谢大佬 |
 
 > 部分捐赠者来自 [dingdang-robot](https://github.com/dingdang-robot/dingdang-robot) 项目。由于 [dingdang-robot](https://github.com/dingdang-robot/dingdang-robot) 已停止维护，捐赠者名单一并迁移到这个站点。
 
