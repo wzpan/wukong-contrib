@@ -232,22 +232,6 @@ CRITICAL:main:离线唤醒机制初始化失败：[Errno -9997] Invalid sample r
 
 到 [Github issue 里搜 -9997](https://github.com/wzpan/wukong-robot/issues?q=-9997) 即可搜出类似问题。
 
-### 小技巧：
-
-要让 wukong-robot 暂时屏蔽离线监听，可以在配置文件中设置 `hotword_switch` 的 `enable` 配置为 true：
-
-``` yaml
-# 勿扰模式，该时间段内自动进入睡眠，避免监听
-do_not_bother:
-    ...
-    hotword_switch: false  # 是否使用唤醒词开关唤醒模式
-    ...
-```
-
-然后使用唤醒词 “悟空别吵” 屏蔽离线监听。需要时再通过 “悟空醒醒” 恢复监听。
-
-?> 同样的，这两个唤醒词也建议自行训练，并修改配置文件中的 `hotword_switch` 的 `on_hotword` 和 `off_hotword` 两个设置。
-
 ## 管理端 ##
 
 wukong-robot 默认在运行期间还会启动一个后台管理端，提供了远程对话、查看修改配置、查看 log 等能力。
