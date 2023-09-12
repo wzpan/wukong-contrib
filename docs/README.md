@@ -78,6 +78,8 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
 <iframe src="//player.bilibili.com/player.html?aid=270559941&bvid=BV1Sc411K7dv&cid=1114381801&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
 </center>
 
+* 教程：[实现一个虚拟管家：贾维斯](https://zhuanlan.zhihu.com/p/655865035)
+
 * 后台管理端Demo 
     - 体验地址：https://bot.hahack.com  （体验用户名：wukong；体验密码：wukong@2019）
 
