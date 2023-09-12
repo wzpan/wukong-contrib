@@ -53,6 +53,8 @@ docker run -it -p 5001:5001 wzpan/wukong-robot:latest
 
 ### ARM 架构设备
 
+!> 注意：树莓派的 docker 镜像目前已年久失修。在新的 docker 镜像更新之前，请使用手动安装的方式。
+
 如果你的设备是 ARM 架构设备（例如树莓派 3B），可以使用 wzpan/wukong-robot-arm 镜像（注意 Pi Zero 是 armv6l 架构，因此不支持 docker 安装，请使用手动安装）：
 
 ``` bash
