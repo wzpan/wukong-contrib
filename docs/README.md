@@ -25,7 +25,7 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
 一分半钟简单演示 wukong-robot 的插件调用和 ChatGPT 流式对话能力。
 
 <center>
-<iframe src="//player.bilibili.com/player.html?aid=819573733&bvid=BV1Bh411g7t2&cid=945823463&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360"> </iframe>
+<iframe src="//player.bilibili.com/player.html?aid=819573733&bvid=BV1Bh411g7t2&cid=945823463&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360"> </iframe>
 </center>
 
 * Demo视频：ycy-robot 月芽特别定制版
@@ -33,49 +33,49 @@ wukong-robot 还可能是第一个开源的支持[脑机唤醒](/bci)的智能�
 这是一个粉丝向定制版，演示对话+音乐+开放API+智能家居（五分钟）。
 
 <center>
-<iframe src="//player.bilibili.com/player.html?aid=50685517&cid=88726713&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
+<iframe src="//player.bilibili.com/player.html?aid=50685517&cid=88726713&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
 </center>
 
 * Demo视频：在行空板上运行 wukong-robot
 
 <center>
-<iframe src="//player.bilibili.com/player.html?aid=819573733&bvid=BV1mG4y1j7Fz&cid=945823463&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360"> </iframe>
+<iframe src="//player.bilibili.com/player.html?aid=819573733&bvid=BV1mG4y1j7Fz&cid=945823463&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360"> </iframe>
 </center>
 
 * Demo视频：Google AIY Voice Kit + wukong-robot
 
 <center>
-    <iframe src="//player.bilibili.com/player.html?aid=81173082&cid=138922674&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
+    <iframe src="//player.bilibili.com/player.html?aid=81173082&cid=138922674&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
 </center>
 
 * Demo视频：脑机唤醒
 
 <center>
-    <iframe src="//player.bilibili.com/player.html?aid=76739580&cid=131259456&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
+    <iframe src="//player.bilibili.com/player.html?aid=76739580&cid=131259456&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
 </center>
 
 * Demo视频：Siri 联动 wukong-robot + ChatGPT
 
 <center>
-    <iframe src="//player.bilibili.com/player.html?aid=653231978&bvid=BV1yY4y1y7oW&cid=1044940521&page=1" scrolling="no" border="0" frameborder="no" framespacing="0"  width="80%" height="360px" allowfullscreen="true"> </iframe>
+    <iframe src="//player.bilibili.com/player.html?aid=653231978&bvid=BV1yY4y1y7oW&cid=1044940521&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0"  width="80%" height="360px" allowfullscreen="true"> </iframe>
 </center>
 
 * Demo视频：小爱同学联动 wukong-robot
 
 <center>
-    <iframe src="//player.bilibili.com/player.html?aid=823393163&bvid=BV1eg4y1b75Y&cid=1051938483&page=1" scrolling="no" border="0" frameborder="no" framespacing="0"  width="80%" height="360px" allowfullscreen="true"> </iframe>
+    <iframe src="//player.bilibili.com/player.html?aid=823393163&bvid=BV1eg4y1b75Y&cid=1051938483&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0"  width="80%" height="360px" allowfullscreen="true"> </iframe>
 </center>
 
 * Demo视频：wukong-robot + Jetson + 3D 打印外壳打造的智能音箱（by @电力极客）
 
 <center>
-<iframe src="//player.bilibili.com/player.html?aid=802204666&bvid=BV1Dy4y1474f&cid=313755639&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
+<iframe src="//player.bilibili.com/player.html?aid=802204666&bvid=BV1Dy4y1474f&cid=313755639&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
 </center>
 
 * 教程：基于树莓派&wukong-robot&VITS的AI泠鸢开源智能音箱的初步实现（by [@二维环状无限深势阱](https://space.bilibili.com/1823254607)）
 
 <center>
-<iframe src="//player.bilibili.com/player.html?aid=270559941&bvid=BV1Sc411K7dv&cid=1114381801&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
+<iframe src="//player.bilibili.com/player.html?aid=270559941&bvid=BV1Sc411K7dv&cid=1114381801&page=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="80%" height="360px"> </iframe>
 </center>
 
 * 教程：[实现一个虚拟管家：贾维斯](https://zhuanlan.zhihu.com/p/655865035)
@@ -93,7 +93,7 @@ wukong-robot 只支持 Python 3.7+，不支持 Python 2.x 。
 
 wukong-robot 支持运行在以下的设备和系统中：
 
-* Intel Chip Mac (不支持 M1 芯片)
+* Intel Chip Mac (不支持苹果 M 系列芯片)
 * 64bit Ubuntu（12.04 and 14.04）
 * 全系列的树莓派（Raspbian 系统）
 * Pine 64 with Debian Jessie 8.5（3.10.102）
