@@ -61,16 +61,29 @@ class Plugin(AbstractPlugin):
         url = profile[self.SLUG]['url']
         port = profile[self.SLUG]['port']
         key = profile[self.SLUG]['key']
+        services = profile[self.SLUG]['services']
         headers = {'Authorization': key, 'content-type': 'application/json'}
         devices = self.get_devices(profile)
         has_execute = False
         if len(devices) == 0:
             self.say("HomeAssistant 获取不到设备信息", cache=True)
             return
+        # logger.info("device信息: ", devices, len(devices))
         for device in devices:
             state = device["state"]
             attributes = device["attributes"]
             domain = device["entity_id"].split(".")[0]
+            entity_id = device["entity_id"]
+            if entity_id == "fan.feng_shan":
+                # logger.info("my 风扇: ", entity_id, url, port, headers)
+                if self.execute_script(entity_id, url, port, headers, services, text):
+                    if not has_execute:
+                        self.say("设备执行成功", cache=True)
+                        has_execute = True
+                else:
+                    if not has_execute:
+                        self.say("对不起，设备执行失败", cache=True)
+                        has_execute = True
             if 'wukong' in attributes.keys():
                 wukong = attributes["wukong"]
                 if isinstance(wukong, list):
@@ -118,19 +131,24 @@ class Plugin(AbstractPlugin):
                             logger.error(e)
                             #return
         if not has_execute:
-            self.say("对不起，指令不存在", cache=True)
+            self.say("对不起，指令不存在2", cache=True)
 
-    def execute_script(self, entity_id, url, port, headers):
-        p = json.dumps({"entity_id": entity_id})
-        s = "/api/services/" + entity_id.replace('.', "/")
-        url_s = url + ":" + port + s
-        request = requests.post(url_s, headers=headers, data=p)
-        if format(request.status_code) == "200" or \
-           format(request.status_code) == "201": 
-            return True
-        else:
-            logger.error(format(request.status_code))
-            return False
+    def execute_script(self, entity_id, url, port, headers, services, text):
+        # logger.info('设备执行：', services, text)
+        for service in services:
+            # logger.info("请求参数", service)
+            if service["value"] in text:
+                s = "/api/services/" + service["service"]
+                url_s = url + ":" + port + s
+                p = json.dumps(service["data"])
+                request = requests.post(url_s, headers=headers, data=p)
+                # logger.info("请求参数", url_s, headers, p)
+                if format(request.status_code) == "200" or \
+                format(request.status_code) == "201": 
+                    return True
+                else:
+                    logger.error(format(request.status_code))
+                    return False
 
 
     def execute_service(self, entity_id, url, port, headers, act):
